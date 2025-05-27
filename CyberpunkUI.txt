@@ -1,347 +1,506 @@
--- CyberpunkUI.lua: Advanced Roblox UI library with cyberpunk aesthetic
-local CyberpunkUI = {}
-
--- Services
+local StellarUI = {}
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
-local HttpService = game:GetService("HttpService")
+local TextService = game:GetService("TextService")
+local RunService = game:GetService("RunService")
 
--- Creates a new UI instance
-function CyberpunkUI.new(player, titleText)
-	local ui = {}
-	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "CyberpunkUI"
-	screenGui.ResetOnSpawn = false
-	screenGui.Parent = player.PlayerGui
+-- Default theme configuration
+local Theme = {
+	PrimaryColor = Color3.fromRGB(0, 255, 127),
+	SecondaryColor = Color3.fromRGB(0, 170, 255),
+	AccentColor = Color3.fromRGB(85, 85, 255),
+	BackgroundColor = Color3.fromRGB(20, 20, 20),
+	SectionColor = Color3.fromRGB(30, 30, 30),
+	TextColor = Color3.fromRGB(255, 255, 255),
+	Font = Enum.Font.GothamBold,
+	CornerRadius = UDim.new(0, 8),
+	AnimationSpeed = 0.3,
+	ShadowTransparency = 0.3,
+}
 
-	-- Main window
-	local mainFrame = Instance.new("Frame")
-	mainFrame.Size = UDim2.new(0.5, 0, 0.7, 0)
-	mainFrame.Position = UDim2.new(0.25, 0, 0.15, 0)
-	mainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
-	mainFrame.BackgroundTransparency = 0.2
-	mainFrame.BorderSizePixel = 0
-	mainFrame.Visible = false
-	mainFrame.Parent = screenGui
-
-	-- Neon border
-	local uiStroke = Instance.new("UIStroke")
-	uiStroke.Color = Color3.fromRGB(0, 255, 255)
-	uiStroke.Thickness = 3
-	uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	uiStroke.Parent = mainFrame
-
-	local uiGradient = Instance.new("UIGradient")
-	uiGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 255)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 255))
+-- Utility functions
+local function createGradient(parent: Instance, colors: {Color3}?): UIGradient
+	local gradient = Instance.new("UIGradient")
+	gradient.Color = colors and ColorSequence.new(colors) or ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Theme.PrimaryColor),
+		ColorSequenceKeypoint.new(0.5, Theme.SecondaryColor),
+		ColorSequenceKeypoint.new(1, Theme.AccentColor),
 	})
-	uiGradient.Rotation = 45
-	uiGradient.Parent = uiStroke
+	gradient.Parent = parent
+	return gradient
+end
 
-	local uiCorner = Instance.new("UICorner")
-	uiCorner.CornerRadius = UDim.new(0, 12)
-	uiCorner.Parent = mainFrame
+local function createTween(instance: Instance, properties: {[string]: any}, speed: number?, style: Enum.EasingStyle?, direction: Enum.EasingDirection?): Tween
+	local tweenInfo = TweenInfo.new(speed or Theme.AnimationSpeed, style or Enum.EasingStyle.Quad, direction or Enum.EasingDirection.Out)
+	return TweenService:Create(instance, tweenInfo, properties)
+end
 
-	-- Title bar
-	local titleBar = Instance.new("Frame")
-	titleBar.Size = UDim2.new(1, 0, 0.1, 0)
-	titleBar.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-	titleBar.BorderSizePixel = 0
-	titleBar.Parent = mainFrame
-
-	local titleLabel = Instance.new("TextLabel")
-	titleLabel.Size = UDim2.new(0.8, 0, 0.8, 0)
-	titleLabel.Position = UDim2.new(0.1, 0, 0.1, 0)
-	titleLabel.BackgroundTransparency = 1
-	titleLabel.Text = titleText or "Cyberpunk UI ⚡️"
-	titleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
-	titleLabel.TextScaled = true
-	titleLabel.Font = Enum.Font.Code
-	titleLabel.Parent = titleBar
-
-	-- Toggle button
-	local toggleButton = Instance.new("TextButton")
-	toggleButton.Size = UDim2.new(0.08, 0, 0.05, 0)
-	toggleButton.Position = UDim2.new(0.92, -40, 0.05, 0)
-	toggleButton.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-	toggleButton.Text = ">"
-	toggleButton.TextColor3 = Color3.fromRGB(0, 255, 255)
-	toggleButton.TextScaled = true
-	toggleButton.Font = Enum.Font.Code
-	toggleButton.Parent = screenGui
-
-	local toggleStroke = Instance.new("UIStroke")
-	toggleStroke.Color = Color3.fromRGB(0, 255, 255)
-	toggleStroke.Thickness = 1
-	toggleStroke.Parent = toggleButton
-
-	local toggleCorner = Instance.new("UICorner")
-	toggleCorner.CornerRadius = UDim.new(0, 8)
-	toggleCorner.Parent = toggleButton
-
-	-- Animation setup
-	local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
-	local openTween = TweenService:Create(mainFrame, tweenInfo, { Position = UDim2.new(0.25, 0, 0.15, 0) })
-	local closeTween = TweenService:Create(mainFrame, tweenInfo, { Position = UDim2.new(0.25, 0, -0.7, 0) })
-
-	-- Dragging functionality
-	local dragging, dragInput, dragStart, startPos
-	local function updateInput(input)
-		local delta = input.Position - dragStart
-		local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-		mainFrame.Position = newPos
-	end
-
-	titleBar.InputBegan:Connect(function(input)
+local function makeDraggable(frame: Frame)
+	local dragging, dragStart, startPos
+	frame.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 			dragging = true
 			dragStart = input.Position
-			startPos = mainFrame.Position
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
+			startPos = frame.Position
 		end
 	end)
-
-	titleBar.InputChanged:Connect(function(input)
-		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-			dragInput = input
+	frame.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = false
 		end
 	end)
-
 	UserInputService.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			updateInput(input)
+		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+			local delta = input.Position - dragStart
+			local newPos = UDim2.new(
+				startPos.X.Scale, startPos.X.Offset + delta.X,
+				startPos.Y.Scale, startPos.Y.Offset + delta.Y
+			)
+			-- Clamp position to screen boundaries
+			local screenSize = frame.Parent.AbsoluteSize
+			newPos = UDim2.new(
+				math.clamp(newPos.X.Scale, 0, 1 - frame.Size.X.Scale),
+				math.clamp(newPos.X.Offset, -frame.AbsolutePosition.X, screenSize.X - frame.AbsoluteSize.X - frame.AbsolutePosition.X),
+				math.clamp(newPos.Y.Scale, 0, 1 - frame.Size.Y.Scale),
+				math.clamp(newPos.Y.Offset, -frame.AbsolutePosition.Y, screenSize.Y - frame.AbsoluteSize.Y - frame.AbsolutePosition.Y)
+			)
+			createTween(frame, {Position = newPos}):Play()
 		end
 	end)
-
-	-- Toggle logic
-	local isOpen = false
-	local function toggleUI()
-		isOpen = not isOpen
-		if isOpen then
-			mainFrame.Visible = true
-			openTween:Play()
-			toggleButton.Text = "<"
-		else
-			closeTween:Play()
-			toggleButton.Text = ">"
-			wait(0.3)
-			if not isOpen then
-				mainFrame.Visible = false
-			end
-		end
-	end
-
-	toggleButton.MouseButton1Click:Connect(toggleUI)
-	UserInputService.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.Touch then
-			local touchPos = input.Position
-			local buttonPos = toggleButton.AbsolutePosition
-			local buttonSize = toggleButton.AbsoluteSize
-			if touchPos.X >= buttonPos.X and touchPos.X <= buttonPos.X + buttonSize.X and
-				touchPos.Y >= buttonPos.Y and touchPos.Y <= buttonPos.Y + buttonSize.Y then
-				toggleUI()
-			end
-		end
-	end)
-
-	-- Notification system
-	function ui:CreateNotification(text, duration)
-		local notification = Instance.new("Frame")
-		notification.Size = UDim2.new(0.3, 0, 0.1, 0)
-		notification.Position = UDim2.new(0.35, 0, 0.05, 0)
-		notification.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
-		notification.BackgroundTransparency = 0.3
-		notification.Parent = screenGui
-
-		local notifStroke = Instance.new("UIStroke")
-		notifStroke.Color = Color3.fromRGB(0, 255, 255)
-		notifStroke.Thickness = 2
-		notifStroke.Parent = notification
-
-		local notifCorner = Instance.new("UICorner")
-		notifCorner.CornerRadius = UDim.new(0, 8)
-		notifCorner.Parent = notification
-
-		local notifText = Instance.new("TextLabel")
-		notifText.Size = UDim2.new(0.9, 0, 0.8, 0)
-		notifText.Position = UDim2.new(0.05, 0, 0.1, 0)
-		notifText.BackgroundTransparency = 1
-		notifText.Text = text
-		notifText.TextColor3 = Color3.fromRGB(0, 255, 255)
-		notifText.TextScaled = true
-		notifText.Font = Enum.Font.Code
-		notifText.Parent = notification
-
-		local fadeTween = TweenService:Create(notification, TweenInfo.new(duration or 3, Enum.EasingStyle.Linear), { BackgroundTransparency = 1, Position = UDim2.new(0.35, 0, 0, 0) })
-		fadeTween:Play()
-		fadeTween.Completed:Connect(function()
-			notification:Destroy()
-		end)
-	end
-
-	-- Add button
-	function ui:AddButton(text, callback, assetId)
-		local button = Instance.new("TextButton")
-		button.Size = UDim2.new(0.8, 0, 0.1, 0)
-		button.Position = UDim2.new(0.1, 0, 0.15 + (#mainFrame:GetChildren() - 2) * 0.12, 0)
-		button.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-		button.Text = text
-		button.TextColor3 = Color3.fromRGB(0, 255, 255)
-		button.TextScaled = true
-		button.Font = Enum.Font.Code
-		button.Parent = mainFrame
-
-		if assetId then
-			local icon = Instance.new("ImageLabel")
-			icon.Size = UDim2.new(0.1, 0, 0.8, 0)
-			icon.Position = UDim2.new(0.05, 0, 0.1, 0)
-			icon.BackgroundTransparency = 1
-			icon.Image = "rbxassetid://" .. assetId
-			icon.Parent = button
-		end
-
-		local buttonStroke = Instance.new("UIStroke")
-		buttonStroke.Color = Color3.fromRGB(0, 255, 255)
-		buttonStroke.Thickness = 1
-		buttonStroke.Parent = button
-
-		local buttonCorner = Instance.new("UICorner")
-		buttonCorner.CornerRadius = UDim.new(0, 5)
-		buttonCorner.Parent = button
-
-		-- Hover effect
-		local hoverTween = TweenService:Create(button, TweenInfo.new(0.2), { BackgroundColor3 = Color3.fromRGB(30, 30, 50) })
-		local normalTween = TweenService:Create(button, TweenInfo.new(0.2), { BackgroundColor3 = Color3.fromRGB(20, 20, 30) })
-
-		button.MouseEnter:Connect(function()
-			hoverTween:Play()
-		end)
-		button.MouseLeave:Connect(function()
-			normalTween:Play()
-		end)
-
-		button.MouseButton1Click:Connect(callback)
-	end
-
-	-- Add toggle
-	function ui:AddToggle(text, defaultState, callback)
-		local toggleFrame = Instance.new("Frame")
-		toggleFrame.Size = UDim2.new(0.8, 0, 0.1, 0)
-		toggleFrame.Position = UDim2.new(0.1, 0, 0.15 + (#mainFrame:GetChildren() - 2) * 0.12, 0)
-		toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-		toggleFrame.Parent = mainFrame
-
-		local toggleStroke = Instance.new("UIStroke")
-		toggleStroke.Color = Color3.fromRGB(0, 255, 255)
-		toggleStroke.Thickness = 1
-		toggleStroke.Parent = toggleFrame
-
-		local toggleCorner = Instance.new("UICorner")
-		toggleCorner.CornerRadius = UDim.new(0, 5)
-		toggleCorner.Parent = toggleFrame
-
-		local toggleLabel = Instance.new("TextLabel")
-		toggleLabel.Size = UDim2.new(0.7, 0, 0.8, 0)
-		toggleLabel.Position = UDim2.new(0.05, 0, 0.1, 0)
-		toggleLabel.BackgroundTransparency = 1
-		toggleLabel.Text = text
-		toggleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
-		toggleLabel.TextScaled = true
-		toggleLabel.Font = Enum.Font.Code
-		toggleLabel.Parent = toggleFrame
-
-		local toggleSwitch = Instance.new("Frame")
-		toggleSwitch.Size = UDim2.new(0.15, 0, 0.6, 0)
-		toggleSwitch.Position = UDim2.new(0.8, 0, 0.2, 0)
-		toggleSwitch.BackgroundColor3 = defaultState and Color3.fromRGB(0, 255, 100) or Color3.fromRGB(100, 100, 100)
-		toggleSwitch.Parent = toggleFrame
-
-		local switchCorner = Instance.new("UICorner")
-		switchCorner.CornerRadius = UDim.new(0, 10)
-		switchCorner.Parent = toggleSwitch
-
-		local isToggled = defaultState
-		toggleFrame.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				isToggled = not isToggled
-				local newColor = isToggled and Color3.fromRGB(0, 255, 100) or Color3.fromRGB(100, 100, 100)
-				TweenService:Create(toggleSwitch, TweenInfo.new(0.2), { BackgroundColor3 = newColor }):Play()
-				callback(isToggled)
-			end
-		end)
-	end
-
-	-- Add textbox
-	function ui:AddTextbox(placeholder, callback)
-		local textbox = Instance.new("TextBox")
-		textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
-		textbox.Position = UDim2.new(0.1, 0, 0.15 + (#mainFrame:GetChildren() - 2) * 0.12, 0)
-		textbox.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-		textbox.Text = ""
-		textbox.PlaceholderText = placeholder
-		textbox.TextColor3 = Color3.fromRGB(0, 255, 255)
-		textbox.TextScaled = true
-		textbox.Font = Enum.Font.Code
-		textbox.Parent = mainFrame
-
-		local textboxStroke = Instance.new("UIStroke")
-		textboxStroke.Color = Color3.fromRGB(0, 255, 255)
-		textboxStroke.Thickness = 1
-		textboxStroke.Parent = textbox
-
-		local textboxCorner = Instance.new("UICorner")
-		textboxCorner.CornerRadius = UDim.new(0, 5)
-		textboxCorner.Parent = textbox
-
-		textbox.FocusLost:Connect(function(enterPressed)
-			if enterPressed then
-				callback(textbox.Text)
-			end
-		end)
-	end
-
-	-- Create new window
-	function ui:CreateWindow(title, size)
-		local newWindow = Instance.new("Frame")
-		newWindow.Size = size or UDim2.new(0.3, 0, 0.4, 0)
-		newWindow.Position = UDim2.new(0.35, 0, 0.3, 0)
-		newWindow.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
-		newWindow.BackgroundTransparency = 0.2
-		newWindow.Parent = screenGui
-
-		local windowStroke = Instance.new("UIStroke")
-		windowStroke.Color = Color3.fromRGB(0, 255, 255)
-		windowStroke.Thickness = 2
-		windowStroke.Parent = newWindow
-
-		local windowCorner = Instance.new("UICorner")
-		windowCorner.CornerRadius = UDim.new(0, 10)
-		windowCorner.Parent = newWindow
-
-		local windowTitle = Instance.new("TextLabel")
-		windowTitle.Size = UDim2.new(0.8, 0, 0.15, 0)
-		windowTitle.Position = UDim2.new(0.1, 0, 0.05, 0)
-		windowTitle.BackgroundTransparency = 1
-		windowTitle.Text = title
-		windowTitle.TextColor3 = Color3.fromRGB(0, 255, 255)
-		windowTitle.TextScaled = true
-		windowTitle.Font = Enum.Font.Code
-		windowTitle.Parent = newWindow
-
-		return newWindow
-	end
-
-	-- Cleanup
-	function ui:Destroy()
-		screenGui:Destroy()
-	end
-
-	return ui
 end
 
-return CyberpunkUI
+local function createRippleEffect(parent: Frame, clickButton: TextButton)
+	clickButton.MouseButton1Click:Connect(function()
+		local mouse = game.Players.LocalPlayer:GetMouse()
+		local relativeX = mouse.X - parent.AbsolutePosition.X
+		local relativeY = mouse.Y - parent.AbsolutePosition.Y
+		if relativeX < 0 or relativeY < 0 or relativeX > parent.AbsoluteSize.X or relativeY > parent.AbsoluteSize.Y then
+			return
+		end
+		local ripple = Instance.new("Frame")
+		ripple.Parent = parent
+		ripple.BackgroundColor3 = Theme.TextColor
+		ripple.BackgroundTransparency = 0.5
+		ripple.BorderSizePixel = 0
+		ripple.AnchorPoint = Vector2.new(0.5, 0.5)
+		ripple.Position = UDim2.new(0, relativeX, 0, relativeY)
+		ripple.Size = UDim2.new(0, 0, 0, 0)
+		ripple.ZIndex = 10
+		local corner = Instance.new("UICorner")
+		corner.CornerRadius = UDim.new(1, 0)
+		corner.Parent = ripple
+		createTween(ripple, {
+			Size = UDim2.new(0, parent.AbsoluteSize.X * 1.5, 0, parent.AbsoluteSize.X * 1.5),
+			BackgroundTransparency = 1,
+		}):Play():Completed:Connect(function()
+			ripple:Destroy()
+		end)
+	end)
+end
+
+-- Main UI class
+function StellarUI:CreateWindow(config: {Title: string, Desc: string?, Logo: string|number?, Size: Vector2?})
+	local window = {}
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "StellarUI"
+	screenGui.Parent = RunService:IsStudio() and game.Players.LocalPlayer.PlayerGui or game.CoreGui
+	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+
+	local mainFrame = Instance.new("Frame")
+	mainFrame.Name = "MainFrame"
+	mainFrame.Parent = screenGui
+	mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	mainFrame.BackgroundColor3 = Theme.BackgroundColor
+	mainFrame.BackgroundTransparency = 0.1
+	mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	mainFrame.Size = UDim2.new(0, config.Size and config.Size.X or 600, 0, config.Size and config.Size.Y or 400)
+	mainFrame.ClipsDescendants = true
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = Theme.CornerRadius
+	corner.Parent = mainFrame
+	local shadow = Instance.new("ImageLabel")
+	shadow.Name = "Shadow"
+	shadow.Parent = mainFrame
+	shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	shadow.BackgroundTransparency = 1
+	shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	shadow.Size = UDim2.new(1, 120, 1, 120)
+	shadow.ZIndex = 0
+	shadow.Image = "rbxassetid://8992230677"
+	shadow.ImageTransparency = Theme.ShadowTransparency
+	shadow.ScaleType = Enum.ScaleType.Slice
+	shadow.SliceCenter = Rect.new(99, 99, 99, 99)
+	makeDraggable(mainFrame)
+
+	local header = Instance.new("Frame")
+	header.Name = "Header"
+	header.Parent = mainFrame
+	header.BackgroundTransparency = 1
+	header.Size = UDim2.new(1, 0, 0, 70)
+	local title = Instance.new("TextLabel")
+	title.Name = "Title"
+	title.Parent = header
+	title.BackgroundTransparency = 1
+	title.Position = UDim2.new(0, 20, 0.2, 0)
+	title.Size = UDim2.new(0.6, 0, 0, 30)
+	title.Font = Theme.Font
+	title.Text = config.Title or "StellarUI"
+	title.TextColor3 = Theme.TextColor
+	title.TextSize = 24
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	local desc = Instance.new("TextLabel")
+	desc.Name = "Desc"
+	desc.Parent = header
+	desc.BackgroundTransparency = 1
+	desc.Position = UDim2.new(0, 20, 0.6, 0)
+	desc.Size = UDim2.new(0.6, 0, 0, 20)
+	desc.Font = Theme.Font
+	desc.Text = config.Desc or ""
+	desc.TextColor3 = Theme.TextColor
+	desc.TextSize = 14
+	desc.TextTransparency = 0.5
+	desc.TextXAlignment = Enum.TextXAlignment.Left
+	local line = Instance.new("Frame")
+	line.Name = "Line"
+	line.Parent = header
+	line.BackgroundColor3 = Theme.TextColor
+	line.Position = UDim2.new(0, 20, 0.9, 0)
+	line.Size = UDim2.new(0, 100, 0, 2)
+	createGradient(line)
+
+	local closeButton = Instance.new("TextButton")
+	closeButton.Name = "CloseButton"
+	closeButton.Parent = mainFrame
+	closeButton.BackgroundColor3 = Theme.BackgroundColor
+	closeButton.BackgroundTransparency = 0.5
+	closeButton.Position = UDim2.new(0.95, -25, 0.05, 0)
+	closeButton.Size = UDim2.new(0, 40, 0, 40)
+	closeButton.Text = ""
+	local closeCorner = Instance.new("UICorner")
+	closeCorner.CornerRadius = Theme.CornerRadius
+	closeCorner.Parent = closeButton
+	local closeIcon = Instance.new("ImageLabel")
+	closeIcon.Parent = closeButton
+	closeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	closeIcon.BackgroundTransparency = 1
+	closeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+	closeIcon.Size = UDim2.new(0, 30, 0, 30)
+	closeIcon.Image = config.Logo and (typeof(config.Logo) == "string" and config.Logo:find("rbxassetid://") and config.Logo or "rbxassetid://" .. config.Logo) or "rbxassetid://128185233852701"
+	createRippleEffect(closeButton, closeButton)
+	closeButton.MouseButton1Click:Connect(function()
+		mainFrame.Visible = not mainFrame.Visible
+		createTween(closeIcon, {Size = UDim2.new(0, 25, 0, 25)}):Play()
+		task.wait(0.1)
+		createTween(closeIcon, {Size = UDim2.new(0, 30, 0, 30)}):Play()
+	end)
+	UserInputService.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.F2 then
+			mainFrame.Visible = not mainFrame.Visible
+		end
+	end)
+
+	local tabFrame = Instance.new("Frame")
+	tabFrame.Name = "Tabs"
+	tabFrame.Parent = mainFrame
+	tabFrame.BackgroundTransparency = 1
+	tabFrame.Position = UDim2.new(0, 0, 0, 70)
+	tabFrame.Size = UDim2.new(1, 0, 1, -70)
+	local tabScroll = Instance.new("ScrollingFrame")
+	tabScroll.Name = "TabScroll"
+	tabScroll.Parent = tabFrame
+	tabScroll.BackgroundTransparency = 1
+	tabScroll.Position = UDim2.new(0.05, 0, 0, 0)
+	tabScroll.Size = UDim2.new(0.9, 0, 0.15, 0)
+	tabScroll.ScrollBarThickness = 0
+	tabScroll.ScrollingDirection = Enum.ScrollingDirection.X
+	local tabLayout = Instance.new("UIListLayout")
+	tabLayout.Parent = tabScroll
+	tabLayout.FillDirection = Enum.FillDirection.Horizontal
+	tabLayout.Padding = UDim.new(0, 10)
+	tabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+		tabScroll.CanvasSize = UDim2.new(0, tabLayout.AbsoluteContentSize.X + 20, 0, 0)
+	end)
+
+	window.Tabs = {}
+	function window.Tabs:AddTab(config: {Title: string, Banner: string|number?})
+		local tab = {}
+		local tabButton = Instance.new("Frame")
+		tabButton.Name = "TabButton"
+		tabButton.Parent = tabScroll
+		tabButton.BackgroundTransparency = 1
+		tabButton.Size = UDim2.new(0, 100, 1, 0)
+		local banner = Instance.new("ImageLabel")
+		banner.Name = "Banner"
+		banner.Parent = tabButton
+		banner.AnchorPoint = Vector2.new(0.5, 0.5)
+		banner.BackgroundTransparency = 1
+		banner.Position = UDim2.new(0.5, 0, 0.5, 0)
+		banner.Size = UDim2.new(1, 0, 1, 0)
+		banner.Image = config.Banner and (typeof(config.Banner) == "string" and config.Banner:find("rbxassetid://") and config.Banner or "rbxassetid://" .. config.Banner) or ""
+		local bannerCorner = Instance.new("UICorner")
+		bannerCorner.CornerRadius = Theme.CornerRadius
+		bannerCorner.Parent = banner
+		local click = Instance.new("TextButton")
+		click.Name = "Click"
+		click.Parent = tabButton
+		click.BackgroundTransparency = 1
+		click.Size = UDim2.new(1, 0, 1, 0)
+		click.Text = ""
+		createRippleEffect(tabButton, click)
+
+		local page = Instance.new("Frame")
+		page.Name = "Page"
+		page.Parent = mainFrame
+		page.BackgroundTransparency = 1
+		page.Position = UDim2.new(0, 0, 0.2, 0)
+		page.Size = UDim2.new(1, 0, 0.8, 0)
+		page.Visible = false
+		local leftScroll = Instance.new("ScrollingFrame")
+		leftScroll.Name = "Left"
+		leftScroll.Parent = page
+		leftScroll.BackgroundTransparency = 1
+		leftScroll.Size = UDim2.new(0.48, 0, 1, 0)
+		leftScroll.ScrollBarThickness = 0
+		local leftLayout = Instance.new("UIListLayout")
+		leftLayout.Parent = leftScroll
+		leftLayout.Padding = UDim.new(0, 10)
+		leftLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+			leftScroll.CanvasSize = UDim2.new(0, 0, 0, leftLayout.AbsoluteContentSize.Y + 20)
+		end)
+		local rightScroll = Instance.new("ScrollingFrame")
+		rightScroll.Name = "Right"
+		rightScroll.Parent = page
+		rightScroll.BackgroundTransparency = 1
+		rightScroll.Position = UDim2.new(0.52, 0, 0, 0)
+		rightScroll.Size = UDim2.new(0.48, 0, 1, 0)
+		rightScroll.ScrollBarThickness = 0
+		local rightLayout = Instance.new("UIListLayout")
+		rightLayout.Parent = rightScroll
+		rightLayout.Padding = UDim.new(0, 10)
+		rightLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+			rightScroll.CanvasSize = UDim2.new(0, 0, 0, rightLayout.AbsoluteContentSize.Y + 20)
+		end)
+
+		click.MouseButton1Click:Connect(function()
+			for _, p in pairs(mainFrame:GetChildren()) do
+				if p.Name == "Page" then
+					p.Visible = false
+				end
+			end
+			page.Visible = true
+			createTween(title, {TextTransparency = 1}):Play()
+			createTween(desc, {TextTransparency = 1}):Play()
+			createTween(line, {BackgroundTransparency = 1}):Play()
+			task.wait(0.2)
+			title.Text = config.Title
+			desc.Text = ""
+			createTween(title, {TextTransparency = 0}):Play()
+			createTween(desc, {TextTransparency = 0.5}):Play()
+			createTween(line, {BackgroundTransparency = 0}):Play()
+		end)
+
+		tab.Sections = {}
+		function tab.Sections:AddSection(config: {Title: string, Side: "Left"|"Right"?})
+			local section = {}
+			local side = config.Side == "Right" and rightScroll or leftScroll
+			local sectionFrame = Instance.new("Frame")
+			sectionFrame.Name = "Section"
+			sectionFrame.Parent = side
+			sectionFrame.BackgroundColor3 = Theme.SectionColor
+			sectionFrame.BackgroundTransparency = 0.6
+			sectionFrame.Size = UDim2.new(1, 0, 0, 100)
+			local sectionCorner = Instance.new("UICorner")
+			sectionCorner.CornerRadius = Theme.CornerRadius
+			sectionCorner.Parent = sectionFrame
+			local sectionLayout = Instance.new("UIListLayout")
+			sectionLayout.Parent = sectionFrame
+			sectionLayout.Padding = UDim.new(0, 8)
+			sectionLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			sectionLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+				sectionFrame.Size = UDim2.new(1, 0, 0, sectionLayout.AbsoluteContentSize.Y + 20)
+			end)
+			local sectionTitle = Instance.new("TextLabel")
+			sectionTitle.Name = "Title"
+			sectionTitle.Parent = sectionFrame
+			sectionTitle.BackgroundTransparency = 1
+			sectionTitle.Size = UDim2.new(0.9, 0, 0, 20)
+			sectionTitle.Font = Theme.Font
+			sectionTitle.Text = config.Title or "Section"
+			sectionTitle.TextColor3 = Theme.TextColor
+			sectionTitle.TextSize = 16
+			local sectionLine = Instance.new("Frame")
+			sectionLine.Name = "Line"
+			sectionLine.Parent = sectionFrame
+			sectionLine.BackgroundColor3 = Theme.TextColor
+			sectionLine.BackgroundTransparency = 0.3
+			sectionLine.Size = UDim2.new(1, 0, 0, 2)
+			createGradient(sectionLine)
+			local padding = Instance.new("UIPadding")
+			padding.Parent = sectionFrame
+			padding.PaddingTop = UDim.new(0, 10)
+
+			function section:AddButton(config: {Title: string, Callback: (()->())?})
+				local buttonFrame = Instance.new("Frame")
+				buttonFrame.Name = "Button"
+				buttonFrame.Parent = sectionFrame
+				buttonFrame.BackgroundColor3 = Theme.BackgroundColor
+				buttonFrame.BackgroundTransparency = 0.5
+				buttonFrame.Size = UDim2.new(0.95, 0, 0, 40)
+				local buttonCorner = Instance.new("UICorner")
+				buttonCorner.CornerRadius = Theme.CornerRadius
+				buttonCorner.Parent = buttonFrame
+				createGradient(buttonFrame)
+				local buttonLabel = Instance.new("TextLabel")
+				buttonLabel.Name = "Title"
+				buttonLabel.Parent = buttonFrame
+				buttonLabel.BackgroundTransparency = 1
+				buttonLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+				buttonLabel.Size = UDim2.new(1, 0, 1, 0)
+				buttonLabel.Font = Theme.Font
+				buttonLabel.Text = config.Title or "Button"
+				buttonLabel.TextColor3 = Theme.TextColor
+				buttonLabel.TextSize = 14
+				local buttonClick = Instance.new("TextButton")
+				buttonClick.Name = "Click"
+				buttonClick.Parent = buttonFrame
+				buttonClick.BackgroundTransparency = 1
+				buttonClick.Size = UDim2.new(1, 0, 1, 0)
+				buttonClick.Text = ""
+				createRippleEffect(buttonFrame, buttonClick)
+				buttonClick.MouseButton1Click:Connect(function()
+					if config.Callback then
+						config.Callback()
+					end
+					createTween(buttonFrame, {Size = UDim2.new(0.9, 0, 0, 40)}):Play()
+					task.wait(0.1)
+					createTween(buttonFrame, {Size = UDim2.new(0.95, 0, 0, 40)}):Play()
+				end)
+				return {
+					SetTitle = function(title: string) buttonLabel.Text = title end,
+					SetVisible = function(visible: boolean) buttonFrame.Visible = visible end,
+					Fire = config.Callback or function() end,
+				}
+			end
+
+			function section:AddSlider(config: {Title: string, Min: number, Max: number, Value: number?, Rounding: number?, Callback: (number)->()}?)
+				local sliderFrame = Instance.new("Frame")
+				sliderFrame.Name = "Slider"
+				sliderFrame.Parent = sectionFrame
+				sliderFrame.BackgroundColor3 = Theme.BackgroundColor
+				sliderFrame.BackgroundTransparency = 0.5
+				sliderFrame.Size = UDim2.new(0.95, 0, 0, 60)
+				local sliderCorner = Instance.new("UICorner")
+				sliderCorner.CornerRadius = Theme.CornerRadius
+				sliderCorner.Parent = sliderFrame
+				createGradient(sliderFrame)
+				local sliderTitle = Instance.new("TextLabel")
+				sliderTitle.Name = "Title"
+				sliderTitle.Parent = sliderFrame
+				sliderTitle.BackgroundTransparency = 1
+				sliderTitle.Position = UDim2.new(0.05, 0, 0.1, 0)
+				sliderTitle.Size = UDim2.new(0.9, 0, 0, 20)
+				sliderTitle.Font = Theme.Font
+				sliderTitle.Text = config.Title or "Slider"
+				sliderTitle.TextColor3 = Theme.TextColor
+				sliderTitle.TextSize = 14
+				sliderTitle.TextXAlignment = Enum.TextXAlignment.Left
+				local bar = Instance.new("Frame")
+				bar.Name = "Bar"
+				bar.Parent = sliderFrame
+				bar.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+				bar.Position = UDim2.new(0.05, 0, 0.6, 0)
+				bar.Size = UDim2.new(0.9, 0, 0, 20)
+				local barCorner = Instance.new("UICorner")
+				barCorner.CornerRadius = UDim.new(1, 0)
+				barCorner.Parent = bar
+				local barValue = Instance.new("Frame")
+				barValue.Name = "BarValue"
+				barValue.Parent = bar
+				barValue.BackgroundColor3 = Theme.TextColor
+				barValue.Size = UDim2.new(0, 0, 1, 0)
+				createGradient(barValue)
+				local valueBox = Instance.new("TextBox")
+				valueBox.Name = "ValueBox"
+				valueBox.Parent = sliderFrame
+				valueBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+				valueBox.Position = UDim2.new(0.95, -40, 0.3, 0)
+				valueBox.Size = UDim2.new(0, 40, 0, 20)
+				valueBox.Font = Theme.Font
+				valueBox.Text = tostring(config.Value or config.Min)
+				valueBox.TextColor3 = Theme.TextColor
+				valueBox.TextSize = 12
+				local valueCorner = Instance.new("UICorner")
+				valueCorner.CornerRadius = UDim.new(1, 0)
+				valueCorner.Parent = valueBox
+
+				local function updateSlider(value: number)
+					value = math.clamp(value, config.Min, config.Max)
+					if config.Rounding then
+						value = math.round(value * 10^config.Rounding) / 10^config.Rounding
+					end
+					local ratio = (value - config.Min) / (config.Max - config.Min)
+					createTween(barValue, {Size = UDim2.new(ratio, 0, 1, 0)}):Play()
+					valueBox.Text = tostring(value)
+					if config.Callback then
+						config.Callback(value)
+					end
+				end
+
+				updateSlider(config.Value or config.Min)
+
+				valueBox.FocusLost:Connect(function()
+					updateSlider(tonumber(valueBox.Text) or config.Min)
+				end)
+
+				local dragging = false
+				local click = Instance.new("TextButton")
+				click.Name = "Click"
+				click.Parent = bar
+				click.BackgroundTransparency = 1
+				click.Size = UDim2.new(1, 0, 1, 0)
+				click.Text = ""
+				click.InputBegan:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+						dragging = true
+						local relativeX = math.clamp((input.Position.X - bar.AbsolutePosition.X) / bar.AbsoluteSize.X, 0, 1)
+						updateSlider(relativeX * (config.Max - config.Min) + config.Min)
+					end
+				end)
+				click.InputEnded:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+						dragging = false
+					end
+				end)
+				UserInputService.InputChanged:Connect(function(input)
+					if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+						local relativeX = math.clamp((input.Position.X - bar.AbsolutePosition.X) / bar.AbsoluteSize.X, 0, 1)
+						updateSlider(relativeX * (config.Max - config.Min) + config.Min)
+					end
+				end)
+
+				return {
+					SetValue = updateSlider,
+					SetTitle = function(title: string) sliderTitle.Text = title end,
+					SetVisible = function(visible: boolean) sliderFrame.Visible = visible end,
+				}
+			end
+
+			return section
+		end
+
+		return tab
+	end
+
+	return window
+end
+
+-- Theme customization
+function StellarUI:SetTheme(newTheme: {[string]: any})
+	for key, value in pairs(newTheme) do
+		if Theme[key] then
+			Theme[key] = value
+		end
+	end
+end
+
+return StellarUI
