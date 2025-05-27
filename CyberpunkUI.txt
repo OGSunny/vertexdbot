@@ -1,0 +1,347 @@
+-- CyberpunkUI.lua: Advanced Roblox UI library with cyberpunk aesthetic
+local CyberpunkUI = {}
+
+-- Services
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
+
+-- Creates a new UI instance
+function CyberpunkUI.new(player, titleText)
+	local ui = {}
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "CyberpunkUI"
+	screenGui.ResetOnSpawn = false
+	screenGui.Parent = player.PlayerGui
+
+	-- Main window
+	local mainFrame = Instance.new("Frame")
+	mainFrame.Size = UDim2.new(0.5, 0, 0.7, 0)
+	mainFrame.Position = UDim2.new(0.25, 0, 0.15, 0)
+	mainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
+	mainFrame.BackgroundTransparency = 0.2
+	mainFrame.BorderSizePixel = 0
+	mainFrame.Visible = false
+	mainFrame.Parent = screenGui
+
+	-- Neon border
+	local uiStroke = Instance.new("UIStroke")
+	uiStroke.Color = Color3.fromRGB(0, 255, 255)
+	uiStroke.Thickness = 3
+	uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	uiStroke.Parent = mainFrame
+
+	local uiGradient = Instance.new("UIGradient")
+	uiGradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 255)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 255))
+	})
+	uiGradient.Rotation = 45
+	uiGradient.Parent = uiStroke
+
+	local uiCorner = Instance.new("UICorner")
+	uiCorner.CornerRadius = UDim.new(0, 12)
+	uiCorner.Parent = mainFrame
+
+	-- Title bar
+	local titleBar = Instance.new("Frame")
+	titleBar.Size = UDim2.new(1, 0, 0.1, 0)
+	titleBar.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+	titleBar.BorderSizePixel = 0
+	titleBar.Parent = mainFrame
+
+	local titleLabel = Instance.new("TextLabel")
+	titleLabel.Size = UDim2.new(0.8, 0, 0.8, 0)
+	titleLabel.Position = UDim2.new(0.1, 0, 0.1, 0)
+	titleLabel.BackgroundTransparency = 1
+	titleLabel.Text = titleText or "Cyberpunk UI ⚡️"
+	titleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
+	titleLabel.TextScaled = true
+	titleLabel.Font = Enum.Font.Code
+	titleLabel.Parent = titleBar
+
+	-- Toggle button
+	local toggleButton = Instance.new("TextButton")
+	toggleButton.Size = UDim2.new(0.08, 0, 0.05, 0)
+	toggleButton.Position = UDim2.new(0.92, -40, 0.05, 0)
+	toggleButton.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+	toggleButton.Text = ">"
+	toggleButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+	toggleButton.TextScaled = true
+	toggleButton.Font = Enum.Font.Code
+	toggleButton.Parent = screenGui
+
+	local toggleStroke = Instance.new("UIStroke")
+	toggleStroke.Color = Color3.fromRGB(0, 255, 255)
+	toggleStroke.Thickness = 1
+	toggleStroke.Parent = toggleButton
+
+	local toggleCorner = Instance.new("UICorner")
+	toggleCorner.CornerRadius = UDim.new(0, 8)
+	toggleCorner.Parent = toggleButton
+
+	-- Animation setup
+	local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+	local openTween = TweenService:Create(mainFrame, tweenInfo, { Position = UDim2.new(0.25, 0, 0.15, 0) })
+	local closeTween = TweenService:Create(mainFrame, tweenInfo, { Position = UDim2.new(0.25, 0, -0.7, 0) })
+
+	-- Dragging functionality
+	local dragging, dragInput, dragStart, startPos
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		mainFrame.Position = newPos
+	end
+
+	titleBar.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = mainFrame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+
+	titleBar.InputChanged:Connect(function(input)
+		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+			dragInput = input
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			updateInput(input)
+		end
+	end)
+
+	-- Toggle logic
+	local isOpen = false
+	local function toggleUI()
+		isOpen = not isOpen
+		if isOpen then
+			mainFrame.Visible = true
+			openTween:Play()
+			toggleButton.Text = "<"
+		else
+			closeTween:Play()
+			toggleButton.Text = ">"
+			wait(0.3)
+			if not isOpen then
+				mainFrame.Visible = false
+			end
+		end
+	end
+
+	toggleButton.MouseButton1Click:Connect(toggleUI)
+	UserInputService.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.Touch then
+			local touchPos = input.Position
+			local buttonPos = toggleButton.AbsolutePosition
+			local buttonSize = toggleButton.AbsoluteSize
+			if touchPos.X >= buttonPos.X and touchPos.X <= buttonPos.X + buttonSize.X and
+				touchPos.Y >= buttonPos.Y and touchPos.Y <= buttonPos.Y + buttonSize.Y then
+				toggleUI()
+			end
+		end
+	end)
+
+	-- Notification system
+	function ui:CreateNotification(text, duration)
+		local notification = Instance.new("Frame")
+		notification.Size = UDim2.new(0.3, 0, 0.1, 0)
+		notification.Position = UDim2.new(0.35, 0, 0.05, 0)
+		notification.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
+		notification.BackgroundTransparency = 0.3
+		notification.Parent = screenGui
+
+		local notifStroke = Instance.new("UIStroke")
+		notifStroke.Color = Color3.fromRGB(0, 255, 255)
+		notifStroke.Thickness = 2
+		notifStroke.Parent = notification
+
+		local notifCorner = Instance.new("UICorner")
+		notifCorner.CornerRadius = UDim.new(0, 8)
+		notifCorner.Parent = notification
+
+		local notifText = Instance.new("TextLabel")
+		notifText.Size = UDim2.new(0.9, 0, 0.8, 0)
+		notifText.Position = UDim2.new(0.05, 0, 0.1, 0)
+		notifText.BackgroundTransparency = 1
+		notifText.Text = text
+		notifText.TextColor3 = Color3.fromRGB(0, 255, 255)
+		notifText.TextScaled = true
+		notifText.Font = Enum.Font.Code
+		notifText.Parent = notification
+
+		local fadeTween = TweenService:Create(notification, TweenInfo.new(duration or 3, Enum.EasingStyle.Linear), { BackgroundTransparency = 1, Position = UDim2.new(0.35, 0, 0, 0) })
+		fadeTween:Play()
+		fadeTween.Completed:Connect(function()
+			notification:Destroy()
+		end)
+	end
+
+	-- Add button
+	function ui:AddButton(text, callback, assetId)
+		local button = Instance.new("TextButton")
+		button.Size = UDim2.new(0.8, 0, 0.1, 0)
+		button.Position = UDim2.new(0.1, 0, 0.15 + (#mainFrame:GetChildren() - 2) * 0.12, 0)
+		button.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+		button.Text = text
+		button.TextColor3 = Color3.fromRGB(0, 255, 255)
+		button.TextScaled = true
+		button.Font = Enum.Font.Code
+		button.Parent = mainFrame
+
+		if assetId then
+			local icon = Instance.new("ImageLabel")
+			icon.Size = UDim2.new(0.1, 0, 0.8, 0)
+			icon.Position = UDim2.new(0.05, 0, 0.1, 0)
+			icon.BackgroundTransparency = 1
+			icon.Image = "rbxassetid://" .. assetId
+			icon.Parent = button
+		end
+
+		local buttonStroke = Instance.new("UIStroke")
+		buttonStroke.Color = Color3.fromRGB(0, 255, 255)
+		buttonStroke.Thickness = 1
+		buttonStroke.Parent = button
+
+		local buttonCorner = Instance.new("UICorner")
+		buttonCorner.CornerRadius = UDim.new(0, 5)
+		buttonCorner.Parent = button
+
+		-- Hover effect
+		local hoverTween = TweenService:Create(button, TweenInfo.new(0.2), { BackgroundColor3 = Color3.fromRGB(30, 30, 50) })
+		local normalTween = TweenService:Create(button, TweenInfo.new(0.2), { BackgroundColor3 = Color3.fromRGB(20, 20, 30) })
+
+		button.MouseEnter:Connect(function()
+			hoverTween:Play()
+		end)
+		button.MouseLeave:Connect(function()
+			normalTween:Play()
+		end)
+
+		button.MouseButton1Click:Connect(callback)
+	end
+
+	-- Add toggle
+	function ui:AddToggle(text, defaultState, callback)
+		local toggleFrame = Instance.new("Frame")
+		toggleFrame.Size = UDim2.new(0.8, 0, 0.1, 0)
+		toggleFrame.Position = UDim2.new(0.1, 0, 0.15 + (#mainFrame:GetChildren() - 2) * 0.12, 0)
+		toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+		toggleFrame.Parent = mainFrame
+
+		local toggleStroke = Instance.new("UIStroke")
+		toggleStroke.Color = Color3.fromRGB(0, 255, 255)
+		toggleStroke.Thickness = 1
+		toggleStroke.Parent = toggleFrame
+
+		local toggleCorner = Instance.new("UICorner")
+		toggleCorner.CornerRadius = UDim.new(0, 5)
+		toggleCorner.Parent = toggleFrame
+
+		local toggleLabel = Instance.new("TextLabel")
+		toggleLabel.Size = UDim2.new(0.7, 0, 0.8, 0)
+		toggleLabel.Position = UDim2.new(0.05, 0, 0.1, 0)
+		toggleLabel.BackgroundTransparency = 1
+		toggleLabel.Text = text
+		toggleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
+		toggleLabel.TextScaled = true
+		toggleLabel.Font = Enum.Font.Code
+		toggleLabel.Parent = toggleFrame
+
+		local toggleSwitch = Instance.new("Frame")
+		toggleSwitch.Size = UDim2.new(0.15, 0, 0.6, 0)
+		toggleSwitch.Position = UDim2.new(0.8, 0, 0.2, 0)
+		toggleSwitch.BackgroundColor3 = defaultState and Color3.fromRGB(0, 255, 100) or Color3.fromRGB(100, 100, 100)
+		toggleSwitch.Parent = toggleFrame
+
+		local switchCorner = Instance.new("UICorner")
+		switchCorner.CornerRadius = UDim.new(0, 10)
+		switchCorner.Parent = toggleSwitch
+
+		local isToggled = defaultState
+		toggleFrame.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				isToggled = not isToggled
+				local newColor = isToggled and Color3.fromRGB(0, 255, 100) or Color3.fromRGB(100, 100, 100)
+				TweenService:Create(toggleSwitch, TweenInfo.new(0.2), { BackgroundColor3 = newColor }):Play()
+				callback(isToggled)
+			end
+		end)
+	end
+
+	-- Add textbox
+	function ui:AddTextbox(placeholder, callback)
+		local textbox = Instance.new("TextBox")
+		textbox.Size = UDim2.new(0.8, 0, 0.1, 0)
+		textbox.Position = UDim2.new(0.1, 0, 0.15 + (#mainFrame:GetChildren() - 2) * 0.12, 0)
+		textbox.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+		textbox.Text = ""
+		textbox.PlaceholderText = placeholder
+		textbox.TextColor3 = Color3.fromRGB(0, 255, 255)
+		textbox.TextScaled = true
+		textbox.Font = Enum.Font.Code
+		textbox.Parent = mainFrame
+
+		local textboxStroke = Instance.new("UIStroke")
+		textboxStroke.Color = Color3.fromRGB(0, 255, 255)
+		textboxStroke.Thickness = 1
+		textboxStroke.Parent = textbox
+
+		local textboxCorner = Instance.new("UICorner")
+		textboxCorner.CornerRadius = UDim.new(0, 5)
+		textboxCorner.Parent = textbox
+
+		textbox.FocusLost:Connect(function(enterPressed)
+			if enterPressed then
+				callback(textbox.Text)
+			end
+		end)
+	end
+
+	-- Create new window
+	function ui:CreateWindow(title, size)
+		local newWindow = Instance.new("Frame")
+		newWindow.Size = size or UDim2.new(0.3, 0, 0.4, 0)
+		newWindow.Position = UDim2.new(0.35, 0, 0.3, 0)
+		newWindow.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
+		newWindow.BackgroundTransparency = 0.2
+		newWindow.Parent = screenGui
+
+		local windowStroke = Instance.new("UIStroke")
+		windowStroke.Color = Color3.fromRGB(0, 255, 255)
+		windowStroke.Thickness = 2
+		windowStroke.Parent = newWindow
+
+		local windowCorner = Instance.new("UICorner")
+		windowCorner.CornerRadius = UDim.new(0, 10)
+		windowCorner.Parent = newWindow
+
+		local windowTitle = Instance.new("TextLabel")
+		windowTitle.Size = UDim2.new(0.8, 0, 0.15, 0)
+		windowTitle.Position = UDim2.new(0.1, 0, 0.05, 0)
+		windowTitle.BackgroundTransparency = 1
+		windowTitle.Text = title
+		windowTitle.TextColor3 = Color3.fromRGB(0, 255, 255)
+		windowTitle.TextScaled = true
+		windowTitle.Font = Enum.Font.Code
+		windowTitle.Parent = newWindow
+
+		return newWindow
+	end
+
+	-- Cleanup
+	function ui:Destroy()
+		screenGui:Destroy()
+	end
+
+	return ui
+end
+
+return CyberpunkUI
