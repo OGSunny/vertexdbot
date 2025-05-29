@@ -1,1 +1,32 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts & Credits</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('credits')">Credits</div>
+            <div class="tab" onclick="showTab('scripts')">Scripts</div>
+        </div>
+        <div id="credits" class="tab-content active">
+            <h2>Credits</h2>
+            <p>Website created by [Your Name].</p>
+            <p>Special thanks to the community for support and inspiration.</p>
+            <p>Contact: your.email@example.com</p>
+        </div>
+        <div id="scripts" class="tab-content">
+            <h2>Scripts</h2>
+            <form id="uploadForm">
+                <input type="file" id="fileInput" multiple>
+                <button type="submit">Upload</button>
+            </form>
+            <div id="scriptList"></div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
