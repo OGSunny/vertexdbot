@@ -3,86 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNordinary Hub - Code Storage</title>
-    <link rel="stylesheet" href="style.css">
+    <title>UNordinary || Hub</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1 class="logo">UNordinary Hub</h1>
-            <p class="tagline">Code Storage & Loader System</p>
-        </div>
-
-        <div id="statusMessage" class="status-message"></div>
-
-        <div class="main-content">
-            <!-- Code Editor Section -->
-            <div class="section">
-                <h2>📝 Code Editor</h2>
-                <textarea 
-                    id="codeEditor" 
-                    class="code-editor" 
-                    placeholder="-- Paste your hub code here
--- Example:
-local Players = game:GetService('Players')
-local player = Players.LocalPlayer
-
-print('UNordinary Hub Loaded!')
--- Your script code goes here..."
-                ></textarea>
-                
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="saveCode()">💾 Save Code</button>
-                    <button class="btn btn-secondary" onclick="clearEditor()">🗑️ Clear</button>
-                    <button class="btn btn-secondary" onclick="loadExample()">📋 Load Example</button>
-                </div>
-
-                <div class="saved-codes">
-                    <h3>💾 Saved Codes</h3>
-                    <div id="savedCodesList"></div>
-                </div>
-            </div>
-
-            <!-- Loader Display Section -->
-            <div class="section">
-                <h2>🚀 Generated Loader</h2>
-                <div class="loader-display">
-                    <div class="loader-section">
-                        <button class="copy-btn" onclick="copyLoader()">Copy</button>
-                        <h3>Current Loader:</h3>
-                        <code id="currentLoader">loadstring(game:HttpGet("https://yoursite.com/api/getcode"))() -- Save code first!</code>
-                    </div>
-
-                    <div class="loader-section">
-                        <h3>🔗 API Endpoint:</h3>
-                        <p>Your saved code will be accessible at:</p>
-                        <code id="apiEndpoint">https://yoursite.com/api/getcode</code>
-                        <br><br>
-                        <p><small>Note: Replace "yoursite.com" with your actual domain when hosting!</small></p>
-                    </div>
-
-                    <div class="loader-section">
-                        <h3>📊 Code Stats:</h3>
-                        <p>Code Length: <span id="codeLength">0</span> characters</p>
-                        <p>Lines: <span id="codeLines">0</span></p>
-                        <p>Last Saved: <span id="lastSaved">Never</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Discord Section -->
-            <div class="section discord-section">
-                <h2>💬 Join Our Community</h2>
-                <p>Get support, share scripts, and connect with other developers!</p>
-                <a href="https://discord.gg/YOUR_INVITE_CODE" class="discord-btn" target="_blank">
-                    Join Discord Server
-                </a>
-                <br><br>
-                <p><em>Replace YOUR_INVITE_CODE with your actual Discord invite</em></p>
-            </div>
+        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705547471749200/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c2063&is=684acee3&hm=9953b392b1f5714a3fdbbd3764c9faeac9c73d9f91902d8f55f137753b6a6034&" alt="UNordinary Hub Logo" class="logo">
+        <div class="discord-section">
+            <a href="https://discord.gg/cU4zybxbYN" target="_blank" class="discord-button">
+                Join Our Discord
+                <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705878972764222/2025061120301927.png?ex=684c20b2&is=684acf32&hm=9d7070e523cc343195c806d7d363b60ef3e670303dc4ac0aecb5075dfd02387c&" alt="Discord Icon" class="discord-icon">
+            </a>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
