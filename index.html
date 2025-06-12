@@ -3,63 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNordinary Hub</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>UNordinary Hub - Code Storage</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">UNordinary</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#loader">Loader</a></li>
-                <li><a href="#discord">Discord</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <h1>Welcome to UNordinary Hub</h1>
-        <p>Unlock exclusive gaming scripts and join our epic community!</p>
-        <a href="#loader" class="cta-button">Get Loader</a>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2>About UNordinary</h2>
-        <p>UNordinary Hub is your go-to place for premium Roblox scripts and tools. Connect with us and level up your game!</p>
-    </section>
-
-    <!-- Loader Section -->
-    <section id="loader" class="section">
-        <h2>Loader Code</h2>
-        <p>Paste your Lua script below and save to generate the loader code:</p>
-        <div class="loader-form">
-            <textarea id="lua-script" placeholder="Paste your Lua script here..." rows="8"></textarea>
-            <button onclick="saveScript()">Save Script</button>
+    <div class="container">
+        <div class="header">
+            <h1 class="logo">UNordinary Hub</h1>
+            <p class="tagline">Code Storage & Loader System</p>
         </div>
-        <div class="code-block" id="loader-code-block" style="display: none;">
-            <p>Your Loader Code:</p>
-            <pre><code id="loader-code">loadstring(game:HttpGet("https://yourwebsite.com/loader.lua"))()</code></pre>
-            <button onclick="copyCode()">Copy Code</button>
+
+        <div id="statusMessage" class="status-message"></div>
+
+        <div class="main-content">
+            <!-- Code Editor Section -->
+            <div class="section">
+                <h2>📝 Code Editor</h2>
+                <textarea 
+                    id="codeEditor" 
+                    class="code-editor" 
+                    placeholder="-- Paste your hub code here
+-- Example:
+local Players = game:GetService('Players')
+local player = Players.LocalPlayer
+
+print('UNordinary Hub Loaded!')
+-- Your script code goes here..."
+                ></textarea>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="saveCode()">💾 Save Code</button>
+                    <button class="btn btn-secondary" onclick="clearEditor()">🗑️ Clear</button>
+                    <button class="btn btn-secondary" onclick="loadExample()">📋 Load Example</button>
+                </div>
+
+                <div class="saved-codes">
+                    <h3>💾 Saved Codes</h3>
+                    <div id="savedCodesList"></div>
+                </div>
+            </div>
+
+            <!-- Loader Display Section -->
+            <div class="section">
+                <h2>🚀 Generated Loader</h2>
+                <div class="loader-display">
+                    <div class="loader-section">
+                        <button class="copy-btn" onclick="copyLoader()">Copy</button>
+                        <h3>Current Loader:</h3>
+                        <code id="currentLoader">loadstring(game:HttpGet("https://yoursite.com/api/getcode"))() -- Save code first!</code>
+                    </div>
+
+                    <div class="loader-section">
+                        <h3>🔗 API Endpoint:</h3>
+                        <p>Your saved code will be accessible at:</p>
+                        <code id="apiEndpoint">https://yoursite.com/api/getcode</code>
+                        <br><br>
+                        <p><small>Note: Replace "yoursite.com" with your actual domain when hosting!</small></p>
+                    </div>
+
+                    <div class="loader-section">
+                        <h3>📊 Code Stats:</h3>
+                        <p>Code Length: <span id="codeLength">0</span> characters</p>
+                        <p>Lines: <span id="codeLines">0</span></p>
+                        <p>Last Saved: <span id="lastSaved">Never</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discord Section -->
+            <div class="section discord-section">
+                <h2>💬 Join Our Community</h2>
+                <p>Get support, share scripts, and connect with other developers!</p>
+                <a href="https://discord.gg/YOUR_INVITE_CODE" class="discord-btn" target="_blank">
+                    Join Discord Server
+                </a>
+                <br><br>
+                <p><em>Replace YOUR_INVITE_CODE with your actual Discord invite</em></p>
+            </div>
         </div>
-    </section>
-
-    <!-- Discord Section -->
-    <section id="discord" class="section">
-        <h2>Join Our Discord</h2>
-        <p>Stay updated and chat with our community on Discord!</p>
-        <a href="YOUR_DISCORD_INVITE_LINK" target="_blank" class="discord-button">Join Now</a>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 UNordinary Hub. All rights reserved.</p>
-        <p><a href="mailto:your.email@example.com">Contact Us</a></p>
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
