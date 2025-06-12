@@ -1,57 +1,161 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+body {
+    background-color: #1a1a1a;
+    color: #fff;
+    line-height: 1.6;
 }
-.tabs {
+
+header {
+    background-color: #2c2c2c;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
     display: flex;
-    border-bottom: 2px solid #007BFF;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
-.tab {
-    padding: 10px 20px;
-    cursor: pointer;
-    background: #f8f9fa;
-    margin-right: 5px;
-    border-radius: 5px 5px 0 0;
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ff88;
 }
-.tab.active {
-    background: #007BFF;
-    color: white;
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
 }
-.tab-content {
-    display: none;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-top: none;
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
 }
-.tab-content.active {
-    display: block;
+
+.nav-links a:hover {
+    color: #00ff88;
 }
-#uploadForm {
-    margin-bottom: 20px;
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
 }
-#fileInput {
-    margin: 10px 0;
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
-.script-item {
-    margin: 10px 0;
-    padding: 10px;
-    background: #f8f9fa;
-    border: 1px solid #ddd;
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.cta-button, .discord-button {
+    background-color: #00ff88;
+    color: #1a1a1a;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
-.script-item a {
-    color: #007BFF;
+
+.cta-button:hover, .discord-button:hover {
+    background-color: #00cc6e;
+}
+
+.section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.code-block {
+    background-color: #2c2c2c;
+    padding: 1rem;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.code-block pre {
+    font-family: 'Courier New', monospace;
+    color: #00ff88;
+}
+
+.code-block button {
+    background-color: #00ff88;
+    color: #1a1a1a;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.code-block button:hover {
+    background-color: #00cc6e;
+}
+
+footer {
+    background-color: #2c2c2c;
+    padding: 1rem;
+    text-align: center;
+}
+
+footer a {
+    color: #00ff88;
     text-decoration: none;
 }
-.script-item a:hover {
+
+footer a:hover {
     text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
 }
