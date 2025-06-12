@@ -3,19 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNordinary || Hub</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>UNordinary Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705547471749200/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c2063&is=684acee3&hm=9953b392b1f5714a3fdbbd3764c9faeac9c73d9f91902d8f55f137753b6a6034&" alt="UNordinary Hub Logo" class="logo">
-        <div class="discord-section">
-            <a href="https://discord.gg/cU4zybxbYN" target="_blank" class="discord-button">
-                Join Our Discord
-                <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705878972764222/2025061120301927.png?ex=684c20b2&is=684acf32&hm=9d7070e523cc343195c806d7d363b60ef3e670303dc4ac0aecb5075dfd02387c&" alt="Discord Icon" class="discord-icon">
-            </a>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705547471749200/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c2063&is=684acee3&hm=9953b392b1f5714a3fdbbd3764c9faeac9c73d9f91902d8f55f137753b6a6034&" alt="UNordinary Hub" class="logo-img">
+                    <span class="logo-text">UNordinary Hub</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#scripts">Scripts</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to UNordinary Hub</h1>
+                <p class="hero-subtitle">Your ultimate destination for premium scripts and tools</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('scripts')">Explore Scripts</button>
+                    <a href="#" class="btn btn-secondary discord-btn" id="discordBtn">
+                        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705878972764222/2025061120301927.png?ex=684c20b2&is=684acf32&hm=9d7070e523cc343195c806d7d363b60ef3e670303dc4ac0aecb5075dfd02387c&" alt="Discord" class="discord-icon">
+                        Join Discord
+                    </a>
+                </div>
+            </div>
+            <div class="hero-animation">
+                <div class="floating-elements">
+                    <div class="element element-1"></div>
+                    <div class="element element-2"></div>
+                    <div class="element element-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts Section -->
+    <section id="scripts" class="scripts-section">
+        <div class="container">
+            <h2 class="section-title">Premium Scripts</h2>
+            <div class="scripts-grid">
+                <div class="script-card">
+                    <div class="script-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Script Hub</h3>
+                    <p>Access to premium gaming scripts and tools</p>
+                    <button class="btn btn-outline" onclick="openScript('hub')">Get Link</button>
+                </div>
+                <div class="script-card">
+                    <div class="script-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Auto Executor</h3>
+                    <p>Automated script execution with advanced features</p>
+                    <button class="btn btn-outline" onclick="openScript('executor')">Get Link</button>
+                </div>
+                <div class="script-card">
+                    <div class="script-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Anti-Ban Scripts</h3>
+                    <p>Secure scripts with built-in protection</p>
+                    <button class="btn btn-outline" onclick="openScript('antiban')">Get Link</button>
+                </div>
+                <div class="script-card">
+                    <div class="script-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Utility Pack</h3>
+                    <p>Essential tools and utilities collection</p>
+                    <button class="btn btn-outline" onclick="openScript('utility')">Get Link</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <h2 class="section-title">Developer Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <i class="fas fa-download"></i>
+                    <h3>Script Downloader</h3>
+                    <p>Download and manage your scripts</p>
+                </div>
+                <div class="tool-item">
+                    <i class="fas fa-edit"></i>
+                    <h3>Code Editor</h3>
+                    <p>Built-in editor for script modification</p>
+                </div>
+                <div class="tool-item">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Storage</h3>
+                    <p>Store your scripts in the cloud</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Raw Link Generator -->
+    <section class="link-generator">
+        <div class="container">
+            <div class="generator-box">
+                <h2>Raw Link Generator</h2>
+                <div class="input-group">
+                    <input type="text" id="linkInput" placeholder="Enter your script URL here..." class="link-input">
+                    <button onclick="generateRawLink()" class="btn btn-primary">Generate Raw Link</button>
+                </div>
+                <div id="result" class="result-box" style="display: none;">
+                    <h3>Generated Raw Link:</h3>
+                    <div class="result-content">
+                        <input type="text" id="resultLink" readonly class="result-input">
+                        <button onclick="copyToClipboard()" class="btn btn-secondary">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get Support</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Need Help?</h3>
+                    <p>Join our Discord server for support and premium scripts access</p>
+                    <a href="#" class="btn btn-primary discord-btn" id="discordBtn2">
+                        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705878972764222/2025061120301927.png?ex=684c20b2&is=684acf32&hm=9d7070e523cc343195c806d7d363b60ef3e670303dc4ac0aecb5075dfd02387c&" alt="Discord" class="discord-icon">
+                        Join Our Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705547471749200/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c2063&is=684acee3&hm=9953b392b1f5714a3fdbbd3764c9faeac9c73d9f91902d8f55f137753b6a6034&" alt="UNordinary Hub" class="footer-logo-img">
+                    <span>UNordinary Hub</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#scripts">Scripts</a>
+                    <a href="#tools">Tools</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" id="discordBtn3">
+                        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382705878972764222/2025061120301927.png?ex=684c20b2&is=684acf32&hm=9d7070e523cc343195c806d7d363b60ef3e670303dc4ac0aecb5075dfd02387c&" alt="Discord">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 UNordinary Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Discord Invite -->
+    <div id="discordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Join Our Discord Server</h2>
+            <p>Get access to premium scripts and support!</p>
+            <input type="text" id="discordLink" value="YOUR_DISCORD_INVITE_LINK_HERE" readonly class="modal-input">
+            <div class="modal-buttons">
+                <button onclick="copyDiscordLink()" class="btn btn-primary">Copy Link</button>
+                <button onclick="openDiscord()" class="btn btn-secondary">Open Discord</button>
+            </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
