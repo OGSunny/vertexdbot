@@ -15,7 +15,6 @@ function copyCode() {
       message.style.display = 'block';
     });
   } else {
-    // Fallback for older browsers
     const message = document.getElementById('copy-message');
     message.textContent = 'Clipboard API not supported. Please copy manually.';
     message.style.display = 'block';
