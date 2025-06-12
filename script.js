@@ -1,36 +1,40 @@
-async function saveScript() {
-    const script = document.getElementById('lua-script').value;
-    if (!script) {
-        alert('Please enter a Lua script.');
-        return;
+const express = require('express');
+const fs = require('fs').promises;
+const path = require('path');
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API to save Lua script
+app.post('/api/save-script', async (req, res) => {
+    const { script } = req.body;
+    if (!script || typeof script !== 'string') {
+        return res.status(400).json({ message: 'Invalid or missing script' });
     }
 
     try {
-        const response = await fetch('/api/save-script', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ script })
-        });
-
-        if (response.ok) {
-            const loaderCodeBlock = document.getElementById('loader-code-block');
-            loaderCodeBlock.style.display = 'block';
-            alert('Script saved successfully!');
-        } else {
-            alert('Failed to save script. Please try again.');
-        }
+        await fs.writeFile(path.join(__dirname, 'public', 'loader.lua'), script);
+        res.status(200).json({ message: 'Script saved successfully' });
     } catch (error) {
         console.error('Error saving script:', error);
-        alert('An error occurred. Please check the console and try again.');
+        res.status(500).json({ message: 'Failed to save script' });
     }
-}
+});
 
-function copy boutique() {
-    const code = document.getElementById('loader-code').textContent;
-    navigator.clipboard.writeText(code).then(() => {
-        alert('Loader code copied to clipboard!');
-    }).catch(err => {
-        console.error('Failed to copy code:', err);
-        alert('Failed to copy code. Please try again.');
-    });
-}
+// Serve raw Lua script
+app.get('/loader.lua', async (req, res) => {
+    try {
+        const script = await fs.readFile(path.join(__dirname, 'public', 'loader.lua'), 'utf8');
+        res.set('Content-Type', 'text/plain');
+        res.send(script);
+    } catch (error) {
+        res.status(404).send('Script not found');
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});
