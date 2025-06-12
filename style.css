@@ -6,28 +6,23 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #1e2a44; /* Primary blackish-blue background */
-  color: #ffffff; /* White text */
+  background-color: #1e2a44;
+  color: #ffffff;
   line-height: 1.6;
 }
 
 header {
   text-align: center;
   padding: 20px;
-  background-color: #0f172a; /* Darker blackish-blue for header */
+  background-color: #0f172a;
   color: #ffffff;
 }
 
 .brand-logo {
-  font-size: 1.2em;
-  font-weight: bold;
-  background-color: #2c3e50; /* Lighter blackish-blue for logo placeholder */
-  padding: 10px;
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 10px;
   border-radius: 10px;
-  border: 2px solid #1a2533;
-  max-width: 150px;
-  margin: 0 auto 10px;
-  text-align: center;
 }
 
 h1 {
@@ -48,7 +43,7 @@ h3 {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #2c3e50; /* Lighter blackish-blue for sections */
+  background-color: #2c3e50;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -57,7 +52,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a2533; /* Darker blackish-blue for code box */
+  background-color: #1a2533;
   padding: 10px;
   border-radius: 5px;
   margin: 10px 0;
@@ -65,13 +60,13 @@ h3 {
 
 code {
   font-family: 'Courier New', monospace;
-  color: #ff79c6; /* Bright pink for code */
+  color: #ff79c6;
   word-break: break-all;
   flex-grow: 1;
 }
 
 button {
-  background-color: #1e2a44; /* Blackish-blue for buttons */
+  background-color: #1e2a44;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
@@ -82,12 +77,12 @@ button {
 }
 
 button:hover {
-  background-color: #1a2533; /* Darker blackish-blue on hover */
+  background-color: #1a2533;
   transform: scale(1.05);
 }
 
 .message {
-  color: #00ff88; /* Bright green for success messages */
+  color: #00ff88;
   margin-top: 10px;
   display: none;
 }
@@ -95,7 +90,7 @@ button:hover {
 .discord-button {
   display: flex;
   align-items: center;
-  background-color: #1e2a44; /* Blackish-blue for Discord button */
+  background-color: #1e2a44;
   color: #ffffff;
   padding: 10px 20px;
   text-decoration: none;
@@ -110,12 +105,9 @@ button:hover {
 }
 
 .discord-logo {
-  font-size: 0.9em;
-  background-color: #2c3e50;
-  padding: 5px 10px;
-  border-radius: 5px;
+  width: 24px;
+  height: 24px;
   margin-right: 10px;
-  border: 1px solid #1a2533;
 }
 
 .games-grid {
@@ -134,18 +126,14 @@ button:hover {
   transform: scale(1.05);
 }
 
-.game-placeholder {
-  background-color: #2c3e50; /* Blackish-blue placeholder for game images */
-  padding: 20px;
-  border-radius: 8px;
-  border: 2px solid #1a2533;
-  font-size: 1em;
-  font-weight: bold;
+.game-card img {
   max-width: 150px;
-  margin: 0 auto;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid #1e2a44;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive design */
 @media (max-width: 600px) {
   h1 {
     font-size: 1.5em;
@@ -154,20 +142,17 @@ button:hover {
     font-size: 1.2em;
   }
   .brand-logo {
-    max-width: 120px;
-    font-size: 1em;
+    max-width: 100px;
   }
   .discord-logo {
-    font-size: 0.8em;
-    padding: 3px 8px;
+    width: 20px;
+    height: 20px;
   }
   .code-box {
     flex-direction: column;
     gap: 10px;
   }
-  .game-placeholder {
+  .game-card img {
     max-width: 120px;
-    font-size: 0.9em;
-    padding: 15px;
   }
 }
