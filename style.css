@@ -2,12 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
     background-color: #0d0d0d;
-    color: #fff;
+    color: #ffffff;
     line-height: 1.6;
 }
 
@@ -15,8 +15,8 @@ header {
     background-color: #1a1a1a;
     padding: 1rem 2rem;
     position: fixed;
-    width: 100%;
     top: 0;
+    width: 100%;
     z-index: 1000;
 }
 
@@ -29,9 +29,10 @@ nav {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #00ffcc;
+    text-transform: uppercase;
 }
 
 .nav-links {
@@ -41,10 +42,10 @@ nav {
 }
 
 .nav-links a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -63,9 +64,9 @@ nav {
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
-    text-shadow: 0 0 10px #00ffcc;
+    text-shadow: 0 0 15px #00ffcc;
 }
 
 .hero p {
@@ -77,12 +78,12 @@ nav {
     background-color: #00ffcc;
     color: #0d0d0d;
     padding: 0.8rem 1.5rem;
-    text-decoration: none;
+    border: none;
     border-radius: 5px;
     font-weight: bold;
-    border: none;
+    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .cta-button:hover, .discord-button:hover, .loader-form button:hover {
@@ -97,13 +98,13 @@ nav {
 }
 
 .section h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 1rem;
-    text-shadow: 0 0 5px #00ffcc;
+    text-shadow: 0 0 10px #00ffcc;
 }
 
 .loader-form {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
 }
 
 .loader-form textarea {
@@ -111,15 +112,16 @@ nav {
     max-width: 600px;
     padding: 1rem;
     background-color: #1a1a1a;
-    color: #fff;
+    color: #ffffff;
     border: 1px solid #00ffcc;
     border-radius: 5px;
     resize: vertical;
+    font-family: 'Courier New', monospace;
 }
 
 .code-block {
     background-color: #1a1a1a;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 5px;
     display: inline-block;
     text-align: left;
@@ -139,7 +141,7 @@ nav {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 0.5rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .code-block button:hover {
@@ -148,7 +150,7 @@ nav {
 
 footer {
     background-color: #1a1a1a;
-    padding: 1rem;
+    padding: 1.5rem;
     text-align: center;
 }
 
@@ -169,7 +171,7 @@ footer a:hover {
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     .hero p {
@@ -177,6 +179,6 @@ footer a:hover {
     }
 
     .loader-form textarea {
-        width: 90%;
+        width: 95%;
     }
 }
