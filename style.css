@@ -19,10 +19,15 @@ header {
 }
 
 .brand-logo {
-  max-width: 100px; /* Smaller logo size */
-  height: auto;
-  margin-bottom: 10px;
-  border-radius: 10px; /* Rounded edges */
+  font-size: 1.2em;
+  font-weight: bold;
+  background-color: #2c3e50; /* Lighter blackish-blue for logo placeholder */
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #1a2533;
+  max-width: 150px;
+  margin: 0 auto 10px;
+  text-align: center;
 }
 
 h1 {
@@ -73,12 +78,12 @@ button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smoother transitions */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #1a2533; /* Darker blackish-blue on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  transform: scale(1.05);
 }
 
 .message {
@@ -100,14 +105,17 @@ button:hover {
 }
 
 .discord-button:hover {
-  background-color: #1a2533; /* Darker blackish-blue on hover */
+  background-color: #1a2533;
   transform: scale(1.05);
 }
 
 .discord-logo {
-  width: 20px; /* Smaller Discord logo */
-  height: 20px;
+  font-size: 0.9em;
+  background-color: #2c3e50;
+  padding: 5px 10px;
+  border-radius: 5px;
   margin-right: 10px;
+  border: 1px solid #1a2533;
 }
 
 .games-grid {
@@ -126,12 +134,15 @@ button:hover {
   transform: scale(1.05);
 }
 
-.game-card img {
-  max-width: 150px; /* Smaller game images */
-  height: auto;
+.game-placeholder {
+  background-color: #2c3e50; /* Blackish-blue placeholder for game images */
+  padding: 20px;
   border-radius: 8px;
-  border: 2px solid #1e2a44; /* Blackish-blue border */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid #1a2533;
+  font-size: 1em;
+  font-weight: bold;
+  max-width: 150px;
+  margin: 0 auto;
 }
 
 /* Responsive design */
@@ -143,17 +154,20 @@ button:hover {
     font-size: 1.2em;
   }
   .brand-logo {
-    max-width: 80px; /* Even smaller logo on mobile */
+    max-width: 120px;
+    font-size: 1em;
   }
   .discord-logo {
-    width: 16px; /* Smaller Discord logo on mobile */
-    height: 16px;
+    font-size: 0.8em;
+    padding: 3px 8px;
   }
   .code-box {
     flex-direction: column;
     gap: 10px;
   }
-  .game-card img {
-    max-width: 120px; /* Smaller game images on mobile */
+  .game-placeholder {
+    max-width: 120px;
+    font-size: 0.9em;
+    padding: 15px;
   }
 }
