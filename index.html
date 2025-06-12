@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UNordinary Hub</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
     
     * {
       margin: 0;
@@ -14,18 +14,23 @@
     }
 
     :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-      --accent-color: #00d4ff;
-      --success-color: #00ff88;
-      --glass-bg: rgba(255, 255, 255, 0.1);
-      --glass-border: rgba(255, 255, 255, 0.2);
+      --primary-glow: #00ff41;
+      --secondary-glow: #ff0080;
+      --accent-blue: #00d4ff;
+      --dark-bg: #0a0a0a;
+      --card-bg: rgba(15, 15, 15, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --neon-shadow: 0 0 20px var(--primary-glow);
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark-gradient);
+      font-family: 'Rajdhani', sans-serif;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
       color: #ffffff;
       line-height: 1.6;
       min-height: 100vh;
@@ -33,7 +38,7 @@
       position: relative;
     }
 
-    /* Animated background particles */
+    /* Insane animated background */
     .bg-animation {
       position: fixed;
       top: 0;
@@ -46,24 +51,36 @@
 
     .particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--accent-color);
+      width: 3px;
+      height: 3px;
+      background: var(--primary-glow);
       border-radius: 50%;
-      animation: float 20s infinite linear;
-      opacity: 0.6;
+      animation: floatParticle 15s infinite linear;
+      box-shadow: 0 0 6px var(--primary-glow);
     }
 
-    @keyframes float {
+    .particle:nth-child(2n) {
+      background: var(--secondary-glow);
+      box-shadow: 0 0 6px var(--secondary-glow);
+      animation-duration: 20s;
+    }
+
+    .particle:nth-child(3n) {
+      background: var(--accent-blue);
+      box-shadow: 0 0 6px var(--accent-blue);
+      animation-duration: 25s;
+    }
+
+    @keyframes floatParticle {
       0% {
         transform: translateY(100vh) rotate(0deg);
         opacity: 0;
       }
       10% {
-        opacity: 0.6;
+        opacity: 1;
       }
       90% {
-        opacity: 0.6;
+        opacity: 1;
       }
       100% {
         transform: translateY(-100px) rotate(360deg);
@@ -71,12 +88,12 @@
       }
     }
 
-    /* Header with glassmorphism */
+    /* Sick header design */
     header {
       text-align: center;
-      padding: 60px 20px;
+      padding: 80px 20px;
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(30px);
       border-bottom: 1px solid var(--glass-border);
       position: relative;
       overflow: hidden;
@@ -89,8 +106,8 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: conic-gradient(from 0deg, transparent, var(--accent-color), transparent);
-      animation: rotate 10s linear infinite;
+      background: conic-gradient(from 0deg, transparent, var(--primary-glow), transparent, var(--secondary-glow), transparent);
+      animation: rotate 20s linear infinite;
       opacity: 0.1;
     }
 
@@ -98,164 +115,219 @@
       100% { transform: rotate(360deg); }
     }
 
+    .logo-container {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 30px;
+    }
+
+    .main-logo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid var(--primary-glow);
+      box-shadow: 
+        0 0 30px var(--primary-glow),
+        inset 0 0 30px rgba(0, 255, 65, 0.2);
+      animation: logoGlow 3s ease-in-out infinite alternate;
+      transition: all 0.3s ease;
+    }
+
+    .main-logo:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 
+        0 0 50px var(--primary-glow),
+        0 0 100px rgba(0, 255, 65, 0.3),
+        inset 0 0 50px rgba(0, 255, 65, 0.3);
+    }
+
+    @keyframes logoGlow {
+      0% { 
+        box-shadow: 
+          0 0 30px var(--primary-glow),
+          inset 0 0 30px rgba(0, 255, 65, 0.2);
+      }
+      100% { 
+        box-shadow: 
+          0 0 60px var(--primary-glow),
+          0 0 100px rgba(0, 255, 65, 0.3),
+          inset 0 0 50px rgba(0, 255, 65, 0.4);
+      }
+    }
+
     h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 800;
-      background: linear-gradient(45deg, #fff, var(--accent-color), #fff);
-      background-size: 200% 200%;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      background-size: 300% 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: shimmer 3s ease-in-out infinite;
+      animation: gradientShift 4s ease-in-out infinite;
       position: relative;
       z-index: 1;
-      text-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+      text-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
+      letter-spacing: 2px;
     }
 
-    @keyframes shimmer {
+    @keyframes gradientShift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      opacity: 0.8;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.8);
       margin-top: 10px;
       position: relative;
       z-index: 1;
+      letter-spacing: 1px;
     }
 
-    /* Main container */
+    /* Container */
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
-    /* Section styling with advanced glassmorphism */
+    /* Insane section styling */
     .section {
-      margin: 40px auto;
-      padding: 40px;
-      background: var(--glass-bg);
+      margin: 60px auto;
+      padding: 50px;
+      background: var(--card-bg);
       backdrop-filter: blur(20px);
-      border-radius: 24px;
+      border-radius: 30px;
       border: 1px solid var(--glass-border);
       box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .section:hover {
-      transform: translateY(-8px);
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     .section::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.6s;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      animation: borderGlow 3s ease-in-out infinite;
     }
 
-    .section:hover::before {
-      left: 100%;
+    @keyframes borderGlow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .section:hover {
+      transform: translateY(-15px);
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(0, 255, 65, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     h2 {
-      font-size: 2rem;
+      font-family: 'Orbitron', monospace;
+      font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       color: #fff;
       position: relative;
+      text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
     }
 
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: var(--primary-gradient);
-      border-radius: 2px;
-    }
-
-    /* Code box with futuristic styling */
+    /* Sick code container */
     .code-container {
       position: relative;
-      margin: 30px 0;
+      margin: 40px 0;
     }
 
     .code-box {
       display: flex;
       align-items: center;
-      gap: 20px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-      border-radius: 16px;
-      border: 1px solid rgba(0, 212, 255, 0.3);
+      gap: 25px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .code-box:hover {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+      transition: all 0.4s ease;
     }
 
     .code-box::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--primary-gradient);
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      border-radius: 20px;
+      z-index: -1;
+      animation: borderRotate 4s linear infinite;
+    }
+
+    @keyframes borderRotate {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .code-box:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
     }
 
     code {
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      color: var(--accent-color);
-      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      color: var(--primary-glow);
+      font-size: 16px;
       flex-grow: 1;
       word-break: break-all;
-      text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+      font-weight: 600;
     }
 
-    /* Ultra modern buttons */
+    /* Insane button design */
     .btn {
-      background: var(--primary-gradient);
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
       border: none;
-      padding: 12px 28px;
+      padding: 15px 35px;
       border-radius: 50px;
-      color: white;
-      font-weight: 600;
-      font-size: 14px;
+      color: #000;
+      font-weight: 700;
+      font-size: 16px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+      gap: 12px;
+      box-shadow: 
+        0 8px 30px rgba(0, 255, 65, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      font-family: 'Orbitron', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .btn:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 
+        0 15px 40px rgba(0, 255, 65, 0.6),
+        0 0 30px rgba(0, 255, 65, 0.4);
     }
 
     .btn:active {
@@ -269,8 +341,8 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s;
     }
 
     .btn:hover::before {
@@ -278,31 +350,42 @@
     }
 
     .discord-btn {
-      background: linear-gradient(135deg, #5865f2, #7289da);
-      box-shadow: 0 4px 20px rgba(88, 101, 242, 0.3);
+      background: linear-gradient(45deg, #5865f2, #7289da);
+      box-shadow: 
+        0 8px 30px rgba(88, 101, 242, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
     .discord-btn:hover {
-      box-shadow: 0 8px 30px rgba(88, 101, 242, 0.4);
+      box-shadow: 
+        0 15px 40px rgba(88, 101, 242, 0.6),
+        0 0 30px rgba(88, 101, 242, 0.4);
     }
 
-    /* Success message with animation */
+    .discord-logo {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Success message */
     .message {
-      color: var(--success-color);
-      margin-top: 15px;
-      padding: 12px 20px;
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      border-radius: 12px;
+      color: var(--primary-glow);
+      margin-top: 20px;
+      padding: 15px 25px;
+      background: rgba(0, 255, 65, 0.1);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      border-radius: 15px;
       display: none;
       backdrop-filter: blur(10px);
-      animation: slideIn 0.4s ease-out;
+      animation: slideIn 0.5s ease-out;
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
     }
 
     @keyframes slideIn {
       from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-20px);
       }
       to {
         opacity: 1;
@@ -310,134 +393,172 @@
       }
     }
 
-    /* Games grid with card hover effects */
+    /* Insane games grid */
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
     }
 
     .game-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
+      border-radius: 25px;
+      padding: 0;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
       cursor: pointer;
-    }
-
-    .game-card:hover {
-      transform: translateY(-10px) rotateX(5deg);
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(102, 126, 234, 0.2);
-      border-color: var(--accent-color);
+      height: 400px;
     }
 
     .game-card::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-      animation: rotate 8s linear infinite paused;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      border-radius: 25px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .game-card:hover::before {
-      animation-play-state: running;
+      opacity: 1;
+    }
+
+    .game-card:hover {
+      transform: translateY(-15px) rotateX(10deg) rotateY(5deg);
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(0, 255, 65, 0.3);
+    }
+
+    .game-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 25px 25px 0 0;
+      transition: all 0.3s ease;
+    }
+
+    .game-card:hover .game-image {
+      transform: scale(1.1);
+      filter: brightness(1.2) saturate(1.3);
+    }
+
+    .game-info {
+      padding: 25px;
+      position: relative;
+      z-index: 2;
     }
 
     .game-card h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
       margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(45deg, #fff, var(--accent-color));
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
     }
 
     .game-status {
-      font-size: 0.9rem;
-      opacity: 0.7;
-      position: relative;
-      z-index: 1;
+      font-size: 1rem;
+      color: var(--primary-glow);
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
     }
 
     /* Responsive design */
     @media (max-width: 768px) {
       .section {
-        padding: 30px 20px;
-        margin: 30px 20px;
+        padding: 30px 25px;
+        margin: 40px 15px;
       }
       
       .code-box {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         text-align: center;
       }
       
       .games-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 30px;
+      }
+      
+      .game-card {
+        height: 350px;
+      }
+      
+      .game-image {
+        height: 200px;
       }
       
       h2 {
-        font-size: 1.6rem;
+        font-size: 2rem;
       }
-    }
 
-    /* Loading animation */
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .loading {
-      animation: pulse 2s infinite;
+      .main-logo {
+        width: 120px;
+        height: 120px;
+      }
     }
 
     /* Custom scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.3);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--primary-gradient);
-      border-radius: 4px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--secondary-gradient);
+      background: linear-gradient(45deg, var(--secondary-glow), var(--primary-glow));
+    }
+
+    /* Page load animation */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
   </style>
 </head>
-<body>
+<body class="fade-in">
   <!-- Animated background -->
   <div class="bg-animation" id="bgAnimation"></div>
 
   <header>
+    <div class="logo-container">
+      <img src="https://i.ibb.co/w7m1qRr/image.png" alt="UNordinary Hub Logo" class="main-logo">
+    </div>
     <h1>UNordinary Hub</h1>
-    <p class="subtitle">Next-Generation Roblox Experience</p>
+    <p class="subtitle">Next-Gen Roblox Domination</p>
   </header>
 
   <div class="container">
     <section class="section">
       <h2>🚀 Roblox Loader</h2>
-      <p>Execute this cutting-edge loadstring to unlock unlimited possibilities:</p>
+      <p>Execute this legendary loadstring to unleash unlimited power:</p>
       <div class="code-container">
         <div class="code-box">
           <code id="loadstring-code">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</code>
@@ -450,51 +571,61 @@
     </section>
 
     <section class="section">
-      <h2>💬 Join Our Community</h2>
-      <p>Connect with fellow gamers, get exclusive updates, and access premium support!</p>
+      <h2>💬 Join The Elite</h2>
+      <p>Connect with the ultimate gaming community and unlock exclusive content!</p>
       <br>
       <a href="https://discord.gg/nyAFKhPXaf" class="btn discord-btn">
-        🎮 Join Discord Server
+        <img src="https://i.ibb.co/tMfzVr1/image.png" alt="Discord" class="discord-logo">
+        Join Discord
       </a>
     </section>
 
     <section class="section">
       <h2>🎯 Supported Games</h2>
-      <p>Experience enhanced gameplay across these premium titles:</p>
+      <p>Dominate these premium titles with our advanced scripts:</p>
       <div class="games-grid">
         <div class="game-card">
-          <h3>Grow A Garden</h3>
-          <p class="game-status">✅ Active Support</p>
+          <img src="https://i.ibb.co/4Ks3y2n/image.png" alt="Grow A Garden" class="game-image">
+          <div class="game-info">
+            <h3>Grow A Garden</h3>
+            <p class="game-status">✅ Active Support</p>
+          </div>
         </div>
         <div class="game-card">
-          <h3>HUNTERS</h3>
-          <p class="game-status">✅ Active Support</p>
+          <img src="https://i.ibb.co/PQRJCYH/image.png" alt="HUNTERS" class="game-image">
+          <div class="game-info">
+            <h3>HUNTERS</h3>
+            <p class="game-status">✅ Active Support</p>
+          </div>
         </div>
         <div class="game-card">
-          <h3>Bubble Gum Simulator INFINITY</h3>
-          <p class="game-status">✅ Active Support</p>
+          <img src="https://i.ibb.co/JsQhLkd/image.png" alt="Bubble Gum Simulator INFINITY" class="game-image">
+          <div class="game-info">
+            <h3>Bubble Gum Simulator INFINITY</h3>
+            <p class="game-status">✅ Active Support</p>
+          </div>
         </div>
       </div>
     </section>
   </div>
 
   <script>
-    // Create animated background particles
+    // Create sick animated particles
     function createParticles() {
       const bgAnimation = document.getElementById('bgAnimation');
-      const particleCount = 50;
+      const particleCount = 80;
       
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
         particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
         bgAnimation.appendChild(particle);
       }
     }
 
-    // Enhanced copy function with better UX
+    // Enhanced copy function
     async function copyCode() {
       const code = document.getElementById('loadstring-code').innerText;
       const button = document.getElementById('copy-button');
@@ -503,33 +634,30 @@
       try {
         await navigator.clipboard.writeText(code);
         
-        // Update button text temporarily
         const originalText = button.innerHTML;
         button.innerHTML = '✅ Copied!';
-        button.style.background = 'linear-gradient(135deg, #00ff88, #00d4ff)';
+        button.style.background = 'linear-gradient(45deg, #00ff88, #00d4ff)';
         
-        // Show success message
-        message.textContent = '🎉 Code copied to clipboard! Ready to execute.';
+        message.textContent = '🎉 Code copied! Ready to dominate.';
         message.style.display = 'block';
         
-        // Reset after 2 seconds
         setTimeout(() => {
           button.innerHTML = originalText;
           button.style.background = '';
           message.style.display = 'none';
-        }, 2000);
+        }, 2500);
         
       } catch (err) {
         console.error('Copy failed:', err);
-        message.textContent = '❌ Copy failed. Please select and copy manually.';
+        message.textContent = '❌ Copy failed. Select and copy manually.';
         message.style.display = 'block';
-        message.style.borderColor = 'rgba(245, 87, 108, 0.3)';
-        message.style.background = 'rgba(245, 87, 108, 0.1)';
-        message.style.color = '#f5576c';
+        message.style.borderColor = 'rgba(255, 0, 128, 0.3)';
+        message.style.background = 'rgba(255, 0, 128, 0.1)';
+        message.style.color = '#ff0080';
       }
     }
 
-    // Add smooth scroll behavior
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -543,28 +671,39 @@
       });
     });
 
-    // Initialize particles when page loads
+    // Initialize particles
     document.addEventListener('DOMContentLoaded', createParticles);
 
-    // Add parallax effect to sections
+    // Parallax effect
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
       const sections = document.querySelectorAll('.section');
       
       sections.forEach((section, index) => {
-        const rate = scrolled * -0.5;
-        section.style.transform = `translateY(${rate * 0.1}px)`;
+        const rate = scrolled * -0.3;
+        section.style.transform = `translateY(${rate * 0.05}px)`;
       });
     });
 
-    // Add loading animation on page load
-    window.addEventListener('load', () => {
-      document.body.style.opacity = '0';
-      document.body.style.transition = 'opacity 0.6s ease-in-out';
+    // 3D tilt effect for game cards
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+      });
       
-      setTimeout(() => {
-        document.body.style.opacity = '1';
-      }, 100);
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
     });
   </script>
 </body>
