@@ -23,22 +23,27 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <h1>Welcome to UNordinary Hub</h1>
-        <p>Your one-stop hub for exclusive content and community!</p>
+        <p>Your ultimate destination for exclusive gaming scripts and community!</p>
         <a href="#loader" class="cta-button">Get the Loader</a>
     </section>
 
     <!-- About Section -->
     <section id="about" class="section">
         <h2>About UNordinary</h2>
-        <p>UNordinary Hub is your go-to place for [describe your hub’s purpose, e.g., gaming scripts, community tools, etc.]. Join our community and explore what makes us unique!</p>
+        <p>UNordinary Hub provides top-tier scripts and tools for gamers. Join our community to stay updated and access exclusive content!</p>
     </section>
 
     <!-- Loader Section -->
     <section id="loader" class="section">
         <h2>Loader Code</h2>
-        <p>Use the following code to load UNordinary Hub:</p>
-        <div class="code-block">
-            <pre><code id="loader-code">loadstring(game:HttpGet("https://get.nathub.xyz/loader"))()</code></pre>
+        <p>Enter your Lua script below, save it, and get the loader code:</p>
+        <div class="loader-form">
+            <textarea id="lua-script" placeholder="Paste your Lua script here..." rows="10" cols="50"></textarea>
+            <button onclick="saveScript()">Save Script</button>
+        </div>
+        <div class="code-block" id="loader-code-block" style="display: none;">
+            <p>Loader Code:</p>
+            <pre><code id="loader-code">loadstring(game:HttpGet("https://yourwebsite.com/loader.lua"))()</code></pre>
             <button onclick="copyCode()">Copy Code</button>
         </div>
     </section>
@@ -46,13 +51,13 @@
     <!-- Discord Section -->
     <section id="discord" class="section">
         <h2>Join Our Community</h2>
-        <p>Connect with us on Discord for updates, support, and more!</p>
+        <p>Connect with us on Discord for updates and support!</p>
         <a href="YOUR_DISCORD_INVITE_LINK" target="_blank" class="discord-button">Join Discord</a>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 UNordinary Hub. All rights reserved.</p>
+        <p>© 2025 UNordinary Hub. All rights reserved.</p>
         <p><a href="mailto:your.email@example.com">Contact Us</a></p>
     </footer>
 
