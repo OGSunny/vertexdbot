@@ -3,12 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unordinariness Loader</title>
+  <title>Unordinariness</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Welcome to Unordinariness!</h1>
-  <p>Use this code in Roblox to load our script:</p>
-  <code>loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</code>
-  <p>Copy the code above and paste it into your Roblox executor.</p>
+  <header>
+    <img src="logo.png" alt="Unordinariness Logo" class="brand-logo">
+    <h1>Unordinariness</h1>
+  </header>
+  <section class="loader-section">
+    <h2>Roblox Loader</h2>
+    <p>Use this code in your Roblox executor to load our script:</p>
+    <div class="code-box">
+      <code id="loadstring-code">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</code>
+      <button onclick="copyCode()">Copy Code</button>
+    </div>
+    <p class="message" id="copy-message"></p>
+  </section>
+  <section class="discord-section">
+    <h2>Join Our Community</h2>
+    <p>Connect with us on Discord for updates and support!</p>
+    <a href="https://discord.gg/your-invite" class="discord-button">Join Discord</a>
+  </section>
+  <section class="games-section">
+    <h2>Supported Games</h2>
+    <div class="games-grid">
+      <div class="game-card">
+        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382712622302101575/noFilter_1.webp?ex=684c26fa&is=684ad57a&hm=05ddc44aabfc3c0492d5739885b5f953639e875baa215a8f89c74b040720b821&" alt="Grow A Garden Logo">
+        <h3>Grow A Garden</h3>
+      </div>
+      <div class="game-card">
+        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382712921825607781/noFilter_12.webp?ex=684c2742&is=684ad5c2&hm=c9bbd5ac9936934ecb48d5bb754782dc9cc489e25485203888650e5be066a46b&" alt="HUNTERS Logo">
+        <h3>HUNTERS</h3>
+      </div>
+      <div class="game-card">
+        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382712937868689448/noFilter_13.webp?ex=684c2745&is=684ad5c5&hm=d51557efcadd99dc234ac977a588ed638746d692b4792aa3c29d6d2f8b8fbdd9&" alt="Bubble Gum Simulator INFINITY Logo">
+        <h3>Bubble Gum Simulator INFINITY</h3>
+      </div>
+    </div>
+  </section>
+  <script src="script.js"></script>
 </body>
 </html>
