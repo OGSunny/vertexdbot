@@ -19,7 +19,7 @@ header {
 }
 
 .brand-logo {
-  max-width: 120px;
+  max-width: 80px;
   height: auto;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -88,7 +88,7 @@ button:hover {
 }
 
 .discord-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   background-color: #1e2a44;
   color: #ffffff;
@@ -105,8 +105,8 @@ button:hover {
 }
 
 .discord-logo {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   margin-right: 10px;
 }
 
@@ -142,11 +142,11 @@ button:hover {
     font-size: 1.2em;
   }
   .brand-logo {
-    max-width: 100px;
+    max-width: 60px;
   }
   .discord-logo {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
   .code-box {
     flex-direction: column;
