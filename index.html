@@ -1,710 +1,801 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNordinary Hub</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary-glow: #00ff41;
-      --secondary-glow: #ff0080;
-      --accent-blue: #00d4ff;
-      --dark-bg: #0a0a0a;
-      --card-bg: rgba(15, 15, 15, 0.8);
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --neon-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-      color: #ffffff;
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Insane animated background */
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: var(--primary-glow);
-      border-radius: 50%;
-      animation: floatParticle 15s infinite linear;
-      box-shadow: 0 0 6px var(--primary-glow);
-    }
-
-    .particle:nth-child(2n) {
-      background: var(--secondary-glow);
-      box-shadow: 0 0 6px var(--secondary-glow);
-      animation-duration: 20s;
-    }
-
-    .particle:nth-child(3n) {
-      background: var(--accent-blue);
-      box-shadow: 0 0 6px var(--accent-blue);
-      animation-duration: 25s;
-    }
-
-    @keyframes floatParticle {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Sick header design */
-    header {
-      text-align: center;
-      padding: 80px 20px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(30px);
-      border-bottom: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, transparent, var(--primary-glow), transparent, var(--secondary-glow), transparent);
-      animation: rotate 20s linear infinite;
-      opacity: 0.1;
-    }
-
-    @keyframes rotate {
-      100% { transform: rotate(360deg); }
-    }
-
-    .logo-container {
-      position: relative;
-      z-index: 10;
-      margin-bottom: 30px;
-    }
-
-    .main-logo {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid var(--primary-glow);
-      box-shadow: 
-        0 0 30px var(--primary-glow),
-        inset 0 0 30px rgba(0, 255, 65, 0.2);
-      animation: logoGlow 3s ease-in-out infinite alternate;
-      transition: all 0.3s ease;
-    }
-
-    .main-logo:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 
-        0 0 50px var(--primary-glow),
-        0 0 100px rgba(0, 255, 65, 0.3),
-        inset 0 0 50px rgba(0, 255, 65, 0.3);
-    }
-
-    @keyframes logoGlow {
-      0% { 
-        box-shadow: 
-          0 0 30px var(--primary-glow),
-          inset 0 0 30px rgba(0, 255, 65, 0.2);
-      }
-      100% { 
-        box-shadow: 
-          0 0 60px var(--primary-glow),
-          0 0 100px rgba(0, 255, 65, 0.3),
-          inset 0 0 50px rgba(0, 255, 65, 0.4);
-      }
-    }
-
-    h1 {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      font-weight: 900;
-      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 4s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
-      letter-spacing: 2px;
-    }
-
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    .subtitle {
-      font-size: 1.4rem;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.8);
-      margin-top: 10px;
-      position: relative;
-      z-index: 1;
-      letter-spacing: 1px;
-    }
-
-    /* Container */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Insane section styling */
-    .section {
-      margin: 60px auto;
-      padding: 50px;
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border-radius: 30px;
-      border: 1px solid var(--glass-border);
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
-      animation: borderGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes borderGlow {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
-    .section:hover {
-      transform: translateY(-15px);
-      box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.6),
-        0 0 50px rgba(0, 255, 65, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    h2 {
-      font-family: 'Orbitron', monospace;
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 30px;
-      color: #fff;
-      position: relative;
-      text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-    }
-
-    /* Sick code container */
-    .code-container {
-      position: relative;
-      margin: 40px 0;
-    }
-
-    .code-box {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(15px);
-      padding: 30px;
-      border-radius: 20px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease;
-    }
-
-    .code-box::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
-      border-radius: 20px;
-      z-index: -1;
-      animation: borderRotate 4s linear infinite;
-    }
-
-    @keyframes borderRotate {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .code-box:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
-    }
-
-    code {
-      font-family: 'Courier New', monospace;
-      color: var(--primary-glow);
-      font-size: 16px;
-      flex-grow: 1;
-      word-break: break-all;
-      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-      font-weight: 600;
-    }
-
-    /* Insane button design */
-    .btn {
-      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
-      border: none;
-      padding: 15px 35px;
-      border-radius: 50px;
-      color: #000;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 
-        0 8px 30px rgba(0, 255, 65, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      font-family: 'Orbitron', monospace;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 
-        0 15px 40px rgba(0, 255, 65, 0.6),
-        0 0 30px rgba(0, 255, 65, 0.4);
-    }
-
-    .btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: left 0.6s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .discord-btn {
-      background: linear-gradient(45deg, #5865f2, #7289da);
-      box-shadow: 
-        0 8px 30px rgba(88, 101, 242, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .discord-btn:hover {
-      box-shadow: 
-        0 15px 40px rgba(88, 101, 242, 0.6),
-        0 0 30px rgba(88, 101, 242, 0.4);
-    }
-
-    .discord-logo {
-      width: 24px;
-      height: 24px;
-      filter: brightness(0) invert(1);
-    }
-
-    /* Success message */
-    .message {
-      color: var(--primary-glow);
-      margin-top: 20px;
-      padding: 15px 25px;
-      background: rgba(0, 255, 65, 0.1);
-      border: 1px solid rgba(0, 255, 65, 0.3);
-      border-radius: 15px;
-      display: none;
-      backdrop-filter: blur(10px);
-      animation: slideIn 0.5s ease-out;
-      box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Insane games grid */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 40px;
-      margin-top: 50px;
-    }
-
-    .game-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 25px;
-      padding: 0;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-      cursor: pointer;
-      height: 400px;
-    }
-
-    .game-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
-      border-radius: 25px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .game-card:hover::before {
-      opacity: 1;
-    }
-
-    .game-card:hover {
-      transform: translateY(-15px) rotateX(10deg) rotateY(5deg);
-      box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.4),
-        0 0 50px rgba(0, 255, 65, 0.3);
-    }
-
-    .game-image {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 25px 25px 0 0;
-      transition: all 0.3s ease;
-    }
-
-    .game-card:hover .game-image {
-      transform: scale(1.1);
-      filter: brightness(1.2) saturate(1.3);
-    }
-
-    .game-info {
-      padding: 25px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .game-card h3 {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-    }
-
-    .game-status {
-      font-size: 1rem;
-      color: var(--primary-glow);
-      font-weight: 600;
-      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .section {
-        padding: 30px 25px;
-        margin: 40px 15px;
-      }
-      
-      .code-box {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-      }
-      
-      .games-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-      
-      .game-card {
-        height: 350px;
-      }
-      
-      .game-image {
-        height: 200px;
-      }
-      
-      h2 {
-        font-size: 2rem;
-      }
-
-      .main-logo {
-        width: 120px;
-        height: 120px;
-      }
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(45deg, var(--secondary-glow), var(--primary-glow));
-    }
-
-    /* Page load animation */
-    .fade-in {
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-  </style>
-</head>
-<body class="fade-in">
-  <!-- Animated background -->
-  <div class="bg-animation" id="bgAnimation"></div>
-
-  <header>
-    <div class="logo-container">
-      <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382748340420350014/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c483e&is=684af6be&hm=0dae867e7242710cba13b94b789f0a8f2e55cf7d2f682a0f6e717c7e75b30344&" alt="UNordinary Hub Logo" class="main-logo">
-    </div>
-    <h1>UNordinary Hub</h1>
-    <p class="subtitle">Next-Gen Roblox Domination</p>
-  </header>
-
-  <div class="container">
-    <section class="section">
-      <h2>🚀 Roblox Loader</h2>
-      <p>Execute this legendary loadstring to unleash unlimited power:</p>
-      <div class="code-container">
-        <div class="code-box">
-          <code id="loadstring-code">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</code>
-          <button class="btn" id="copy-button" onclick="copyCode()">
-            📋 Copy Code
-          </button>
-        </div>
-        <div class="message" id="copy-message"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>💬 Join The Elite</h2>
-      <p>Connect with the ultimate gaming community and unlock exclusive content!</p>
-      <br>
-      <a href="https://discord.gg/nyAFKhPXaf" class="btn discord-btn">
-        <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382748295243501771/2025061120301927.png?ex=684c4833&is=684af6b3&hm=f1a8dc1fb8e66b31bdbb4c3eedcd2414c63755582086cc6007b64524db66424d&" alt="Discord" class="discord-logo">
-        Join Discord
-      </a>
-    </section>
-
-    <section class="section">
-      <h2>🎯 Supported Games</h2>
-      <p>Dominate these premium titles with our advanced scripts:</p>
-      <div class="games-grid">
-        <div class="game-card">
-          <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754649244962937/noFilter_1.webp?ex=684c4e1e&is=684afc9e&hm=7276e9169cd9b9c512a8aabb2f3bbe9ef56e87813f7ddd0a3bc59d0a422b473a&" alt="Grow A Garden" class="game-image">
-          <div class="game-info">
-            <h3>Grow A Garden</h3>
-            <p class="game-status">✅ Active Support</p>
-          </div>
-        </div>
-        <div class="game-card">
-          <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754588054126822/noFilter_14.webp?ex=684c4e10&is=684afc90&hm=6ccf8734f62c43f06fb65364c59b1d8c789964668ad1e02846e20017fc7c6232&" alt="HUNTERS" class="game-image">
-          <div class="game-info">
-            <h3>HUNTERS</h3>
-            <p class="game-status">✅ Active Support</p>
-          </div>
-        </div>
-        <div class="game-card">
-          <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754579720044674/noFilter_15.webp?ex=684c4e0e&is=684afc8e&hm=e83ad7db1a4d7292496fae1d4fa7041642469fa010fb8e220dfcf752d53f8b3e&" alt="Bubble Gum Simulator INFINITY" class="game-image">
-          <div class="game-info">
-            <h3>Bubble Gum Simulator INFINITY</h3>
-            <p class="game-status">✅ Active Support</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // Create sick animated particles
-    function createParticles() {
-      const bgAnimation = document.getElementById('bgAnimation');
-      const particleCount = 80;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-        bgAnimation.appendChild(particle);
-      }
-    }
-
-    // Enhanced copy function
-    async function copyCode() {
-      const code = document.getElementById('loadstring-code').innerText;
-      const button = document.getElementById('copy-button');
-      const message = document.getElementById('copy-message');
-      
-      try {
-        await navigator.clipboard.writeText(code);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNordinary Hub - Gaming Excellence</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
         
-        const originalText = button.innerHTML;
-        button.innerHTML = '✅ Copied!';
-        button.style.background = 'linear-gradient(45deg, #00ff88, #00d4ff)';
-        
-        message.textContent = '🎉 Code copied! Ready to dominate.';
-        message.style.display = 'block';
-        
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.style.background = '';
-          message.style.display = 'none';
-        }, 2500);
-        
-      } catch (err) {
-        console.error('Copy failed:', err);
-        message.textContent = '❌ Copy failed. Select and copy manually.';
-        message.style.display = 'block';
-        message.style.borderColor = 'rgba(255, 0, 128, 0.3)';
-        message.style.background = 'rgba(255, 0, 128, 0.1)';
-        message.style.color = '#ff0080';
-      }
-    }
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      });
-    });
 
-    // Initialize particles
-    document.addEventListener('DOMContentLoaded', createParticles);
+        :root {
+            --primary-purple: #6366f1;
+            --secondary-cyan: #06b6d4;
+            --accent-orange: #f59e0b;
+            --dark-bg: #0f172a;
+            --darker-bg: #020617;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+        }
 
-    // Parallax effect
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const sections = document.querySelectorAll('.section');
-      
-      sections.forEach((section, index) => {
-        const rate = scrolled * -0.3;
-        section.style.transform = `translateY(${rate * 0.05}px)`;
-      });
-    });
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    // 3D tilt effect for game cards
-    document.querySelectorAll('.game-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-  </script>
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-purple);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            gap: 4px;
+        }
+
+        .burger-line {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-purple);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: var(--darker-bg);
+            border-left: 1px solid var(--border-color);
+            transition: right 0.3s ease;
+            padding: 2rem;
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-cyan));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Loader Section */
+        .loader-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .code-block {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-header span {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary-cyan);
+            transform: translateY(-1px);
+        }
+
+        .code-content {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--success-green);
+            font-size: 1rem;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-purple);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .game-image {
+            transform: scale(1.05);
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .game-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--success-green);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Discord Section */
+        .discord-section {
+            background: linear-gradient(135deg, var(--card-bg), var(--darker-bg));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #5865f2;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .discord-btn:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(88, 101, 242, 0.4);
+        }
+
+        .discord-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .loader-card {
+                padding: 1.5rem;
+            }
+
+            .discord-section {
+                padding: 2rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success-green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">UH</div>
+                <span>UNordinary Hub</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#loader">Loader</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+            
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo">
+                <div class="logo-icon">UH</div>
+                <span>Menu</span>
+            </div>
+            <button class="close-btn" id="closeBtn">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#loader">Script Loader</a></li>
+            <li><a href="#games">Supported Games</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="#updates">Updates</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Elite Gaming Scripts</h1>
+            <p>Elevate your Roblox experience with our premium script collection. Join thousands of gamers who trust UNordinary Hub for unmatched performance.</p>
+            <a href="#loader" class="cta-button">
+                <span>Get Started</span>
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Loader Section -->
+        <section class="section" id="loader">
+            <div class="section-header">
+                <h2>Script Loader</h2>
+                <p>Execute our loadstring to access all premium features instantly</p>
+            </div>
+            
+            <div class="loader-card">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Lua Script</span>
+                        <button class="copy-btn" onclick="copyToClipboard()">Copy Code</button>
+                    </div>
+                    <div class="code-content" id="codeContent">
+                        loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem;">
+                    ⚡ Instant execution • 🔒 Secure connection • 🚀 Optimized performance
+                </p>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section class="section" id="games">
+            <div class="section-header">
+                <h2>Supported Games</h2>
+                <p>Premium scripts for the most popular Roblox games</p>
+            </div>
+            
+            <div class="games-grid">
+                <div class="game-card">
+                    <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754649244962937/noFilter_1.webp?ex=684c4e1e&is=684afc9e&hm=7276e9169cd9b9c512a8aabb2f3bbe9ef56e87813f7ddd0a3bc59d0a422b473a&" alt="Grow A Garden" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">Grow A Garden</h3>
+                        <div class="game-status">
+                            <div class="status-dot"></div>
+                            <span>Active Support</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754588054126822/noFilter_14.webp?ex=684c4e10&is=684afc90&hm=6ccf8734f62c43f06fb65364c59b1d8c789964668ad1e02846e20017fc7c6232&" alt="HUNTERS" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">HUNTERS</h3>
+                        <div class="game-status">
+                            <div class="status-dot"></div>
+                            <span>Active Support</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754579720044674/noFilter_15.webp?ex=684c4e0e&is=684afc8e&hm=e83ad7db1a4d7292496fae1d4fa7041642469fa010fb8e220dfcf752d53f8b3e&" alt="Bubble Gum Simulator INFINITY" class="game-image">
+                    <div class="game-info">
+                        <h3 class="game-title">Bubble Gum Simulator INFINITY</h3>
+                        <div class="game-status">
+                            <div class="status-dot"></div>
+                            <span>Active Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discord Section -->
+        <section class="section" id="community">
+            <div class="discord-section">
+                <h2>Join Our Community</h2>
+                <p>Connect with fellow gamers, get support, and stay updated with the latest releases.</p>
+                <a href="https://discord.gg/nyAFKhPXaf" class="discord-btn">
+                    <svg class="discord-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.010c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    <span>Join Discord Server</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        ✅ Code copied to clipboard!
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeBtn = document.getElementById('closeBtn');
+        const overlay = document.getElementById('overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        function openMobileMenu() {
+            burgerMenu.classList.add('active');
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            burgerMenu.classList.remove('active');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        burgerMenu.addEventListener('click', openMobileMenu);
+        closeBtn.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Copy to clipboard functionality
+        async function copyToClipboard() {
+            const codeContent = document.getElementById('codeContent').textContent;
+            const successMessage = document.getElementById('successMessage');
+            
+            try {
+                await navigator.clipboard.writeText(codeContent);
+                successMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 3000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = codeContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
+        });
+
+        // Game card hover effects
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.game-card, .loader-card, .discord-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
