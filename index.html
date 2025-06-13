@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNordinary Hub -  Roblox Scripts</title>
+  <title>UNordinary Hub - Premium Roblox Scripts</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     
@@ -638,7 +638,7 @@
   <div class="container">
     <section class="section loading" style="animation-delay: 0.2s">
       <div class="section-header">
-        <div class="section-icon">🚀</div>
+        <div class="section-icon"></div>
         <h2 class="section-title">Script Loader</h2>
       </div>
       <p class="section-description">Execute our premium loadstring to access all features instantly. Copy the code below and paste it into your executor.</p>
@@ -647,7 +647,7 @@
         <div class="code-header">
           <span class="code-title">Universal Loadstring</span>
           <button class="btn btn-primary" onclick="copyCode()" id="copy-btn">
-            📋 Copy Code
+             Copy Code
           </button>
         </div>
         <div class="code-content" id="loadstring">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</div>
@@ -658,7 +658,7 @@
 
     <section class="section loading" style="animation-delay: 0.4s">
       <div class="section-header">
-        <div class="section-icon">💬</div>
+        <div class="section-icon"></div>
         <h2 class="section-title">Join Our Community</h2>
       </div>
       <p class="section-description">Connect with thousands of users, get support, receive updates, and access exclusive content in our Discord server.</p>
@@ -671,7 +671,7 @@
 
     <section class="section loading" style="animation-delay: 0.6s">
       <div class="section-header">
-        <div class="section-icon">🎯</div>
+        <div class="section-icon"></div>
         <h2 class="section-title">Supported Games</h2>
       </div>
       <p class="section-description">Premium scripts designed for the most popular Roblox games. All scripts are regularly updated and fully functional.</p>
@@ -682,7 +682,7 @@
           <div class="game-info">
             <h3 class="game-title">Grow A Garden</h3>
             <div class="game-status">
-              <span style="color: var(--success);">●</span>
+              <span style="color: var(--success);"></span>
               Fully Supported
             </div>
           </div>
@@ -693,7 +693,7 @@
           <div class="game-info">
             <h3 class="game-title">HUNTERS</h3>
             <div class="game-status">
-              <span style="color: var(--success);">●</span>
+              <span style="color: var(--success);"></span>
               Fully Supported
             </div>
           </div>
@@ -704,7 +704,7 @@
           <div class="game-info">
             <h3 class="game-title">Bubble Gum Simulator INFINITY</h3>
             <div class="game-status">
-              <span style="color: var(--success);">●</span>
+              <span style="color: var(--success);"></span>
               Fully Supported
             </div>
           </div>
@@ -714,10 +714,12 @@
   </div>
 
   <script>
-      class ExecutionCounter {
+class ExecutionCounter {
   constructor() {
     this.apiUrl = 'https://api.countapi.xyz/hit/unordinary-hub/executions';
     this.getUrl = 'https://api.countapi.xyz/get/unordinary-hub/executions';
+    this.count = 15847; // Fallback count
+    this.isUpdating = false; // Prevent multiple simultaneous updates
     this.loadCount();
   }
 
@@ -725,22 +727,54 @@
     try {
       const response = await fetch(this.getUrl);
       const data = await response.json();
-      this.count = data.value || 15847;
+      
+      if (data && typeof data.value === 'number') {
+        this.count = data.value;
+      }
+      
       this.updateDisplay();
     } catch (error) {
-      this.count = 15847;
+      console.warn('Failed to load count:', error);
       this.updateDisplay();
     }
   }
 
   async increment() {
+    // Prevent multiple simultaneous increments
+    if (this.isUpdating) {
+      console.log('Counter update already in progress...');
+      return;
+    }
+
+    this.isUpdating = true;
+
     try {
-      const response = await fetch(this.apiUrl);
+      const response = await fetch(this.apiUrl, {
+        method: 'GET',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+      
       const data = await response.json();
-      this.count = data.value;
+      
+      if (data && typeof data.value === 'number') {
+        this.count = data.value;
+        console.log('Counter incremented to:', this.count);
+      } else {
+        // Fallback increment if API doesn't return proper data
+        this.count++;
+        console.log('API returned invalid data, using local increment:', this.count);
+      }
+      
       this.updateDisplay();
     } catch (error) {
-      console.log('Failed to increment counter');
+      console.warn('Failed to increment counter:', error);
+      // Fallback local increment
+      this.count++;
+      this.updateDisplay();
+    } finally {
+      this.isUpdating = false;
     }
   }
 
@@ -750,27 +784,116 @@
       element.textContent = this.count.toLocaleString();
     }
   }
+
+  // Method to refresh count without incrementing
+  async refreshCount() {
+    try {
+      const response = await fetch(this.getUrl + '?' + Date.now()); // Cache busting
+      const data = await response.json();
+      
+      if (data && typeof data.value === 'number') {
+        this.count = data.value;
+        this.updateDisplay();
+      }
+    } catch (error) {
+      console.warn('Failed to refresh count:', error);
+    }
+  }
 }
 
-    // Copy code functionality
-    async function copyCode() {
-      const code = document.getElementById('loadstring').textContent;
-      const button = document.getElementById('copy-btn');
-      const message = document.getElementById('copy-message');
+// Copy code functionality with better error handling
+async function copyCode() {
+  const code = document.getElementById('loadstring').textContent;
+  const button = document.getElementById('copy-btn');
+  const message = document.getElementById('copy-message');
+  
+  try {
+    await navigator.clipboard.writeText(code);
+    
+    // Show success message
+    if (message) {
+      message.textContent = 'Copied!';
+      message.style.color = '#4CAF50';
+      setTimeout(() => {
+        message.textContent = '';
+      }, 2000);
+    }
+    
+    // Update button text temporarily
+    if (button) {
+      const originalText = button.textContent;
+      button.textContent = 'Copied!';
+      button.style.backgroundColor = '#4CAF50';
       
-      try {
-        await navigator.clipboard.writeText(code);
-        
-        // Increment execution counter
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.backgroundColor = '';
+      }, 1500);
+    }
+    
+    // Increment execution counter ONLY on successful copy
+    if (executionCounter) {
+      await executionCounter.increment();
+    }
+    
+  } catch (err) {
+    console.error('Failed to copy code:', err);
+    
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
+      
+      if (message) {
+        message.textContent = 'Copied!';
+        message.style.color = '#4CAF50';
+        setTimeout(() => {
+          message.textContent = '';
+        }, 2000);
+      }
+      
+      // Increment counter on successful fallback copy
+      if (executionCounter) {
         await executionCounter.increment();
+      }
+      
+    } catch (fallbackErr) {
+      console.error('Fallback copy failed:', fallbackErr);
+      
+      if (message) {
+        message.textContent = 'Copy failed!';
+        message.style.color = '#f44336';
+        setTimeout(() => {
+          message.textContent = '';
+        }, 2000);
+      }
+    }
+    
+    document.body.removeChild(textArea);
+  }
+}
+
+// Initialize counter
+const executionCounter = new ExecutionCounter();
+
+// Optional: Refresh counter every 10 seconds to stay updated
+setInterval(() => {
+  if (executionCounter && !executionCounter.isUpdating) {
+    executionCounter.refreshCount();
+  }
+}, 10000);
         
         // Update button state
         const originalHTML = button.innerHTML;
-        button.innerHTML = '✅ Copied!';
+        button.innerHTML = ' Copied!';
         button.style.background = 'linear-gradient(135deg, var(--success), #059669)';
         
         // Show success message
-        message.textContent = '✅ Loadstring copied successfully! Execution count updated.';
+        message.textContent = ' Loadstring copied successfully! Execution count updated.';
         message.className = 'message success';
         message.style.display = 'block';
         
@@ -783,7 +906,7 @@
         
       } catch (error) {
         // Show error message
-        message.textContent = '❌ Failed to copy to clipboard. Please copy manually.';
+        message.textContent = ' Failed to copy to clipboard. Please copy manually.';
         message.className = 'message error';
         message.style.display = 'block';
         
