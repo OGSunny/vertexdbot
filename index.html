@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UNordinary Hub - Premium Roblox Scripts</title>
+  <title>UNordinary Hub</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
     
     * {
       margin: 0;
@@ -14,66 +14,32 @@
     }
 
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #ec4899;
-      --accent: #06b6d4;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --error: #ef4444;
-      
-      --bg-primary: #0f0f23;
-      --bg-secondary: #1a1a2e;
-      --bg-tertiary: #16213e;
-      --bg-card: rgba(26, 26, 46, 0.8);
-      --bg-glass: rgba(255, 255, 255, 0.05);
-      
-      --text-primary: #ffffff;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      
-      --border-subtle: rgba(255, 255, 255, 0.1);
-      --border-emphasis: rgba(255, 255, 255, 0.2);
-      
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-      --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.3);
+      --primary-glow: #00ff41;
+      --secondary-glow: #ff0080;
+      --accent-blue: #00d4ff;
+      --dark-bg: #0a0a0a;
+      --card-bg: rgba(15, 15, 15, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --neon-shadow: 0 0 20px var(--primary-glow);
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
-      color: var(--text-primary);
+      font-family: 'Rajdhani', sans-serif;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      color: #ffffff;
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Animated background grid */
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: gridMove 20s linear infinite;
-      z-index: -2;
-    }
-
-    @keyframes gridMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-
-    /* Floating orbs */
-    .bg-orbs {
+    /* Insane animated background */
+    .bg-animation {
       position: fixed;
       top: 0;
       left: 0;
@@ -83,117 +49,126 @@
       z-index: -1;
     }
 
-    .orb {
+    .particle {
       position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--primary-glow);
       border-radius: 50%;
-      filter: blur(40px);
-      animation: float 15s infinite ease-in-out;
+      animation: floatParticle 15s infinite linear;
+      box-shadow: 0 0 6px var(--primary-glow);
     }
 
-    .orb:nth-child(1) {
-      width: 300px;
-      height: 300px;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      top: 10%;
-      left: 10%;
-      animation-delay: 0s;
+    .particle:nth-child(2n) {
+      background: var(--secondary-glow);
+      box-shadow: 0 0 6px var(--secondary-glow);
+      animation-duration: 20s;
     }
 
-    .orb:nth-child(2) {
-      width: 200px;
-      height: 200px;
-      background: linear-gradient(45deg, var(--accent), var(--success));
-      top: 60%;
-      right: 20%;
-      animation-delay: -5s;
+    .particle:nth-child(3n) {
+      background: var(--accent-blue);
+      box-shadow: 0 0 6px var(--accent-blue);
+      animation-duration: 25s;
     }
 
-    .orb:nth-child(3) {
-      width: 250px;
-      height: 250px;
-      background: linear-gradient(45deg, var(--secondary), var(--warning));
-      bottom: 20%;
-      left: 30%;
-      animation-delay: -10s;
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-      33% { transform: translateY(-30px) rotate(120deg); opacity: 0.5; }
-      66% { transform: translateY(30px) rotate(240deg); opacity: 0.3; }
-    }
-
-    /* Header */
+    /* Sick header design */
     header {
-      position: relative;
-      padding: 2rem 0 4rem;
       text-align: center;
-      background: var(--bg-glass);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .logo-container {
-      margin-bottom: 2rem;
-      position: relative;
-    }
-
-    .logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 24px;
-      border: 2px solid var(--primary);
-      box-shadow: var(--shadow-glow);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 80px 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px);
+      border-bottom: 1px solid var(--glass-border);
       position: relative;
       overflow: hidden;
     }
 
-    .logo::before {
+    header::before {
       content: '';
       position: absolute;
       top: -50%;
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transform: rotate(45deg);
-      transition: all 0.5s;
-      opacity: 0;
+      background: conic-gradient(from 0deg, transparent, var(--primary-glow), transparent, var(--secondary-glow), transparent);
+      animation: rotate 20s linear infinite;
+      opacity: 0.1;
     }
 
-    .logo:hover {
-      transform: scale(1.05) rotate(5deg);
-      box-shadow: 0 0 50px rgba(99, 102, 241, 0.5);
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
     }
 
-    .logo:hover::before {
-      opacity: 1;
-      animation: shimmer 1.5s ease-in-out;
+    .logo-container {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 30px;
     }
 
-    @keyframes shimmer {
-      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    .main-logo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid var(--primary-glow);
+      box-shadow: 
+        0 0 30px var(--primary-glow),
+        inset 0 0 30px rgba(0, 255, 65, 0.2);
+      animation: logoGlow 3s ease-in-out infinite alternate;
+      transition: all 0.3s ease;
     }
 
-    .main-title {
-      font-size: clamp(2.5rem, 5vw, 4rem);
+    .main-logo:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 
+        0 0 50px var(--primary-glow),
+        0 0 100px rgba(0, 255, 65, 0.3),
+        inset 0 0 50px rgba(0, 255, 65, 0.3);
+    }
+
+    @keyframes logoGlow {
+      0% { 
+        box-shadow: 
+          0 0 30px var(--primary-glow),
+          inset 0 0 30px rgba(0, 255, 65, 0.2);
+      }
+      100% { 
+        box-shadow: 
+          0 0 60px var(--primary-glow),
+          0 0 100px rgba(0, 255, 65, 0.3),
+          inset 0 0 50px rgba(0, 255, 65, 0.4);
+      }
+    }
+
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.5rem, 8vw, 5rem);
       font-weight: 900;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
-      background-size: 200% 200%;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      background-size: 300% 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: gradientShift 3s ease-in-out infinite;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
+      animation: gradientShift 4s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
+      letter-spacing: 2px;
     }
 
     @keyframes gradientShift {
@@ -202,82 +177,36 @@
     }
 
     .subtitle {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-      margin-bottom: 2rem;
-    }
-
-    /* Stats section */
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 10px;
       position: relative;
-      overflow: hidden;
+      z-index: 1;
+      letter-spacing: 1px;
     }
 
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-emphasis);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .stat-number {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Main content */
+    /* Container */
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 20px;
     }
 
+    /* Insane section styling */
     .section {
-      margin: 4rem 0;
-      background: var(--bg-card);
+      margin: 60px auto;
+      padding: 50px;
+      background: var(--card-bg);
       backdrop-filter: blur(20px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: 3rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 30px;
+      border: 1px solid var(--glass-border);
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
       position: relative;
       overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     .section::before {
@@ -286,95 +215,123 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
     }
 
     .section:hover {
-      transform: translateY(-8px);
-      border-color: var(--border-emphasis);
-      box-shadow: var(--shadow-xl);
+      transform: translateY(-15px);
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(0, 255, 65, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
-
-    .section-title {
-      font-size: 1.75rem;
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: var(--text-primary);
+      margin-bottom: 30px;
+      color: #fff;
+      position: relative;
+      text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
     }
 
-    .section-description {
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
-
-    /* Code section */
+    /* Sick code container */
     .code-container {
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      overflow: hidden;
+      position: relative;
+      margin: 40px 0;
     }
 
-    .code-header {
+    .code-box {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .code-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-    }
-
-    .code-content {
-      padding: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.875rem;
-      color: var(--text-primary);
-      background: var(--bg-primary);
-      word-break: break-all;
-      line-height: 1.5;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      text-decoration: none;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      border: none;
+      gap: 25px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
       position: relative;
       overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .code-box::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      border-radius: 20px;
+      z-index: -1;
+      animation: borderRotate 4s linear infinite;
+    }
+
+    @keyframes borderRotate {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .code-box:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      color: var(--primary-glow);
+      font-size: 16px;
+      flex-grow: 1;
+      word-break: break-all;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+      font-weight: 600;
+    }
+
+    /* Insane button design */
+    .btn {
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
+      border: none;
+      padding: 15px 35px;
+      border-radius: 50px;
+      color: #000;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 
+        0 8px 30px rgba(0, 255, 65, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      font-family: 'Orbitron', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 
+        0 15px 40px rgba(0, 255, 65, 0.6),
+        0 0 30px rgba(0, 255, 65, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
     }
 
     .btn::before {
@@ -384,194 +341,51 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s;
     }
 
     .btn:hover::before {
       left: 100%;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      box-shadow: var(--shadow-md);
+    .discord-btn {
+      background: linear-gradient(45deg, #5865f2, #7289da);
+      box-shadow: 
+        0 8px 30px rgba(88, 101, 242, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
+    .discord-btn:hover {
+      box-shadow: 
+        0 15px 40px rgba(88, 101, 242, 0.6),
+        0 0 30px rgba(88, 101, 242, 0.4);
     }
 
-    .btn-secondary {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      border: 1px solid var(--border-subtle);
+    .discord-logo {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
     }
 
-    .btn-secondary:hover {
-      background: var(--bg-tertiary);
-      border-color: var(--border-emphasis);
-    }
-
-    .btn-discord {
-      background: linear-gradient(135deg, #5865f2, #4752c4);
-      color: white;
-    }
-
-    .btn-discord:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
-    }
-
-    /* Games grid */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .game-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .game-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--success), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .game-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--border-emphasis);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .game-card:hover::before {
-      opacity: 1;
-    }
-
-    .game-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-
-    .game-card:hover .game-image {
-      transform: scale(1.05);
-    }
-
-    .game-info {
-      padding: 1.5rem;
-    }
-
-    .game-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .game-status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: var(--success);
-      font-weight: 500;
-    }
-
-    /* Message */
+    /* Success message */
     .message {
-      padding: 1rem;
-      border-radius: 12px;
-      margin-top: 1rem;
-      font-weight: 500;
+      color: var(--primary-glow);
+      margin-top: 20px;
+      padding: 15px 25px;
+      background: rgba(0, 255, 65, 0.1);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      border-radius: 15px;
       display: none;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    .message.success {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: var(--success);
-    }
-
-    .message.error {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: var(--error);
+      backdrop-filter: blur(10px);
+      animation: slideIn 0.5s ease-out;
+      box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
     }
 
     @keyframes slideIn {
-      from { transform: translateY(-10px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .header-content {
-        padding: 0 1rem;
-      }
-      
-      .container {
-        padding: 0 1rem;
-      }
-      
-      .section {
-        padding: 2rem;
-        margin: 2rem 0;
-      }
-      
-      .stats-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .games-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .stats-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .section {
-        padding: 1.5rem;
-      }
-      
-      .code-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-      }
-    }
-
-    /* Loading animation */
-    .loading {
-      opacity: 0;
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-20px);
       }
       to {
         opacity: 1;
@@ -579,134 +393,216 @@
       }
     }
 
-    /* Scrollbar */
+    /* Insane games grid */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
+      height: 400px;
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue), var(--secondary-glow));
+      border-radius: 25px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .game-card:hover::before {
+      opacity: 1;
+    }
+
+    .game-card:hover {
+      transform: translateY(-15px) rotateX(10deg) rotateY(5deg);
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(0, 255, 65, 0.3);
+    }
+
+    .game-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 25px 25px 0 0;
+      transition: all 0.3s ease;
+    }
+
+    .game-card:hover .game-image {
+      transform: scale(1.1);
+      filter: brightness(1.2) saturate(1.3);
+    }
+
+    .game-info {
+      padding: 25px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .game-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    }
+
+    .game-status {
+      font-size: 1rem;
+      color: var(--primary-glow);
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .section {
+        padding: 30px 25px;
+        margin: 40px 15px;
+      }
+      
+      .code-box {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .games-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .game-card {
+        height: 350px;
+      }
+      
+      .game-image {
+        height: 200px;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+
+      .main-logo {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    /* Custom scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
+      background: rgba(0, 0, 0, 0.3);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 4px;
+      background: linear-gradient(45deg, var(--primary-glow), var(--accent-blue));
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+      background: linear-gradient(45deg, var(--secondary-glow), var(--primary-glow));
+    }
+
+    /* Page load animation */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
   </style>
 </head>
-<body>
-  <div class="bg-grid"></div>
-  <div class="bg-orbs">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
+<body class="fade-in">
+  <!-- Animated background -->
+  <div class="bg-animation" id="bgAnimation"></div>
 
-  <header class="loading">
-    <div class="header-content">
-      <div class="logo-container">
-        <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382748340420350014/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c483e&is=684af6be&hm=0dae867e7242710cba13b94b789f0a8f2e55cf7d2f682a0f6e717c7e75b30344&" alt="UNordinary Hub" class="logo">
-      </div>
-      <h1 class="main-title">UNordinary Hub</h1>
-      <p class="subtitle">Premium Roblox Scripts & Tools</p>
-      
-      <div class="stats-container">
-        <div class="stat-card">
-          <span class="stat-number" id="executions">Loading...</span>
-          <span class="stat-label">Total Executions</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number" id="users">12,547</span>
-          <span class="stat-label">Active Users</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number" id="scripts">3</span>
-          <span class="stat-label">Supported Games</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number" id="uptime">99.9%</span>
-          <span class="stat-label">Uptime</span>
-        </div>
-      </div>
+  <header>
+    <div class="logo-container">
+      <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382748340420350014/Make_me_a_logo_Saying_UNordinary_Hub_only_those_letters_20250522_231444_0000.jpg?ex=684c483e&is=684af6be&hm=0dae867e7242710cba13b94b789f0a8f2e55cf7d2f682a0f6e717c7e75b30344&" alt="UNordinary Hub Logo" class="main-logo">
     </div>
+    <h1>UNordinary Hub</h1>
+    <p class="subtitle">Next-Gen Roblox Domination</p>
   </header>
 
   <div class="container">
-    <section class="section loading" style="animation-delay: 0.2s">
-      <div class="section-header">
-        <div class="section-icon">📜</div>
-        <h2 class="section-title">Script Loader</h2>
-      </div>
-      <p class="section-description">Execute our premium loadstring to access all features instantly. Copy the code below and paste it into your executor.</p>
-      
+    <section class="section">
+      <h2>🚀 Roblox Loader</h2>
+      <p>Execute this legendary loadstring to unleash unlimited power:</p>
       <div class="code-container">
-        <div class="code-header">
-          <span class="code-title">Universal Loadstring</span>
-          <button class="btn btn-primary" onclick="copyCode()" id="copy-btn">
+        <div class="code-box">
+          <code id="loadstring-code">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</code>
+          <button class="btn" id="copy-button" onclick="copyCode()">
             📋 Copy Code
           </button>
         </div>
-        <div class="code-content" id="loadstring">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</div>
+        <div class="message" id="copy-message"></div>
       </div>
-      
-      <div class="message" id="copy-message"></div>
     </section>
 
-    <section class="section loading" style="animation-delay: 0.4s">
-      <div class="section-header">
-        <div class="section-icon">👥</div>
-        <h2 class="section-title">Join Our Community</h2>
-      </div>
-      <p class="section-description">Connect with thousands of users, get support, receive updates, and access exclusive content in our Discord server.</p>
-      
-      <a href="https://discord.gg/nyAFKhPXaf" class="btn btn-discord" target="_blank">
-        <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382748295243501771/2025061120301927.png?ex=684c4833&is=684af6b3&hm=f1a8dc1fb8e66b31bdbb4c3eedcd2414c63755582086cc6007b64524db66424d&" alt="Discord" style="width: 20px; height: 20px; filter: brightness(0) invert(1);">
-        Join Discord Server
+    <section class="section">
+      <h2>💬 Join The Elite</h2>
+      <p>Connect with the ultimate gaming community and unlock exclusive content!</p>
+      <br>
+      <a href="https://discord.gg/nyAFKhPXaf" class="btn discord-btn">
+        <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382748295243501771/2025061120301927.png?ex=684c4833&is=684af6b3&hm=f1a8dc1fb8e66b31bdbb4c3eedcd2414c63755582086cc6007b64524db66424d&" alt="Discord" class="discord-logo">
+        Join Discord
       </a>
     </section>
 
-    <section class="section loading" style="animation-delay: 0.6s">
-      <div class="section-header">
-        <div class="section-icon">🎮</div>
-        <h2 class="section-title">Supported Games</h2>
-      </div>
-      <p class="section-description">Premium scripts designed for the most popular Roblox games. All scripts are regularly updated and fully functional.</p>
-      
+    <section class="section">
+      <h2>🎯 Supported Games</h2>
+      <p>Dominate these premium titles with our advanced scripts:</p>
       <div class="games-grid">
         <div class="game-card">
           <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754649244962937/noFilter_1.webp?ex=684c4e1e&is=684afc9e&hm=7276e9169cd9b9c512a8aabb2f3bbe9ef56e87813f7ddd0a3bc59d0a422b473a&" alt="Grow A Garden" class="game-image">
           <div class="game-info">
-            <h3 class="game-title">Grow A Garden</h3>
-            <div class="game-status">
-              <span style="color: var(--success);">●</span>
-              Fully Supported
-            </div>
+            <h3>Grow A Garden</h3>
+            <p class="game-status">✅ Active Support</p>
           </div>
         </div>
-        
         <div class="game-card">
           <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754588054126822/noFilter_14.webp?ex=684c4e10&is=684afc90&hm=6ccf8734f62c43f06fb65364c59b1d8c789964668ad1e02846e20017fc7c6232&" alt="HUNTERS" class="game-image">
           <div class="game-info">
-            <h3 class="game-title">HUNTERS</h3>
-            <div class="game-status">
-              <span style="color: var(--success);">●</span>
-              Fully Supported
-            </div>
+            <h3>HUNTERS</h3>
+            <p class="game-status">✅ Active Support</p>
           </div>
         </div>
-        
         <div class="game-card">
           <img src="https://cdn.discordapp.com/attachments/1378827800386994246/1382754579720044674/noFilter_15.webp?ex=684c4e0e&is=684afc8e&hm=e83ad7db1a4d7292496fae1d4fa7041642469fa010fb8e220dfcf752d53f8b3e&" alt="Bubble Gum Simulator INFINITY" class="game-image">
           <div class="game-info">
-            <h3 class="game-title">Bubble Gum Simulator INFINITY</h3>
-            <div class="game-status">
-              <span style="color: var(--success);">●</span>
-              Fully Supported
-            </div>
+            <h3>Bubble Gum Simulator INFINITY</h3>
+            <p class="game-status">✅ Active Support</p>
           </div>
         </div>
       </div>
@@ -714,204 +610,54 @@
   </div>
 
   <script>
-    // Execution Counter Class
-    class ExecutionCounter {
-      constructor() {
-        this.apiUrl = 'https://api.countapi.xyz/hit/unordinary-hub/executions';
-        this.getUrl = 'https://api.countapi.xyz/get/unordinary-hub/executions';
-        this.count = 0;
-        this.isUpdating = false;
-        this.isLoading = true;
-        
-        // Initialize immediately
-        this.initialize();
-      }
-
-      async initialize() {
-        console.log('Initializing execution counter...');
-        await this.loadCount();
-        this.isLoading = false;
-      }
-
-      async loadCount() {
-        try {
-          console.log('Loading current execution count...');
-          const response = await fetch(this.getUrl + '?t=' + Date.now());
-          
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          
-          const data = await response.json();
-          console.log('Counter API response:', data);
-          
-          if (data && typeof data.value === 'number') {
-            this.count = data.value;
-            console.log('Loaded execution count:', this.count);
-          } else {
-            throw new Error('Invalid API response structure');
-          }
-          
-          this.updateDisplay();
-        } catch (error) {
-          console.error('Failed to load execution count:', error);
-          
-          // Show error state
-          const element = document.getElementById('executions');
-          if (element) {
-            element.textContent = 'Error';
-            element.style.color = '#ef4444';
-          }
-        }
-      }
-
-      async increment() {
-        if (this.isUpdating || this.isLoading) {
-          console.log('Counter update in progress or still loading...');
-          return false;
-        }
-
-        this.isUpdating = true;
-        const previousCount = this.count;
-
-        try {
-          console.log('Incrementing execution counter...');
-          const response = await fetch(this.apiUrl + '?t=' + Date.now());
-          
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          
-          const data = await response.json();
-          console.log('Increment API response:', data);
-          
-          if (data && typeof data.value === 'number') {
-            this.count = data.value;
-            console.log('Counter incremented to:', this.count);
-            this.updateDisplay();
-            return true;
-          } else {
-            throw new Error('Invalid increment response');
-          }
-          
-        } catch (error) {
-          console.error('Failed to increment counter:', error);
-          
-          this.count = previousCount;
-          this.updateDisplay();
-          return false;
-        } finally {
-          this.isUpdating = false;
-        }
-      }
-
-      updateDisplay() {
-        const element = document.getElementById('executions');
-        if (element) {
-          element.textContent = this.count.toLocaleString();
-          element.style.color = '';
-        }
-      }
-
-      async refreshCount() {
-        if (this.isUpdating) return;
-        
-        try {
-          const response = await fetch(this.getUrl + '?t=' + Date.now());
-          
-          if (!response.ok) return;
-          
-          const data = await response.json();
-          
-          if (data && typeof data.value === 'number') {
-            this.count = data.value;
-            this.updateDisplay();
-          }
-        } catch (error) {
-          console.warn('Failed to refresh count:', error);
-        }
+    // Create sick animated particles
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 80;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+        bgAnimation.appendChild(particle);
       }
     }
 
-    // Copy functionality
+    // Enhanced copy function
     async function copyCode() {
-      const code = document.getElementById('loadstring').textContent;
-      const button = document.getElementById('copy-btn');
+      const code = document.getElementById('loadstring-code').innerText;
+      const button = document.getElementById('copy-button');
       const message = document.getElementById('copy-message');
       
       try {
         await navigator.clipboard.writeText(code);
         
-// Show success message
-        if (message) {
-          message.textContent = '✅ Loadstring copied successfully!';
-          message.className = 'message success';
-          message.style.display = 'block';
-          
-          // Hide message after 3 seconds
-          setTimeout(() => {
-            message.style.display = 'none';
-          }, 3000);
-        }
-        
-        // Update button text temporarily
         const originalText = button.innerHTML;
         button.innerHTML = '✅ Copied!';
-        button.style.background = 'linear-gradient(135deg, var(--success), #059669)';
+        button.style.background = 'linear-gradient(45deg, #00ff88, #00d4ff)';
         
-        // Increment execution counter when code is copied
-        if (window.executionCounter) {
-          await window.executionCounter.increment();
-        }
+        message.textContent = '🎉 Code copied! Ready to dominate.';
+        message.style.display = 'block';
         
-        // Reset button after 2 seconds
         setTimeout(() => {
           button.innerHTML = originalText;
           button.style.background = '';
-        }, 2000);
+          message.style.display = 'none';
+        }, 2500);
         
       } catch (err) {
-        console.error('Failed to copy code:', err);
-        
-        // Show error message
-        if (message) {
-          message.textContent = '❌ Failed to copy code. Please copy manually.';
-          message.className = 'message error';
-          message.style.display = 'block';
-          
-          // Hide message after 3 seconds
-          setTimeout(() => {
-            message.style.display = 'none';
-          }, 3000);
-        }
+        console.error('Copy failed:', err);
+        message.textContent = '❌ Copy failed. Select and copy manually.';
+        message.style.display = 'block';
+        message.style.borderColor = 'rgba(255, 0, 128, 0.3)';
+        message.style.background = 'rgba(255, 0, 128, 0.1)';
+        message.style.color = '#ff0080';
       }
     }
 
-    // Initialize execution counter when page loads
-    window.addEventListener('DOMContentLoaded', () => {
-      console.log('DOM loaded, initializing execution counter...');
-      window.executionCounter = new ExecutionCounter();
-      
-      // Refresh count every 30 seconds
-      setInterval(() => {
-        if (window.executionCounter) {
-          window.executionCounter.refreshCount();
-        }
-      }, 30000);
-    });
-
-    // Add loading animation delays
-    document.addEventListener('DOMContentLoaded', () => {
-      const elements = document.querySelectorAll('.loading');
-      elements.forEach((el, index) => {
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, index * 200);
-      });
-    });
-
-    // Add smooth scrolling for any internal links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -925,50 +671,39 @@
       });
     });
 
-    // Add intersection observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Initialize particles
+    document.addEventListener('DOMContentLoaded', createParticles);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections for scroll animations
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-    });
-
-    // Add some particle effects on button hover (optional enhancement)
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-2px)';
-      });
-      
-      btn.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-      });
-    });
-
-    // Performance optimization: Debounce scroll events
-    let scrollTimeout;
+    // Parallax effect
     window.addEventListener('scroll', () => {
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
+      const scrolled = window.pageYOffset;
+      const sections = document.querySelectorAll('.section');
       
-      scrollTimeout = setTimeout(() => {
-        // Add any scroll-based animations or effects here
-      }, 16); // ~60fps
+      sections.forEach((section, index) => {
+        const rate = scrolled * -0.3;
+        section.style.transform = `translateY(${rate * 0.05}px)`;
+      });
+    });
+
+    // 3D tilt effect for game cards
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
     });
   </script>
 </body>
