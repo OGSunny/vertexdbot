@@ -718,61 +718,114 @@ class ExecutionCounter {
   constructor() {
     this.apiUrl = 'https://api.countapi.xyz/hit/unordinary-hub/executions';
     this.getUrl = 'https://api.countapi.xyz/get/unordinary-hub/executions';
-    this.count = 15847; // Fallback count
-    this.isUpdating = false; // Prevent multiple simultaneous updates
-    this.loadCount();
+    this.count = 0; // Start with 0, will be updated from API
+    this.isUpdating = false;
+    this.isLoading = true;
+    
+    // Load the actual count immediately when the page loads
+    this.initialize();
+  }
+
+  async initialize() {
+    console.log('Initializing counter...');
+    this.showLoading();
+    await this.loadCount();
+    this.isLoading = false;
+  }
+
+  showLoading() {
+    const element = document.getElementById('executions');
+    if (element) {
+      element.textContent = 'Loading...';
+    }
   }
 
   async loadCount() {
     try {
-      const response = await fetch(this.getUrl);
+      console.log('Fetching current count from API...');
+      const response = await fetch(this.getUrl + '?t=' + Date.now()); // Cache busting
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('API response:', data);
       
       if (data && typeof data.value === 'number') {
         this.count = data.value;
+        console.log('Successfully loaded count:', this.count);
+      } else {
+        console.warn('Invalid API response structure:', data);
+        throw new Error('Invalid API response');
       }
       
       this.updateDisplay();
     } catch (error) {
-      console.warn('Failed to load count:', error);
-      this.updateDisplay();
+      console.error('Failed to load count:', error);
+      
+      // Show error state instead of fallback number
+      const element = document.getElementById('executions');
+      if (element) {
+        element.textContent = 'Error loading count';
+        element.style.color = '#f44336';
+      }
     }
   }
 
   async increment() {
-    // Prevent multiple simultaneous increments
-    if (this.isUpdating) {
-      console.log('Counter update already in progress...');
+    if (this.isUpdating || this.isLoading) {
+      console.log('Counter update already in progress or still loading...');
       return;
     }
 
     this.isUpdating = true;
+    const previousCount = this.count;
 
     try {
-      const response = await fetch(this.apiUrl, {
+      console.log('Incrementing counter...');
+      const response = await fetch(this.apiUrl + '?t=' + Date.now(), {
         method: 'GET',
         headers: {
-          'Cache-Control': 'no-cache'
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
         }
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('Increment API response:', data);
       
       if (data && typeof data.value === 'number') {
         this.count = data.value;
         console.log('Counter incremented to:', this.count);
+        this.updateDisplay();
       } else {
-        // Fallback increment if API doesn't return proper data
-        this.count++;
-        console.log('API returned invalid data, using local increment:', this.count);
+        throw new Error('Invalid increment response');
       }
       
-      this.updateDisplay();
     } catch (error) {
-      console.warn('Failed to increment counter:', error);
-      // Fallback local increment
-      this.count++;
+      console.error('Failed to increment counter:', error);
+      
+      // Revert to previous count and show error
+      this.count = previousCount;
       this.updateDisplay();
+      
+      // Show temporary error message
+      const element = document.getElementById('executions');
+      if (element) {
+        const originalColor = element.style.color;
+        element.style.color = '#f44336';
+        element.textContent = 'Error updating count';
+        
+        setTimeout(() => {
+          element.style.color = originalColor;
+          this.updateDisplay();
+        }, 3000);
+      }
     } finally {
       this.isUpdating = false;
     }
@@ -782,22 +835,124 @@ class ExecutionCounter {
     const element = document.getElementById('executions');
     if (element) {
       element.textContent = this.count.toLocaleString();
+      element.style.color = ''; // Reset color
     }
   }
 
-  // Method to refresh count without incrementing
   async refreshCount() {
+    if (this.isUpdating) return;
+    
     try {
-      const response = await fetch(this.getUrl + '?' + Date.now()); // Cache busting
+      console.log('Refreshing count...');
+      const response = await fetch(this.getUrl + '?t=' + Date.now());
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data && typeof data.value === 'number') {
         this.count = data.value;
         this.updateDisplay();
+        console.log('Count refreshed to:', this.count);
       }
     } catch (error) {
       console.warn('Failed to refresh count:', error);
     }
+  }
+}
+
+// Copy code functionality
+async function copyCode() {
+  const code = document.getElementById('loadstring').textContent;
+  const button = document.getElementById('copy-btn');
+  const message = document.getElementById('copy-message');
+  
+  try {
+    await navigator.clipboard.writeText(code);
+    
+    // Show success message
+    if (message) {
+      message.textContent = 'Copied!';
+      message.style.color = '#4CAF50';
+      setTimeout(() => {
+        message.textContent = '';
+      }, 2000);
+    }
+    
+    // Update button text temporarily
+    if (button) {
+      const originalText = button.textContent;
+      button.textContent = 'Copied!';
+      button.style.backgroundColor = '#4CAF50';
+      
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.backgroundColor = '';
+      }, 1500);
+    }
+    
+    // Increment execution counter ONLY on successful copy
+    if (executionCounter && !executionCounter.isLoading) {
+      await executionCounter.increment();
+    }
+    
+  } catch (err) {
+    console.error('Failed to copy code:', err);
+    
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
+      
+      if (message) {
+        message.textContent = 'Copied!';
+        message.style.color = '#4CAF50';
+        setTimeout(() => {
+          message.textContent = '';
+        }, 2000);
+      }
+      
+      // Increment counter on successful fallback copy
+      if (executionCounter && !executionCounter.isLoading) {
+        await executionCounter.increment();
+      }
+      
+    } catch (fallbackErr) {
+      console.error('Fallback copy failed:', fallbackErr);
+      
+      if (message) {
+        message.textContent = 'Copy failed!';
+        message.style.color = '#f44336';
+        setTimeout(() => {
+          message.textContent = '';
+        }, 2000);
+      }
+    }
+    
+    document.body.removeChild(textArea);
+  }
+}
+
+// Initialize counter - this will automatically load the real count
+const executionCounter = new ExecutionCounter();
+
+// Refresh counter every 30 seconds to stay updated with real data
+setInterval(() => {
+  if (executionCounter && !executionCounter.isUpdating && !executionCounter.isLoading) {
+    executionCounter.refreshCount();
+  }
+}, 30000);
+
+// Optional: Add a manual refresh button functionality
+function refreshCounter() {
+  if (executionCounter) {
+    executionCounter.refreshCount();
   }
 }
 
