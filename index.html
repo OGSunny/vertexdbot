@@ -1,1 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNordinary Hub - Free Gaming Scripts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .burger-line {
+            width: 25px;
+            height: 3px;
+            background: #ffffff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #4ecdc4;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4ecdc4;
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .burger-menu {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(15, 15, 35, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: right 0.3s;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-radius: 20px;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #4ecdc4;
+        }
+
+        /* Supported Games */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ff6b6b;
+        }
+
+        .game-card p {
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        .game-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: #000;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Loader Section */
+        .loader-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .loader-code {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4ecdc4;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #45b7d1;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .discord-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #5865f2, #7289da);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
+        }
+
+        .discord-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Privacy Policy */
+        .privacy-policy {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 1.8;
+        }
+
+        .privacy-policy h4 {
+            color: #ff6b6b;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .privacy-policy p {
+            margin-bottom: 1rem;
+            color: #cccccc;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4ecdc4;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #45b7d1;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://cdn.discordapp.com/attachments/1373069236532154511/1387781566268440596/file_000000003ea8620abd88c7610441fa5f.png?ex=685e97cd&is=685d464d&hm=3cf6d74bc3a95b9dc8b160547fcc9d8a2dd290a479203e4c8f2a569db4e7e82b&" alt="UNordinary Hub Logo">
+                <h1>UNordinary Hub</h1>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#games">Supported Games</a></li>
+                    <li><a href="#loader">Loader</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+                <div class="burger-menu">
+                    <div class="burger-line"></div>
+                    <div class="burger-line"></div>
+                    <div class="burger-line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section id="home" class="hero fade-in">
+                <h2>Welcome to UNordinary Hub</h2>
+                <p>Your ultimate destination for free, keyless gaming scripts. Experience the best games with our completely free tools and enhancements.</p>
+            </section>
+
+            <!-- Supported Games Section -->
+            <section id="games" class="section">
+                <h3>Supported Games</h3>
+                <div class="games-grid">
+                    <div class="game-card fade-in">
+                        <img src="https://cdn.discordapp.com/attachments/1378818415506096248/1382712622302101575/noFilter_1.webp?ex=684c26fa&is=684ad57a&hm=05ddc44aabfc3c0492d5739885b5f953639e875baa215a8f89c74b040720b821&" alt="Featured Game">
+                        <h4>Featured Game</h4>
+                        <p>Experience enhanced gameplay with our completely free script suite. No keys, no payments, just pure gaming enhancement.</p>
+                        <span class="game-status">FREE & KEYLESS</span>
+                    </div>
+                    
+                    <div class="game-card fade-in">
+                        <img src="https://via.placeholder.com/300x200/4ecdc4/ffffff?text=More+Games+Coming" alt="Coming Soon">
+                        <h4>More Games Coming</h4>
+                        <p>We're constantly expanding our library of supported games. Join our Discord to stay updated on new releases!</p>
+                        <span class="game-status">COMING SOON</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loader Section -->
+            <section id="loader" class="section">
+                <h3>Universal Loader</h3>
+                <div class="loader-section fade-in">
+                    <h4>Easy Setup - Copy & Execute</h4>
+                    <p>Simply copy the code below and execute it in your game environment:</p>
+                    <div class="loader-code">
+                        <button class="copy-btn" onclick="copyLoader()">Copy</button>
+                        <code id="loader-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/UNordinaryHub/Scripts/main/loader.lua", true))()</code>
+                    </div>
+                    <p><strong>100% Free</strong> • <strong>No Keys Required</strong> • <strong>Always Updated</strong></p>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section">
+                <h3>Get in Touch</h3>
+                <div class="contact-section fade-in">
+                    <h4>Join Our Community</h4>
+                    <p>Connect with thousands of users, get support, and stay updated with the latest releases!</p>
+                    <a href="https://discord.gg/Me8VfHSGyp" class="discord-link" target="_blank">
+                        🎮 Join Discord Server
+                    </a>
+                    <p style="margin-top: 1rem; color: #cccccc;">
+                        Get instant support, share feedback, and be part of our growing community!
+                    </p>
+                </div>
+            </section>
+
+            <!-- Privacy Policy Section -->
+            <section id="privacy" class="section">
+                <h3>Privacy Policy & Terms</h3>
+                <div class="privacy-policy fade-in">
+                    <h4>1. Intellectual Property Protection</h4>
+                    <p>All content, scripts, code, designs, logos, and materials provided by UNordinary Hub are protected by comprehensive intellectual property laws. Users are strictly prohibited from:</p>
+                    <p>• Copying, redistributing, or sharing any of our proprietary scripts or code</p>
+                    <p>• Creating derivative works or modifications of our content</p>
+                    <p>• Reverse engineering, decompiling, or attempting to extract source code</p>
+                    <p>• Using our content for commercial purposes without explicit written permission</p>
+
+                    <h4>2. Anti-Forking and Source Protection</h4>
+                    <p>UNordinary Hub employs advanced security measures to protect our intellectual property. Any attempts to fork, clone, or replicate our repositories will result in immediate legal action. We maintain:</p>
+                    <p>• Encrypted and obfuscated code delivery systems</p>
+                    <p>• Real-time monitoring for unauthorized access attempts</p>
+                    <p>• Legal partnerships for swift intellectual property enforcement</p>
+                    <p>• Comprehensive logging and tracking of all script executions</p>
+
+                    <h4>3. User Data Collection and Processing</h4>
+                    <p>We collect and process various types of user data to enhance service delivery and security:</p>
+                    <p>• Hardware identifiers and system specifications</p>
+                    <p>• Network information including IP addresses and connection details</p>
+                    <p>• Usage patterns, execution logs, and performance metrics</p>
+                    <p>• Account information and authentication data</p>
+                    <p>• Communication logs from Discord and other platforms</p>
+
+                    <h4>4. Security and Anti-Tampering Measures</h4>
+                    <p>Our platform incorporates military-grade security protocols:</p>
+                    <p>• Multi-layer encryption for all data transmission</p>
+                    <p>• Advanced anti-debugging and anti-tampering technologies</p>
+                    <p>• Real-time threat detection and response systems</p>
+                    <p>• Automated ban systems for policy violations</p>
+                    <p>• Regular security audits and penetration testing</p>
+
+                    <h4>5. Legal Enforcement and Consequences</h4>
+                    <p>Violation of these terms will result in severe consequences including but not limited to:</p>
+                    <p>• Immediate permanent ban from all services</p>
+                    <p>• Legal action for copyright infringement</p>
+                    <p>• Monetary damages for intellectual property theft</p>
+                    <p>• Reporting to relevant authorities for criminal violations</p>
+                    <p>• Public disclosure of violations to protect other creators</p>
+
+                    <h4>6. Service Availability and Modifications</h4>
+                    <p>UNordinary Hub reserves the right to modify, suspend, or terminate services at any time without prior notice. We are not liable for any damages resulting from service interruptions or modifications.</p>
+
+                    <h4>7. Age Restrictions and Parental Consent</h4>
+                    <p>Users must be at least 13 years old to use our services. Users under 18 require parental consent and supervision. We may request age verification at any time.</p>
+
+                    <h4>8. Disclaimer of Warranties</h4>
+                    <p>All services are provided "as is" without warranties of any kind. We disclaim all liability for damages arising from the use of our services, including but not limited to account suspensions, game bans, or data loss.</p>
+
+                    <h4>9. International Compliance</h4>
+                    <p>Our services comply with international copyright laws, DMCA regulations, and digital rights management standards. We cooperate fully with law enforcement agencies worldwide.</p>
+
+                    <h4>10. Contact and Legal Notices</h4>
+                    <p>All legal notices, takedown requests, and intellectual property concerns should be directed to our legal team through official channels. We respond to all legitimate legal requests within 24 hours.</p>
+
+                    <p style="margin-top: 2rem; font-weight: bold; color: #ff6b6b;">
+                        By using UNordinary Hub services, you acknowledge that you have read, understood, and agree to be bound by these terms. Violation of any provision may result in immediate termination and legal action.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 UNordinary Hub. All rights reserved. Free gaming, forever.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Copy loader function
+        function copyLoader() {
+            const loaderText = document.getElementById('loader-text').textContent;
+            navigator.clipboard.writeText(loaderText).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.style.background = '#45b7d1';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = '#4ecdc4';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                header.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+        });
+    </script>
+</body>
+  </html>
