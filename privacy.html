@@ -19,6 +19,44 @@
             overflow-x: hidden;
         }
 
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(78, 205, 196, 0.3);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header Styles */
         .header {
             position: fixed;
             top: 0;
@@ -28,6 +66,7 @@
             z-index: 1000;
             padding: 1rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav-container {
@@ -49,6 +88,7 @@
             width: 50px;
             height: 50px;
             border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
         }
 
         .logo h1 {
@@ -62,10 +102,15 @@
         .back-btn {
             background: linear-gradient(45deg, #4ecdc4, #45b7d1);
             color: #000;
-            text-decoration: none;
+            border: none;
             padding: 0.8rem 1.5rem;
             border-radius: 8px;
+            cursor: pointer;
             font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             transition: all 0.3s;
         }
 
@@ -74,6 +119,7 @@
             box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
         }
 
+        /* Main Content */
         .main-content {
             margin-top: 100px;
             padding: 2rem;
@@ -81,90 +127,276 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        .privacy-header {
+        /* Hero Section */
+        .hero {
             text-align: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0;
             margin-bottom: 3rem;
+            position: relative;
         }
 
-        .privacy-header h2 {
-            font-size: 2.5rem;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
         }
 
-        .privacy-header p {
+        .hero p {
+            font-size: 1.2rem;
             color: #cccccc;
-            font-size: 1.1rem;
-        }
-
-        .privacy-content {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .privacy-content h3 {
-            color: #ff6b6b;
-            margin: 2rem 0 1rem 0;
-            font-size: 1.4rem;
-            border-left: 4px solid #ff6b6b;
-            padding-left: 1rem;
-        }
-
-        .privacy-content h3:first-child {
-            margin-top: 0;
-        }
-
-        .privacy-content p {
-            margin-bottom: 1rem;
-            color: #cccccc;
-            line-height: 1.8;
-        }
-
-        .privacy-content ul {
-            margin: 1rem 0 1rem 2rem;
-            color: #cccccc;
-        }
-
-        .privacy-content li {
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-
-        .warning-box {
-            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(255, 82, 82, 0.1));
-            border: 2px solid #ff6b6b;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .warning-box p {
-            color: #ff6b6b;
-            font-weight: bold;
-            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .last-updated {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #4ecdc4;
+            border: 1px solid rgba(78, 205, 196, 0.3);
         }
 
+        /* Privacy Content */
+        .privacy-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border-left: 4px solid #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .section h2 {
+            color: #4ecdc4;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section h2::before {
+            content: '';
+            width: 20px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            color: #ff6b6b;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3::before {
+            content: '▶';
+            color: #4ecdc4;
+            font-size: 0.8rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .section ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            color: #cccccc;
+        }
+
+        .section li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .section li::marker {
+            color: #4ecdc4;
+        }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(69, 183, 209, 0.1));
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #0f0f23;
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 82, 82, 0.1));
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #0f0f23;
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-section h2 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+        }
+
+        .discord-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #5865f2, #7289da);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 1rem 0.5rem;
+        }
+
+        .discord-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toc h3 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: #cccccc;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .toc a:hover {
+            background: rgba(78, 205, 196, 0.1);
+            border-left-color: #4ecdc4;
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -174,135 +406,389 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #4ecdc4;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #45b7d1;
+            background: linear-gradient(45deg, #45b7d1, #4ecdc4);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .privacy-content {
-                padding: 1.5rem;
+            .nav-container {
+                padding: 0 1rem;
             }
-            
-            .privacy-header h2 {
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .hero h1 {
                 font-size: 2rem;
+            }
+
+            .privacy-content {
+                padding: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="particles" id="particles"></div>
+
     <header class="header">
         <div class="nav-container">
             <div class="logo">
                 <img src="https://cdn.discordapp.com/attachments/1373069236532154511/1387781566268440596/file_000000003ea8620abd88c7610441fa5f.png?ex=685e97cd&is=685d464d&hm=3cf6d74bc3a95b9dc8b160547fcc9d8a2dd290a479203e4c8f2a569db4e7e82b&" alt="UNordinary Hub Logo">
                 <h1>UNordinary Hub</h1>
             </div>
-            <a href="javascript:history.back()" class="back-btn">← Back to Main</a>
+            <a href="index.html" class="back-btn">
+                ← Back to Home
+            </a>
         </div>
     </header>
 
     <main class="main-content">
         <div class="container">
-            <div class="privacy-header">
-                <h2>Privacy Policy & Terms of Service</h2>
-                <p>Please read these terms carefully before using our services</p>
+            <!-- Hero Section -->
+            <section class="hero fade-in">
+                <h1>Privacy Policy</h1>
+                <p>Your privacy is important to us. This policy explains how we collect, use, and protect your information.</p>
+                <div class="last-updated">Last Updated: December 2024</div>
+            </section>
+
+            <!-- Table of Contents -->
+            <section class="toc fade-in">
+                <h3>📋 Table of Contents</h3>
+                <ul>
+                    <li><a href="#information-collection">Information We Collect</a></li>
+                    <li><a href="#information-use">How We Use Your Information</a></li>
+                    <li><a href="#information-sharing">Information Sharing</a></li>
+                    <li><a href="#data-security">Data Security</a></li>
+                    <li><a href="#user-rights">Your Rights</a></li>
+                    <li><a href="#cookies">Cookies and Tracking</a></li>
+                    <li><a href="#third-party">Third-Party Services</a></li>
+                    <li><a href="#children">Children's Privacy</a></li>
+                    <li><a href="#changes">Policy Changes</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </section>
+
+            <div class="privacy-content fade-in">
+                <!-- Information Collection -->
+                <section id="information-collection" class="section">
+                    <h2>🔍 Information We Collect</h2>
+                    
+                    <h3>Automatically Collected Information</h3>
+                    <p>When you visit our website or use our services, we may automatically collect certain information:</p>
+                    <ul>
+                        <li>Device information (browser type, operating system, device identifiers)</li>
+                        <li>Usage data (pages visited, time spent, interactions)</li>
+                        <li>IP address and general location information</li>
+                        <li>Referral source and exit pages</li>
+                    </ul>
+
+                    <h3>Information You Provide</h3>
+                    <p>We collect information that you voluntarily provide to us:</p>
+                    <ul>
+                        <li>Discord username when joining our community</li>
+                        <li>Feedback and support requests</li>
+                        <li>Bug reports and suggestions</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Important:</strong> We do not collect personal information like your real name, email address, or payment information since our services are completely free.</p>
+                    </div>
+                </section>
+
+                <!-- Information Use -->
+                <section id="information-use" class="section">
+                    <h2>🎯 How We Use Your Information</h2>
+                    
+                    <p>We use the collected information for the following purposes:</p>
+                    <ul>
+                        <li><strong>Service Improvement:</strong> Analyze usage patterns to enhance our scripts and website</li>
+                        <li><strong>Technical Support:</strong> Provide assistance and troubleshooting</li>
+                        <li><strong>Security:</strong> Detect and prevent abuse or malicious activity</li>
+                        <li><strong>Communication:</strong> Send important updates about our services</li>
+                        <li><strong>Analytics:</strong> Understand user preferences and improve user experience</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Note:</strong> We never sell, rent, or trade your information to third parties for marketing purposes.</p>
+                    </div>
+                </section>
+
+                <!-- Information Sharing -->
+                <section id="information-sharing" class="section">
+                    <h2>🤝 Information Sharing</h2>
+                    
+                    <p>We may share your information in the following limited circumstances:</p>
+                    
+                    <h3>With Your Consent</h3>
+                    <p>We will share your information when you explicitly consent to such sharing.</p>
+
+                    <h3>Legal Requirements</h3>
+                    <p>We may disclose information if required by law, regulation, or legal process.</p>
+
+                    <h3>Service Providers</h3>
+                    <p>We may share information with trusted third-party service providers who help us operate our services:</p>
+                    <ul>
+                        <li>Web hosting providers</li>
+                        <li>Analytics services (Google Analytics)</li>
+                        <li>Content delivery networks</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Data Minimization:</strong> We only share the minimum amount of information necessary to provide our services.</p>
+                    </div>
+                </section>
+
+                <!-- Data Security -->
+                <section id="data-security" class="section">
+                    <h2>🔒 Data Security</h2>
+                    
+                    <p>We implement appropriate security measures to protect your information:</p>
+                    <ul>
+                        <li><strong>Encryption:</strong> Data transmission is encrypted using SSL/TLS</li>
+                        <li><strong>Access Controls:</strong> Limited access to personal information</li>
+                        <li><strong>Regular Updates:</strong> Security systems are regularly updated</li>
+                        <li><strong>Monitoring:</strong> Continuous monitoring for security threats</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Important:</strong> While we strive to protect your information, no method of transmission over the internet is 100% secure. Please be cautious when sharing sensitive information online.</p>
+                    </div>
+                </section>
+
+                <!-- User Rights -->
+                <section id="user-rights" class="section">
+                    <h2>⚖️ Your Rights</h2>
+                    
+                    <p>You have the following rights regarding your information:</p>
+                    
+                    <h3>Access and Portability</h3>
+                    <p>Request access to the personal information we have about you and receive it in a portable format.</p>
+
+                    <h3>Correction</h3>
+                    <p>Request correction of any inaccurate or incomplete information.</p>
+
+                    <h3>Deletion</h3>
+                    <p>Request deletion of your personal information, subject to legal requirements.</p>
+
+                    <h3>Opt-Out</h3>
+                    <p>Opt out of certain data collection and processing activities.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Exercising Your Rights:</strong> Contact us through Discord or our support channels to exercise any of these rights.</p>
+                    </div>
+                </section>
+
+                <!-- Cookies -->
+                <section id="cookies" class="section">
+                    <h2>🍪 Cookies and Tracking</h2>
+                    
+                    <p>We use cookies and similar technologies to enhance your experience:</p>
+                    
+                    <h3>Types of Cookies We Use</h3>
+                    <ul>
+                        <li><strong>Essential Cookies:</strong> Required for basic website functionality</li>
+                        <li><strong>Analytics Cookies:</strong> Help us understand website usage</li>
+                        <li><strong>Preference Cookies:</strong> Remember your settings and preferences</li>
+                    </ul>
+
+                    <h3>Managing Cookies</h3>
+                    <p>You can control cookies through your browser settings:</p>
+                    <ul>
+                        <li>Block all cookies</li>
+                        <li>Allow only essential cookies</li>
+                        <li>Delete existing cookies</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Note:</strong> Disabling cookies may affect website functionality and user experience.</p>
+                    </div>
+                </section>
+
+                <!-- Third-Party Services -->
+                <section id="third-party" class="section">
+                    <h2>🔗 Third-Party Services</h2>
+                    
+                    <p>Our website may contain links to third-party services:</p>
+                    
+                    <h3>External Links</h3>
+                    <p>Links to external websites are provided for convenience. We are not responsible for their privacy practices.</p>
+
+                    <h3>Integrated Services</h3>
+                    <p>We use the following third-party services:</p>
+                    <ul>
+                        <li><strong>Discord:</strong> For community interaction and support</li>
+                        <li><strong>GitHub:</strong> For script hosting and version control</li>
+                        <li><strong>Google Analytics:</strong> For website analytics</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Recommendation:</strong> Review the privacy policies of any third-party services you interact with.</p>
+                    </div>
+                </section>
+
+                <!-- Children's Privacy -->
+                <section id="children" class="section">
+                    <h2>👶 Children's Privacy</h2>
+                    
+                    <p>We are committed to protecting children's privacy:</p>
+                    <ul>
+                        <li>We do not knowingly collect information from children under 13</li>
+                        <li>If we discover we have collected such information, we will delete it promptly</li>
+                        <li>Parents can contact us to request deletion of their child's information</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Parental Notice:</strong> If you believe your child has provided information to us, please contact us immediately.</p>
+                    </div>
+                </section>
+
+                <!-- Policy Changes -->
+                <section id="changes" class="section">
+                    <h2>📝 Policy Changes</h2>
+                    
+                    <p>We may update this privacy policy from time to time:</p>
+                    <ul>
+                        <li>Changes will be posted on this page</li>
+                        <li>Significant changes will be announced in our Discord server</li>
+                        <li>The "Last Updated" date will be revised</li>
+                        <li>Continued use of our services constitutes acceptance of changes</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Stay Informed:</strong> We recommend reviewing this policy periodically to stay informed about how we protect your information.</p>
+                    </div>
+                </section>
             </div>
 
-            <div class="privacy-content">
-                <h3>1. Intellectual Property Protection</h3>
-                <p>All content, scripts, code, designs, logos, and materials provided by UNordinary Hub are protected by comprehensive intellectual property laws. Users are strictly prohibited from:</p>
-                <ul>
-                    <li>Copying, redistributing, or sharing any of our proprietary scripts or code</li>
-                    <li>Creating derivative works or modifications of our content</li>
-                    <li>Reverse engineering, decompiling, or attempting to extract source code</li>
-                    <li>Using our content for commercial purposes without explicit written permission</li>
-                    <li>Bypassing any security measures or obfuscation techniques</li>
-                </ul>
-
-                <h3>2. Anti-Forking and Source Protection</h3>
-                <p>UNordinary Hub employs advanced security measures to protect our intellectual property. Any attempts to fork, clone, or replicate our repositories will result in immediate legal action. We maintain:</p>
-                <ul>
-                    <li>Encrypted and obfuscated code delivery systems</li>
-                    <li>Real-time monitoring for unauthorized access attempts</li>
-                    <li>Legal partnerships for swift intellectual property enforcement</li>
-                    <li>Comprehensive logging and tracking of all script executions</li>
-                    <li>Advanced fingerprinting and detection systems</li>
-                </ul>
-
-                <h3>3. User Data Collection and Processing</h3>
-                <p>We collect and process various types of user data to enhance service delivery and security:</p>
-                <ul>
-                    <li>Hardware identifiers and system specifications</li>
-                    <li>Network information including IP addresses and connection details</li>
-                    <li>Usage patterns, execution logs, and performance metrics</li>
-                    <li>Account information and authentication data</li>
-                    <li>Communication logs from Discord and other platforms</li>
-                    <li>Behavioral analytics and interaction patterns</li>
-                </ul>
-
-                <h3>4. Security and Anti-Tampering Measures</h3>
-                <p>Our platform incorporates military-grade security protocols:</p>
-                <ul>
-                    <li>Multi-layer encryption for all data transmission</li>
-                    <li>Advanced anti-debugging and anti-tampering technologies</li>
-                    <li>Real-time threat detection and response systems</li>
-                    <li>Automated ban systems for policy violations</li>
-                    <li>Regular security audits and penetration testing</li>
-                    <li>Blockchain-based integrity verification</li>
-                </ul>
-
-                <h3>5. Legal Enforcement and Consequences</h3>
-                <p>Violation of these terms will result in severe consequences including but not limited to:</p>
-                <ul>
-                    <li>Immediate permanent ban from all services</li>
-                    <li>Legal action for copyright infringement</li>
-                    <li>Monetary damages for intellectual property theft</li>
-                    <li>Reporting to relevant authorities for criminal violations</li>
-                    <li>Public disclosure of violations to protect other creators</li>
-                    <li>Pursuit of maximum legal penalties under applicable laws</li>
-                </ul>
-
-                <h3>6. Service Availability and Modifications</h3>
-                <p>UNordinary Hub reserves the right to modify, suspend, or terminate services at any time without prior notice. We are not liable for any damages resulting from service interruptions or modifications. Our services are provided on an "as available" basis.</p>
-
-                <h3>7. Age Restrictions and Parental Consent</h3>
-                <p>Users must be at least 13 years old to use our services. Users under 18 require parental consent and supervision. We may request age verification at any time and reserve the right to terminate accounts that cannot provide adequate verification.</p>
-
-                <h3>8. Disclaimer of Warranties</h3>
-                <p>All services are provided "as is" without warranties of any kind. We disclaim all liability for damages arising from the use of our services, including but not limited to account suspensions, game bans, data loss, or any other consequences.</p>
-
-                <h3>9. International Compliance</h3>
-                <p>Our services comply with international copyright laws, DMCA regulations, and digital rights management standards. We cooperate fully with law enforcement agencies worldwide and maintain legal presence in multiple jurisdictions for enforcement purposes.</p>
-
-                <h3>10. Contact and Legal Notices</h3>
-                <p>All legal notices, takedown requests, and intellectual property concerns should be directed to our legal team through official channels. We respond to all legitimate legal requests within 24 hours and maintain detailed records of all communications.</p>
-
-                <h3>11. Data Retention and Privacy Rights</h3>
-                <p>We retain user data for security and legal compliance purposes. Users may request data deletion, but we reserve the right to maintain certain information for fraud prevention and legal obligations. Data may be shared with law enforcement when legally required.</p>
-
-                <h3>12. Prohibited Activities</h3>
-                <p>Users are strictly prohibited from engaging in:</p>
-                <ul>
-                    <li>Any form of reverse engineering or code analysis</li>
-                    <li>Attempting to bypass security measures</li>
-                    <li>Sharing account credentials or access methods</li>
-                    <li>Using our services for malicious purposes</li>
-                    <li>Violating game terms of service while using our scripts</li>
-                </ul>
-
-                <div class="warning-box">
-                    <p>⚠️ WARNING: By using UNordinary Hub services, you acknowledge that you have read, understood, and agree to be bound by these terms. Violation of any provision may result in immediate termination and legal action. We employ sophisticated tracking and monitoring systems to ensure compliance.</p>
-                </div>
-
-                <div class="last-updated">
-                    <p>Last Updated: December 2024</p>
-                    <p>These terms are subject to change without notice. Continued use constitutes acceptance of updated terms.</p>
-                </div>
-            </div>
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section fade-in">
+                <h2>📞 Contact Us</h2>
+                <p>If you have any questions about this privacy policy or our data practices, please contact us:</p>
+                <a href="https://discord.gg/Me8VfHSGyp" class="discord-link" target="_blank">
+                    💬 Discord Support
+                </a>
+                <p style="margin-top: 1rem; color: #cccccc;">
+                    Our team is available to help you understand your privacy rights and address any concerns.
+                </p>
+            </section>
         </div>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 UNordinary Hub. All rights reserved. Your privacy, our priority.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section, .hero, .toc, .contact-section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 15, 35, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.5)';
+            } else {
+                header.style.background = 'rgba(15, 15, 35, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+            }
+        });
+
+        // Highlight current section in TOC
+        const sections = document.querySelectorAll('.section');
+        const tocLinks = document.querySelectorAll('.toc a');
+
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    currentSection = section.id;
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.color = '#cccccc';
+                link.style.background = 'transparent';
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.style.color = '#4ecdc4';
+                    link.style.background = 'rgba(78, 205, 196, 0.1)';
+                }
+            });
+        });
+
+        // Initialize particles
+        createParticles();
+
+        // Add hover effects to sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                section.style.background = 'rgba(255, 255, 255, 0.05)';
+            });
+            
+            section.addEventListener('mouseleave', () => {
+                section.style.background = 'rgba(255, 255, 255, 0.03)';
+            });
+        });
+    </script>
 </body>
 </html>
