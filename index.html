@@ -1,4 +1,84 @@
-<!DOCTYPE html>
+/* Privacy Policy Modal */
+        .privacy-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .privacy-modal.active {
+            display: flex;
+        }
+
+        .privacy-content {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .privacy-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .privacy-close:hover {
+            background: #ff5252;
+        }
+
+        .privacy-content h3 {
+            color: #4ecdc4;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .privacy-content h4 {
+            color: #ff6b6b;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar for modal */
+        .privacy-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .privacy-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .privacy-content::-webkit-scrollbar-thumb {
+            background: #4ecdc4;
+            border-radius: 4px;
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -260,35 +340,75 @@
             text-align: center;
         }
 
-        .loader-code {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            color: #4ecdc4;
-            border: 1px solid rgba(78, 205, 196, 0.3);
+        .loader-box {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(69, 183, 209, 0.1));
+            border: 2px solid #4ecdc4;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
             position: relative;
-            overflow-x: auto;
+        }
+
+        .loader-title {
+            color: #4ecdc4;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .loader-code {
+            background: #000;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            color: #00ff00;
+            border: 1px solid #333;
+            margin: 1rem 0;
+            word-break: break-all;
+            position: relative;
         }
 
         .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #4ecdc4;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
             color: #000;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 1rem;
         }
 
         .copy-btn:hover {
-            background: #45b7d1;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .loader-steps {
+            text-align: left;
+            margin-top: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .loader-steps h5 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .loader-steps ol {
+            color: #cccccc;
+            padding-left: 1.5rem;
+        }
+
+        .loader-steps li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
         }
 
         /* Contact Section */
@@ -317,23 +437,86 @@
             box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
         }
 
-        /* Privacy Policy */
-        .privacy-policy {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+        /* Privacy Policy Modal */
+        .privacy-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
             padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            line-height: 1.8;
         }
 
-        .privacy-policy h4 {
+        .privacy-modal.active {
+            display: flex;
+        }
+
+        .privacy-content {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .privacy-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .privacy-close:hover {
+            background: #ff5252;
+        }
+
+        .privacy-content h3 {
+            color: #4ecdc4;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .privacy-content h4 {
             color: #ff6b6b;
             margin: 1.5rem 0 1rem 0;
         }
 
-        .privacy-policy p {
+        .privacy-content p {
             margin-bottom: 1rem;
             color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar for modal */
+        .privacy-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .privacy-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .privacy-content::-webkit-scrollbar-thumb {
+            background: #4ecdc4;
+            border-radius: 4px;
         }
 
         /* Footer */
@@ -393,7 +576,7 @@
                     <li><a href="#games">Supported Games</a></li>
                     <li><a href="#loader">Loader</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
                 </ul>
                 <div class="burger-menu">
                     <div class="burger-line"></div>
@@ -434,15 +617,27 @@
 
             <!-- Loader Section -->
             <section id="loader" class="section">
-                <h3>Universal Loader</h3>
+                <h3>Get Started</h3>
                 <div class="loader-section fade-in">
-                    <h4>Easy Setup - Copy & Execute</h4>
-                    <p>Simply copy the code below and execute it in your game environment:</p>
-                    <div class="loader-code">
-                        <button class="copy-btn" onclick="copyLoader()">Copy</button>
-                        <code id="loader-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/UNordinaryHub/Scripts/main/loader.lua", true))()</code>
+                    <div class="loader-box">
+                        <div class="loader-title">🚀 Universal Script Loader</div>
+                        <p>Copy this script and execute it in your executor:</p>
+                        <div class="loader-code">
+                            <code id="loader-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/UNordinaryHub/Scripts/main/loader.lua", true))()</code>
+                        </div>
+                        <button class="copy-btn" onclick="copyLoader()">📋 Copy Script</button>
+                        
+                        <div class="loader-steps">
+                            <h5>How to Use:</h5>
+                            <ol>
+                                <li>Open your preferred Roblox executor</li>
+                                <li>Copy the script above</li>
+                                <li>Paste it into your executor</li>
+                                <li>Execute and enjoy!</li>
+                            </ol>
+                        </div>
                     </div>
-                    <p><strong>100% Free</strong> • <strong>No Keys Required</strong> • <strong>Always Updated</strong></p>
+                    <p style="margin-top: 1rem;"><strong>✅ 100% Free</strong> • <strong>🔓 No Keys</strong> • <strong>🔄 Always Updated</strong></p>
                 </div>
             </section>
 
@@ -461,68 +656,7 @@
                 </div>
             </section>
 
-            <!-- Privacy Policy Section -->
-            <section id="privacy" class="section">
-                <h3>Privacy Policy & Terms</h3>
-                <div class="privacy-policy fade-in">
-                    <h4>1. Intellectual Property Protection</h4>
-                    <p>All content, scripts, code, designs, logos, and materials provided by UNordinary Hub are protected by comprehensive intellectual property laws. Users are strictly prohibited from:</p>
-                    <p>• Copying, redistributing, or sharing any of our proprietary scripts or code</p>
-                    <p>• Creating derivative works or modifications of our content</p>
-                    <p>• Reverse engineering, decompiling, or attempting to extract source code</p>
-                    <p>• Using our content for commercial purposes without explicit written permission</p>
 
-                    <h4>2. Anti-Forking and Source Protection</h4>
-                    <p>UNordinary Hub employs advanced security measures to protect our intellectual property. Any attempts to fork, clone, or replicate our repositories will result in immediate legal action. We maintain:</p>
-                    <p>• Encrypted and obfuscated code delivery systems</p>
-                    <p>• Real-time monitoring for unauthorized access attempts</p>
-                    <p>• Legal partnerships for swift intellectual property enforcement</p>
-                    <p>• Comprehensive logging and tracking of all script executions</p>
-
-                    <h4>3. User Data Collection and Processing</h4>
-                    <p>We collect and process various types of user data to enhance service delivery and security:</p>
-                    <p>• Hardware identifiers and system specifications</p>
-                    <p>• Network information including IP addresses and connection details</p>
-                    <p>• Usage patterns, execution logs, and performance metrics</p>
-                    <p>• Account information and authentication data</p>
-                    <p>• Communication logs from Discord and other platforms</p>
-
-                    <h4>4. Security and Anti-Tampering Measures</h4>
-                    <p>Our platform incorporates military-grade security protocols:</p>
-                    <p>• Multi-layer encryption for all data transmission</p>
-                    <p>• Advanced anti-debugging and anti-tampering technologies</p>
-                    <p>• Real-time threat detection and response systems</p>
-                    <p>• Automated ban systems for policy violations</p>
-                    <p>• Regular security audits and penetration testing</p>
-
-                    <h4>5. Legal Enforcement and Consequences</h4>
-                    <p>Violation of these terms will result in severe consequences including but not limited to:</p>
-                    <p>• Immediate permanent ban from all services</p>
-                    <p>• Legal action for copyright infringement</p>
-                    <p>• Monetary damages for intellectual property theft</p>
-                    <p>• Reporting to relevant authorities for criminal violations</p>
-                    <p>• Public disclosure of violations to protect other creators</p>
-
-                    <h4>6. Service Availability and Modifications</h4>
-                    <p>UNordinary Hub reserves the right to modify, suspend, or terminate services at any time without prior notice. We are not liable for any damages resulting from service interruptions or modifications.</p>
-
-                    <h4>7. Age Restrictions and Parental Consent</h4>
-                    <p>Users must be at least 13 years old to use our services. Users under 18 require parental consent and supervision. We may request age verification at any time.</p>
-
-                    <h4>8. Disclaimer of Warranties</h4>
-                    <p>All services are provided "as is" without warranties of any kind. We disclaim all liability for damages arising from the use of our services, including but not limited to account suspensions, game bans, or data loss.</p>
-
-                    <h4>9. International Compliance</h4>
-                    <p>Our services comply with international copyright laws, DMCA regulations, and digital rights management standards. We cooperate fully with law enforcement agencies worldwide.</p>
-
-                    <h4>10. Contact and Legal Notices</h4>
-                    <p>All legal notices, takedown requests, and intellectual property concerns should be directed to our legal team through official channels. We respond to all legitimate legal requests within 24 hours.</p>
-
-                    <p style="margin-top: 2rem; font-weight: bold; color: #ff6b6b;">
-                        By using UNordinary Hub services, you acknowledge that you have read, understood, and agree to be bound by these terms. Violation of any provision may result in immediate termination and legal action.
-                    </p>
-                </div>
-            </section>
         </div>
     </main>
 
@@ -623,4 +757,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
