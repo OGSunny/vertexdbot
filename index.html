@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNordinary Hub - Premium Gaming Scripts</title>
+    <title>UNordinary Hub - Gaming Scripts</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -16,6 +16,7 @@
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             --dark-bg: #0a0a0a;
             --card-bg: rgba(255, 255, 255, 0.08);
             --text-primary: #ffffff;
@@ -100,6 +101,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .nav-menu {
@@ -283,7 +290,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 1px;
+            height: 2px;
             background: var(--accent-gradient);
             transform: scaleX(0);
             transition: transform 0.3s ease;
@@ -387,11 +394,15 @@
         .game-status {
             display: inline-block;
             padding: 0.5rem 1rem;
-            background: var(--accent-gradient);
+            background: var(--success-gradient);
             color: white;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
+        }
+
+        .status-soon {
+            background: var(--secondary-gradient);
         }
 
         /* Loader Section */
@@ -439,16 +450,17 @@
         }
 
         .code-block {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 12px;
             padding: 1.5rem;
             margin: 2rem 0;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 1rem;
             color: #00ff88;
             border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
+            word-break: break-all;
         }
 
         .copy-btn {
@@ -483,6 +495,12 @@
             padding: 1.5rem;
             text-align: center;
             border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .step-number {
@@ -576,6 +594,11 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
+
+            .code-block {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
         }
 
         /* Scroll animations */
@@ -589,13 +612,32 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
     </style>
 </head>
 <body>
     <header class="header" id="header">
         <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-rocket"></i>
+                <i class="fas fa-code"></i>
                 <span>UNordinary Hub</span>
             </div>
             <nav>
@@ -604,7 +646,7 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#games">Games</a></li>
                     <li><a href="#loader">Get Started</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact">Community</a></li>
                     <li><a href="privacy.html" class="cta">Privacy Policy</a></li>
                 </ul>
                 <div class="burger-menu" id="burger-menu">
@@ -620,8 +662,8 @@
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="hero-content">
-                <h1>Next-Gen Gaming Scripts</h1>
-                <p class="hero-subtitle">Experience the ultimate gaming enhancement with our premium, keyless script collection. Completely free, always updated, forever powerful.</p>
+                <h1>Quality Gaming Scripts</h1>
+                <p class="hero-subtitle">Enhance your gaming experience with our collection of reliable, keyless scripts. Free to use, regularly updated, and built by the community.</p>
                 <div class="hero-buttons">
                     <a href="#loader" class="btn btn-primary">
                         <i class="fas fa-download"></i>
@@ -645,42 +687,42 @@
                             <i class="fas fa-key"></i>
                         </div>
                         <h3>100% Keyless</h3>
-                        <p>No more waiting for keys or completing annoying tasks. Our scripts work instantly without any authentication barriers.</p>
+                        <p>No tedious key systems or verification processes. Our scripts work instantly without any authentication barriers or waiting periods.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h3>Secure & Safe</h3>
-                        <p>All scripts are thoroughly tested and verified. We prioritize your account safety with advanced security measures.</p>
+                        <h3>Safe & Reliable</h3>
+                        <p>All scripts are carefully tested and maintained. We prioritize stability and user safety in everything we create.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-sync-alt"></i>
                         </div>
-                        <h3>Always Updated</h3>
-                        <p>Our scripts are continuously updated to work with the latest game versions. Never worry about compatibility issues.</p>
+                        <h3>Regular Updates</h3>
+                        <p>Our scripts are continuously maintained to ensure compatibility with the latest game updates and patches.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-users"></i>
                         </div>
                         <h3>Community Driven</h3>
-                        <p>Join thousands of satisfied users in our Discord community. Get support, share feedback, and stay connected.</p>
+                        <p>Built by gamers, for gamers. Join our active community for support, feedback, and feature requests.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-bolt"></i>
                         </div>
-                        <h3>Lightning Fast</h3>
-                        <p>Optimized for performance with minimal resource usage. Experience smooth gameplay without lag or crashes.</p>
+                        <h3>Optimized Performance</h3>
+                        <p>Lightweight and efficient scripts that won't impact your game performance or cause lag.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-heart"></i>
                         </div>
-                        <h3>Completely Free</h3>
-                        <p>No hidden costs, no subscriptions, no premium tiers. Everything we offer is completely free, forever.</p>
+                        <h3>Always Free</h3>
+                        <p>No subscriptions, no hidden fees, no paywalls. Everything we offer is completely free and open to all.</p>
                     </div>
                 </div>
             </div>
@@ -696,9 +738,9 @@
                             <i class="fas fa-gamepad"></i>
                         </div>
                         <div class="game-content">
-                            <h3 class="game-title">Premium Game Scripts</h3>
-                            <p class="game-description">Access our collection of premium gaming scripts with advanced features, auto-farming, ESP, and more. Completely free and keyless.</p>
-                            <span class="game-status">🚀 ACTIVE</span>
+                            <h3 class="game-title">Universal Game Scripts</h3>
+                            <p class="game-description">Access our growing collection of game enhancement scripts featuring quality-of-life improvements, automation tools, and useful utilities.</p>
+                            <span class="game-status">✅ ACTIVE</span>
                         </div>
                     </div>
                     <div class="game-card">
@@ -707,8 +749,8 @@
                         </div>
                         <div class="game-content">
                             <h3 class="game-title">More Games Coming</h3>
-                            <p class="game-description">We're constantly expanding our library. Join our Discord to vote on which games to support next and get early access to new releases.</p>
-                            <span class="game-status">🔄 COMING SOON</span>
+                            <p class="game-description">We're constantly expanding our library based on community requests. Join our Discord to suggest new games and vote on upcoming additions.</p>
+                            <span class="game-status status-soon">🔄 COMING SOON</span>
                         </div>
                     </div>
                 </div>
@@ -721,33 +763,33 @@
                 <h2 class="section-title">Get Started in Seconds</h2>
                 <div class="loader-card">
                     <h3 class="loader-title">Universal Script Loader</h3>
-                    <p>Copy and execute this script in your favorite executor:</p>
+                    <p>Copy and execute this script in your preferred executor:</p>
                     <div class="code-block">
                         <button class="copy-btn" onclick="copyScript()">
                             <i class="fas fa-copy"></i> Copy
                         </button>
-                        <code id="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/UNordinaryHub/Scripts/main/loader.lua", true))()</code>
+                        <code id="script-code">loadstring(game:HttpGet("https://www.unordinariness.xyz/loader.lua"))()</code>
                     </div>
                     <div class="steps">
                         <div class="step">
                             <div class="step-number">1</div>
                             <h4>Open Executor</h4>
-                            <p>Launch your preferred Roblox executor</p>
+                            <p>Launch your preferred script executor</p>
                         </div>
                         <div class="step">
                             <div class="step-number">2</div>
                             <h4>Copy Script</h4>
-                            <p>Copy the script above to your clipboard</p>
+                            <p>Click the copy button above</p>
                         </div>
                         <div class="step">
                             <div class="step-number">3</div>
                             <h4>Execute</h4>
-                            <p>Paste and execute the script</p>
+                            <p>Paste and run the script</p>
                         </div>
                         <div class="step">
                             <div class="step-number">4</div>
                             <h4>Enjoy</h4>
-                            <p>Start using our premium features!</p>
+                            <p>Start using our features!</p>
                         </div>
                     </div>
                 </div>
@@ -758,7 +800,7 @@
         <section class="contact" id="contact">
             <div class="contact-container scroll-reveal">
                 <h2 class="section-title">Join Our Community</h2>
-                <p>Connect with thousands of users, get instant support, and stay updated with the latest releases!</p>
+                <p>Connect with fellow users, get support, report issues, and stay updated with the latest releases and announcements!</p>
                 <a href="https://discord.gg/Me8VfHSGyp" class="discord-btn" target="_blank">
                     <i class="fab fa-discord"></i>
                     Join Discord Server
@@ -768,7 +810,7 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2024 UNordinary Hub. All rights reserved. Empowering gamers worldwide.</p>
+        <p>&copy; 2024 UNordinary Hub. Made with ❤️ by the community, for the community.</p>
     </footer>
 
     <script>
@@ -820,7 +862,33 @@
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy text: ', err);
-                alert('Failed to copy script. Please copy manually.');
+                
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = scriptCode;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    const copyBtn = document.querySelector('.copy-btn');
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    copyBtn.style.background = 'linear-gradient(135deg, #00ff88 0%, #00cc66 100%)';
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalHTML;
+                        copyBtn.style.background = '';
+                    }, 2000);
+                } catch (fallbackErr) {
+                    alert('Unable to copy automatically. Please copy the script manually.');
+                }
+                
+                document.body.removeChild(textArea);
             });
         }
 
