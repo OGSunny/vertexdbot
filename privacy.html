@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - UNordinary Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: #000;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            min-height: calc(100vh - 100px);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .privacy-header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .privacy-header h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-header p {
+            color: #cccccc;
+            font-size: 1.1rem;
+        }
+
+        .privacy-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .privacy-content h3 {
+            color: #ff6b6b;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.4rem;
+            border-left: 4px solid #ff6b6b;
+            padding-left: 1rem;
+        }
+
+        .privacy-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        .privacy-content ul {
+            margin: 1rem 0 1rem 2rem;
+            color: #cccccc;
+        }
+
+        .privacy-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(255, 82, 82, 0.1));
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .warning-box p {
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4ecdc4;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #45b7d1;
+        }
+
+        @media (max-width: 768px) {
+            .privacy-content {
+                padding: 1.5rem;
+            }
+            
+            .privacy-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://cdn.discordapp.com/attachments/1373069236532154511/1387781566268440596/file_000000003ea8620abd88c7610441fa5f.png?ex=685e97cd&is=685d464d&hm=3cf6d74bc3a95b9dc8b160547fcc9d8a2dd290a479203e4c8f2a569db4e7e82b&" alt="UNordinary Hub Logo">
+                <h1>UNordinary Hub</h1>
+            </div>
+            <a href="javascript:history.back()" class="back-btn">← Back to Main</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="privacy-header">
+                <h2>Privacy Policy & Terms of Service</h2>
+                <p>Please read these terms carefully before using our services</p>
+            </div>
+
+            <div class="privacy-content">
+                <h3>1. Intellectual Property Protection</h3>
+                <p>All content, scripts, code, designs, logos, and materials provided by UNordinary Hub are protected by comprehensive intellectual property laws. Users are strictly prohibited from:</p>
+                <ul>
+                    <li>Copying, redistributing, or sharing any of our proprietary scripts or code</li>
+                    <li>Creating derivative works or modifications of our content</li>
+                    <li>Reverse engineering, decompiling, or attempting to extract source code</li>
+                    <li>Using our content for commercial purposes without explicit written permission</li>
+                    <li>Bypassing any security measures or obfuscation techniques</li>
+                </ul>
+
+                <h3>2. Anti-Forking and Source Protection</h3>
+                <p>UNordinary Hub employs advanced security measures to protect our intellectual property. Any attempts to fork, clone, or replicate our repositories will result in immediate legal action. We maintain:</p>
+                <ul>
+                    <li>Encrypted and obfuscated code delivery systems</li>
+                    <li>Real-time monitoring for unauthorized access attempts</li>
+                    <li>Legal partnerships for swift intellectual property enforcement</li>
+                    <li>Comprehensive logging and tracking of all script executions</li>
+                    <li>Advanced fingerprinting and detection systems</li>
+                </ul>
+
+                <h3>3. User Data Collection and Processing</h3>
+                <p>We collect and process various types of user data to enhance service delivery and security:</p>
+                <ul>
+                    <li>Hardware identifiers and system specifications</li>
+                    <li>Network information including IP addresses and connection details</li>
+                    <li>Usage patterns, execution logs, and performance metrics</li>
+                    <li>Account information and authentication data</li>
+                    <li>Communication logs from Discord and other platforms</li>
+                    <li>Behavioral analytics and interaction patterns</li>
+                </ul>
+
+                <h3>4. Security and Anti-Tampering Measures</h3>
+                <p>Our platform incorporates military-grade security protocols:</p>
+                <ul>
+                    <li>Multi-layer encryption for all data transmission</li>
+                    <li>Advanced anti-debugging and anti-tampering technologies</li>
+                    <li>Real-time threat detection and response systems</li>
+                    <li>Automated ban systems for policy violations</li>
+                    <li>Regular security audits and penetration testing</li>
+                    <li>Blockchain-based integrity verification</li>
+                </ul>
+
+                <h3>5. Legal Enforcement and Consequences</h3>
+                <p>Violation of these terms will result in severe consequences including but not limited to:</p>
+                <ul>
+                    <li>Immediate permanent ban from all services</li>
+                    <li>Legal action for copyright infringement</li>
+                    <li>Monetary damages for intellectual property theft</li>
+                    <li>Reporting to relevant authorities for criminal violations</li>
+                    <li>Public disclosure of violations to protect other creators</li>
+                    <li>Pursuit of maximum legal penalties under applicable laws</li>
+                </ul>
+
+                <h3>6. Service Availability and Modifications</h3>
+                <p>UNordinary Hub reserves the right to modify, suspend, or terminate services at any time without prior notice. We are not liable for any damages resulting from service interruptions or modifications. Our services are provided on an "as available" basis.</p>
+
+                <h3>7. Age Restrictions and Parental Consent</h3>
+                <p>Users must be at least 13 years old to use our services. Users under 18 require parental consent and supervision. We may request age verification at any time and reserve the right to terminate accounts that cannot provide adequate verification.</p>
+
+                <h3>8. Disclaimer of Warranties</h3>
+                <p>All services are provided "as is" without warranties of any kind. We disclaim all liability for damages arising from the use of our services, including but not limited to account suspensions, game bans, data loss, or any other consequences.</p>
+
+                <h3>9. International Compliance</h3>
+                <p>Our services comply with international copyright laws, DMCA regulations, and digital rights management standards. We cooperate fully with law enforcement agencies worldwide and maintain legal presence in multiple jurisdictions for enforcement purposes.</p>
+
+                <h3>10. Contact and Legal Notices</h3>
+                <p>All legal notices, takedown requests, and intellectual property concerns should be directed to our legal team through official channels. We respond to all legitimate legal requests within 24 hours and maintain detailed records of all communications.</p>
+
+                <h3>11. Data Retention and Privacy Rights</h3>
+                <p>We retain user data for security and legal compliance purposes. Users may request data deletion, but we reserve the right to maintain certain information for fraud prevention and legal obligations. Data may be shared with law enforcement when legally required.</p>
+
+                <h3>12. Prohibited Activities</h3>
+                <p>Users are strictly prohibited from engaging in:</p>
+                <ul>
+                    <li>Any form of reverse engineering or code analysis</li>
+                    <li>Attempting to bypass security measures</li>
+                    <li>Sharing account credentials or access methods</li>
+                    <li>Using our services for malicious purposes</li>
+                    <li>Violating game terms of service while using our scripts</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p>⚠️ WARNING: By using UNordinary Hub services, you acknowledge that you have read, understood, and agree to be bound by these terms. Violation of any provision may result in immediate termination and legal action. We employ sophisticated tracking and monitoring systems to ensure compliance.</p>
+                </div>
+
+                <div class="last-updated">
+                    <p>Last Updated: December 2024</p>
+                    <p>These terms are subject to change without notice. Continued use constitutes acceptance of updated terms.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
