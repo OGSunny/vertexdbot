@@ -1,0 +1,70 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h1>Ticket Management</h1>
+
+<form id="ticketForm" style="margin-bottom:2rem;display:flex;gap:1rem;align-items:center;">
+  <input id="newTicketTitle" placeholder="New ticket title..." style="flex:1;padding:0.7rem;border-radius:8px;border:none;background:#292f4c;color:#fff;" required>
+  <select id="newTicketType" style="padding:0.7rem;border-radius:8px;border:none;background:#292f4c;color:#fff;">
+    <option>General</option>
+    <option>Bug</option>
+    <option>Support</option>
+  </select>
+  <button class="btn" type="submit">+ New Ticket</button>
+</form>
+
+<div class="ticket-list">
+  {% if tickets %}
+    {% for ticket in tickets %}
+      <div class="ticket">
+        <div>
+          <span class="ticket-title">{{ ticket[1] }}</span> 
+          <span class="status-{{ ticket[2].lower() }}">[{{ ticket[2] }}]</span> 
+          <span style="color:#bfc7e3;">({{ ticket[3] }})</span><br>
+          <small>By {{ ticket[5] }} | Created: {{ ticket[4] }} | Updated: {{ ticket[6] }}</small>
+        </div>
+        <div class="ticket-actions">
+          {% if ticket[2] != 'Closed' %}
+            <button class="btn" onclick="closeTicket({{ ticket[0] }})">Close</button>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div style="text-align:center;color:#bfc7e3;">No tickets found.</div>
+  {% endif %}
+</div>
+
+<script>
+document.getElementById('ticketForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const title = document.getElementById('newTicketTitle').value;
+  const type = document.getElementById('newTicketType').value;
+  
+  fetch('/api/add_ticket', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `title=${encodeURIComponent(title)}&type=${encodeURIComponent(type)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      location.reload();
+    }
+  });
+});
+
+function closeTicket(id) {
+  fetch(`/api/close_ticket/${id}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      location.reload();
+    }
+  });
+}
+</script>
+{% endblock %} 

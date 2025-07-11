@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h1>User Management</h1>
+
+<div class="user-list">
+  {% if users %}
+    {% for user in users %}
+      <div class="user">
+        <span>{{ user[1] }} {% if user[3] %}<span style="color:#4caf50;">[admin]</span>{% endif %}</span>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div style="text-align:center;color:#bfc7e3;">No users found.</div>
+  {% endif %}
+</div>
+{% endblock %} 
