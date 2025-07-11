@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNordinary Hub - Admin Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { background: #181c2f; color: #fff; font-family: 'Inter', sans-serif; margin: 0; }
+    .topbar { background: #23284a; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .topbar .logo { font-weight: bold; font-size: 1.3rem; color: #fff; }
+    .topbar nav a { color: #bfc7e3; margin: 0 1rem; text-decoration: none; font-weight: 500; }
+    .topbar nav a.active, .topbar nav a:hover { color: #fff; }
+    .topbar .user { color: #bfc7e3; margin-right: 1rem; }
+    .topbar .logout { background: #7b5cff; color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1.2rem; font-weight: 600; cursor: pointer; }
+    .container { max-width: 1100px; margin: 2rem auto; background: #23284a; border-radius: 18px; box-shadow: 0 8px 32px #0002; padding: 2rem; }
+    h1, h2, h3 { color: #fff; }
+    .btn { background: linear-gradient(90deg,#7b5cff,#3c8ce7); color: #fff; border: none; border-radius: 8px; padding: 0.7rem 1.5rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn:hover { opacity: 0.9; }
+    .stats { display: flex; gap: 2rem; margin-bottom: 2rem; }
+    .stat { background: #292f4c; border-radius: 12px; padding: 1.5rem 2rem; flex: 1; text-align: center; }
+    .stat h2 { margin: 0; font-size: 2.2rem; }
+    .stat p { color: #bfc7e3; margin: 0.5rem 0 0 0; }
+    .nav-menu { display: flex; list-style: none; gap: 2rem; align-items: center; }
+    .nav-menu a { color: #bfc7e3; text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.3s ease; }
+    .nav-menu a:hover { background: rgba(255, 255, 255, 0.1); }
+    .nav-menu a.active { background: #7b5cff; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="logo"> <i class="fa-brands fa-discord"></i> UNordinary Hub Admin</span>
+    <nav>
+      <a href="{{ url_for('admin_dashboard') }}" class="active">Dashboard</a>
+      <a href="{{ url_for('admin_tickets') }}">Tickets</a>
+      <a href="{{ url_for('admin_users') }}">Users</a>
+      <a href="{{ url_for('admin_logs') }}">Logs</a>
+      <a href="{{ url_for('admin_settings') }}">Settings</a>
+      <a href="{{ url_for('admin_security') }}">Security</a>
+      <a href="{{ url_for('admin_health') }}">Health</a>
+    </nav>
+    <span class="user">{{ session.user }} <span style="color:#4caf50;">● admin</span></span>
+    <a href="{{ url_for('admin_logout') }}" class="logout">Logout</a>
+  </div>
+  
+  <div class="container">
+    <h1>Dashboard</h1>
+    <div class="stats">
+      <div class="stat">
+        <h2>{{ total_tickets }}</h2>
+        <p>Total Tickets</p>
+      </div>
+      <div class="stat">
+        <h2>{{ open_tickets }}</h2>
+        <p>Open Tickets</p>
+      </div>
+      <div class="stat">
+        <h2>{{ total_users }}</h2>
+        <p>Users</p>
+      </div>
+      <div class="stat">
+        <h2>{{ total_logs }}</h2>
+        <p>Logs</p>
+      </div>
+    </div>
+    <p>Welcome to your UNordinary Hub Admin Dashboard!</p>
+    
+    <div style="margin-top: 2rem;">
+      <h3>Quick Actions</h3>
+      <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+        <a href="{{ url_for('admin_tickets') }}" class="btn">Manage Tickets</a>
+        <a href="{{ url_for('admin_users') }}" class="btn">View Users</a>
+        <a href="{{ url_for('admin_logs') }}" class="btn">View Logs</a>
+        <a href="{{ url_for('home') }}" class="btn">View Website</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 
