@@ -1,0 +1,495 @@
+/* --- GLOBAL STYLES & FONTS --- */
+:root {
+    --primary-color: #0d47a1; /* Deep Blue */
+    --secondary-color: #fbc02d; /* Gold */
+    --text-dark: #212121;
+    --text-light: #757575;
+    --bg-light: #f5f7fa;
+    --bg-white: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-light: 0 4px 20px rgba(0,0,0,0.07);
+    --shadow-hover: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--primary-color); }
+h1 { font-size: 3.5rem; margin-bottom: 20px; }
+h2 { font-size: 2.8rem; margin-bottom: 40px; text-align: center; }
+h3 { font-size: 2rem; margin-bottom: 20px; }
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-book, .btn-submit, .btn-whatsapp {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+}
+.btn-primary:hover {
+    background: #0b3a8a;
+    border-color: #0b3a8a;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--bg-white);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-book, .btn-submit {
+    background: var(--secondary-color);
+    color: var(--text-dark);
+}
+.btn-book:hover, .btn-submit:hover {
+    background: #f9a825;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+.btn-whatsapp:hover {
+    background: #1DAE56;
+}
+
+/* --- HEADER --- */
+header {
+    background: var(--bg-white);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+.logo { font-size: 28px; font-weight: 700; color: var(--primary-color); }
+nav { margin-left: auto; /* Pushes nav to the right */ }
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    transition: color 0.3s;
+    padding: 5px 0; /* Add padding for better click area */
+}
+nav a:hover, nav a.active { color: var(--primary-color); }
+.language-selector { margin-left: 20px; } /* Space from nav */
+#lang-select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: transparent;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* --- HERO SECTION (index.html) --- */
+.hero-section {
+    height: 70vh; /* Increased height for impact */
+    background: url('../assets/hero-image.jpeg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden; /* Ensure content stays within bounds */
+}
+.hero-section::after { /* Overlay for text readability */
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); /* Darker overlay */
+    z-index: 1;
+}
+.hero-content { position: relative; z-index: 2; max-width: 800px; padding: 20px; }
+.hero-content h1 { font-size: 4.5rem; margin: 0 0 20px 0; line-height: 1.1; color: white; }
+.hero-content p { font-size: 1.6rem; font-family: 'Poppins'; margin-bottom: 40px; color: rgba(255,255,255,0.9); }
+
+/* --- FEATURES SECTION (index.html) --- */
+.features-section { padding: 80px 0; background: var(--bg-white); }
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.feature-item {
+    text-align: center;
+    padding: 30px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+.feature-item h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.feature-item h3 i {
+    font-size: 2rem;
+    margin-right: 10px;
+    color: var(--secondary-color);
+}
+/* Placeholder for icons, use font awesome or similar */
+.icon-location::before { content: '📍'; }
+.icon-view::before { content: '🌅'; }
+.icon-luxury::before { content: '✨'; }
+
+/* --- ABOUT PREVIEW SECTION (index.html) --- */
+.about-preview-section {
+    padding: 80px 0;
+    text-align: center;
+    background: var(--primary-color);
+    color: white;
+}
+.about-preview-section h2 {
+    color: white;
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+}
+.about-preview-section p {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+}
+.about-preview-section .btn-secondary {
+    background: white;
+    color: var(--primary-color);
+}
+.about-preview-section .btn-secondary:hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--text-dark);
+}
+
+/* --- SHOWROOM SECTION (showroom.html) --- */
+.showroom-section { padding: 80px 0; }
+.showroom-section h2 { margin-bottom: 60px; }
+.apartment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+.apartment-card {
+    background: var(--bg-white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+.apartment-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+
+.card-content {
+    padding: 25px;
+    flex-grow: 1; /* Allows content to take up remaining space */
+    display: flex;
+    flex-direction: column;
+}
+.card-content h3 { margin-top: 0; font-size: 1.8rem; color: var(--text-dark); }
+.location {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+.location::before { content: '📍'; margin-right: 5px; }
+.price { font-size: 1.3rem; margin: 10px 0 20px 0; font-weight: 600; }
+.price span { color: var(--primary-color); }
+.amenities { list-style: none; padding: 0; margin: 20px 0 30px 0; color: var(--text-dark); font-size: 0.95rem; }
+.amenities li { margin-bottom: 10px; display: flex; align-items: center; }
+.amenities li::before {
+    content: '✓';
+    color: #25D366; /* WhatsApp green */
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+/* --- ABOUT PAGE SECTION (about.html) --- */
+.about-page-section { padding: 80px 0; }
+.about-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-top: 50px;
+}
+.about-text p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: var(--shadow-hover);
+}
+@media (max-width: 992px) {
+    .about-content-grid { grid-template-columns: 1fr; }
+    .about-image { order: -1; /* Puts image above text on small screens */ }
+}
+
+/* --- CONTACT PAGE SECTION (contact.html) --- */
+.contact-page-section { padding: 80px 0; background: var(--bg-white); }
+.contact-page-section h2 { margin-bottom: 60px; }
+.contact-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Info on left, form on right */
+    gap: 50px;
+    margin-top: 50px;
+}
+.contact-info {
+    background: var(--bg-light);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+}
+.contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    color: var(--text-dark);
+}
+.contact-info p i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+.contact-info p a { color: var(--primary-color); text-decoration: none; }
+.contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; }
+.contact-info .btn-whatsapp { display: block; margin-top: 20px; }
+.contact-info h3 { margin-top: 40px; } /* Space between sections */
+.contact-info p:last-of-type { margin-bottom: 0; }
+
+/* Placeholder for icons */
+.icon-phone::before { content: '📞'; }
+.icon-email::before { content: '📧'; }
+.icon-address::before { content: '🏠'; }
+
+.contact-form {
+    background: var(--bg-light);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+}
+.form-group { margin-bottom: 25px; }
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+.form-group input, .form-group textarea {
+    width: calc(100% - 24px); /* Account for padding */
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.btn-submit { width: 100%; padding: 15px; font-size: 1.1rem; }
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 30px;
+    background: var(--primary-color);
+    color: white;
+    margin-top: 50px; /* Space above footer */
+}
+footer p { margin: 0; font-size: 0.95rem; }
+
+/* --- MODAL (for purchase confirmation) --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background-color: var(--bg-white);
+    margin: auto;
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+.modal-content .close-button {
+    color: var(--text-light);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.modal-content .close-button:hover,
+.modal-content .close-button:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.modal-content h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.modal-content p {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+}
+.whatsapp-contact-info .qr-code {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+.whatsapp-contact-info .btn-whatsapp {
+    margin-top: 10px;
+    padding: 12px 25px;
+    font-size: 1rem;
+}
+.whatsapp-contact-info .modal_phone {
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    header .container { flex-direction: column; gap: 15px; }
+    nav { margin-left: 0; width: 100%; text-align: center; }
+    nav a { margin: 0 10px; }
+    .language-selector { margin-left: 0; margin-top: 10px; }
+
+    .hero-content h1 { font-size: 3.5rem; }
+    .hero-content p { font-size: 1.3rem; }
+
+    .features-grid, .apartment-grid, .contact-details-grid { grid-template-columns: 1fr; }
+    .contact-form, .contact-info { margin-top: 20px; }
+    .apartment-card { max-width: 450px; margin: 0 auto; } /* Center cards on single column layout */
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    h3 { font-size: 1.6rem; }
+    .hero-content h1 { font-size: 2.8rem; }
+    .hero-content p { font-size: 1.1rem; }
+    .btn-primary, .btn-secondary, .btn-book, .btn-submit, .btn-whatsapp {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+    .modal-content {
+        padding: 30px;
+    }
+}
+
+/* --- RTL (ARABIC) STYLES --- */
+body.rtl { direction: rtl; text-align: right; }
+body.rtl header .container { flex-direction: column; } /* Still column for responsiveness */
+body.rtl nav { margin-right: 0; margin-left: auto; text-align: center; }
+body.rtl nav a { margin: 0 10px; }
+body.rtl .language-selector { margin-right: 0; margin-left: 20px; } /* Push selector right */
+body.rtl .logo { text-align: right; } /* Align logo right in header */
+
+/* Adjust text alignment for RTL */
+body.rtl h1, body.rtl h2, body.rtl h3, body.rtl p { text-align: right; }
+body.rtl .features-section h2,
+body.rtl .showroom-section h2,
+body.rtl .about-page-section h2,
+body.rtl .contact-page-section h2 {
+    text-align: right; /* Ensure headings align right in RTL */
+}
+body.rtl .about-preview-section { text-align: right; }
+
+body.rtl .amenities li { text-align: right; justify-content: flex-end; } /* Align amenities to the right */
+body.rtl .amenities li::before { margin-left: 10px; margin-right: 0; } /* Adjust checkmark position */
+
+body.rtl .feature-item h3 { flex-direction: row-reverse; } /* Reverse icon and text */
+body.rtl .feature-item h3 i { margin-right: 0; margin-left: 10px; }
+
+body.rtl .form-group label { text-align: right; }
+body.rtl .form-group input, body.rtl .form-group textarea { text-align: right; }
+
+body.rtl .location { flex-direction: row-reverse; justify-content: flex-end; }
+body.rtl .location::before { margin-right: 0; margin-left: 5px; }
+
+body.rtl .contact-info p i { margin-left: 15px; margin-right: 0; }
+body.rtl .whatsapp-contact-info { text-align: right; }
+body.rtl .whatsapp-contact-info .qr-code { margin-left: auto; margin-right: 0; } /* Align QR left */
+body.rtl .modal-content { text-align: right; }
+body.rtl .modal-content .close-button { right: auto; left: 25px; }
