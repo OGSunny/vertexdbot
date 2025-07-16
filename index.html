@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
         /* --- GLOBAL STYLES & FONTS --- */
@@ -20,6 +21,8 @@
             --border-color: #d0d0d0; /* Slightly darker for more definition */
             --shadow-light: 0 6px 25px rgba(0,0,0,0.1); /* Stronger light shadow */
             --shadow-hover: 0 12px 35px rgba(0,0,0,0.15); /* Stronger hover shadow */
+            --success-color: #28a745;
+            --error-color: #dc3545;
         }
 
         body {
@@ -63,6 +66,7 @@
             background: #0b3a8a;
             border-color: #0b3a8a;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-secondary {
@@ -74,6 +78,7 @@
             background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-book, .btn-submit {
@@ -84,6 +89,8 @@
         .btn-book:hover, .btn-submit:hover {
             background: #f9a825;
             border-color: #f9a825;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-whatsapp {
@@ -94,6 +101,8 @@
         .btn-whatsapp:hover {
             background: #1DAE56;
             border-color: #1DAE56;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* --- HEADER --- */
@@ -139,7 +148,14 @@
             font-size: 14px;
             cursor: pointer;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for depth */
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
+        #lang-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+        }
+
 
         /* --- HERO SECTION --- */
         .hero-section {
@@ -202,9 +218,12 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Icon definition */
         }
         /* Placeholder for icons, use font awesome or similar */
-        .icon-location::before { content: '📍'; }
-        .icon-view::before { content: '🌅'; }
-        .icon-luxury::before { content: '✨'; }
+        .feature-item .fas {
+            font-size: 2rem;
+            margin-right: 10px;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
 
         /* --- SHOWROOM SECTION --- */
         .showroom-section { padding: 80px 0; }
@@ -240,14 +259,13 @@
             display: flex;
             align-items: center;
         }
-        .location::before { content: '📍'; margin-right: 5px; }
+        .location .fas { margin-right: 5px; color: var(--primary-color); }
         .price { font-size: 1.3rem; margin: 10px 0 20px 0; font-weight: 600; }
         .price span { color: var(--primary-color); }
         .amenities { list-style: none; padding: 0; margin: 20px 0 30px 0; color: var(--text-dark); font-size: 0.95rem; }
         .amenities li { margin-bottom: 10px; display: flex; align-items: center; }
-        .amenities li::before {
-            content: '✓';
-            color: #25D366;
+        .amenities li .fas {
+            color: var(--success-color); /* Checkmark color */
             font-weight: bold;
             margin-right: 10px;
             font-size: 1.2em;
@@ -281,7 +299,24 @@
             object-fit: cover;
             display: block;
             border-bottom: 1px solid var(--border-color); /* Slight border on images */
+            /* Initial styling for lazy loading */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
+        .carousel-images img.loaded {
+            opacity: 1;
+        }
+        .carousel-images img.loading {
+             /* Optional: Add a subtle loading indicator */
+            background-color: #f0f0f0;
+            animation: pulse-bg 1s infinite alternate;
+        }
+
+        @keyframes pulse-bg {
+            from { background-color: #f0f0f0; }
+            to { background-color: #e0e0e0; }
+        }
+
 
         /* Navigation Arrows */
         .carousel-btn {
@@ -347,6 +382,53 @@
             display: none;
         }
 
+        /* --- REVIEWS SECTION --- */
+        .reviews-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        .reviews-section h2 {
+            margin-bottom: 60px;
+        }
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .review-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        .review-card .stars {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .review-card p {
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .review-card .reviewer-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            text-align: right;
+            margin-top: auto; /* Pushes the name to the bottom */
+        }
+
+
         /* --- ABOUT PAGE SECTION --- */
         .about-page-section { padding: 80px 0; }
         .about-content-grid {
@@ -393,21 +475,18 @@
             align-items: center;
             color: var(--text-dark);
         }
-        .contact-info p i {
+        .contact-info p .fas {
             font-size: 1.5rem;
             color: var(--primary-color);
             margin-right: 15px;
         }
-        .contact-info p a { color: var(--primary-color); text-decoration: none; }
+        .contact-info p a { color: var(--primary-color); text-decoration: none; transition: color 0.3s; }
+        .contact-info p a:hover { color: #0b3a8a; text-decoration: underline; }
         .contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; border: 1px solid var(--border-color); /* Added border for QR */ border-radius: 5px; }
         .contact-info .btn-whatsapp { display: block; margin-top: 20px; }
         .contact-info h3 { margin-top: 40px; }
         .contact-info p:last-of-type { margin-bottom: 0; }
 
-        /* Placeholder for icons */
-        .icon-phone::before { content: '📞'; }
-        .icon-email::before { content: '📧'; }
-        .icon-address::before { content: '🏠'; }
 
         .contact-form {
             background: var(--bg-light);
@@ -416,7 +495,7 @@
             box-shadow: var(--shadow-light);
             border: 1px solid var(--border-color); /* Added border */
         }
-        .form-group { margin-bottom: 25px; }
+        .form-group { margin-bottom: 25px; position: relative; }
         .form-group label {
             display: block;
             margin-bottom: 10px;
@@ -432,7 +511,7 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for definition */
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
@@ -441,6 +520,13 @@
         }
         .form-group textarea { resize: vertical; min-height: 100px; }
         .btn-submit { width: 100%; padding: 15px; font-size: 1.1rem; }
+
+        .validation-message {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+        }
 
         /* --- FOOTER --- */
         footer {
@@ -542,7 +628,7 @@
             .hero-content h1 { font-size: 3.5rem; }
             .hero-content p { font-size: 1.3rem; }
 
-            .features-grid, .apartment-grid, .contact-details-grid { grid-template-columns: 1fr; }
+            .features-grid, .apartment-grid, .contact-details-grid, .review-grid { grid-template-columns: 1fr; }
             .contact-form, .contact-info { margin-top: 20px; }
             .apartment-card { max-width: 450px; margin: 0 auto; }
             .about-content-grid { grid-template-columns: 1fr; }
@@ -576,28 +662,31 @@
         body.rtl .features-section h2,
         body.rtl .showroom-section h2,
         body.rtl .about-page-section h2,
-        body.rtl .contact-page-section h2 {
+        body.rtl .contact-page-section h2,
+        body.rtl .reviews-section h2 {
             text-align: right;
         }
         body.rtl .about-preview-section { text-align: right; }
 
         body.rtl .amenities li { text-align: right; justify-content: flex-end; }
-        body.rtl .amenities li::before { margin-left: 10px; margin-right: 0; }
+        body.rtl .amenities li .fas { margin-left: 10px; margin-right: 0; }
 
         body.rtl .feature-item h3 { flex-direction: row-reverse; }
-        body.rtl .feature-item h3 i { margin-right: 0; margin-left: 10px; }
+        body.rtl .feature-item h3 .fas { margin-right: 0; margin-left: 10px; }
 
         body.rtl .form-group label { text-align: right; }
         body.rtl .form-group input, body.rtl .form-group textarea { text-align: right; }
 
         body.rtl .location { flex-direction: row-reverse; justify-content: flex-end; }
-        body.rtl .location::before { margin-right: 0; margin-left: 5px; }
+        body.rtl .location .fas { margin-right: 0; margin-left: 5px; }
 
-        body.rtl .contact-info p i { margin-left: 15px; margin-right: 0; }
+        body.rtl .contact-info p .fas { margin-left: 15px; margin-right: 0; }
         body.rtl .whatsapp-contact-info { text-align: right; }
         body.rtl .whatsapp-contact-info .qr-code { margin-left: auto; margin-right: 0; }
         body.rtl .modal-content { text-align: right; }
         body.rtl .modal-content .close-button { right: auto; left: 25px; }
+
+        body.rtl .review-card .reviewer-name { text-align: left; }
     </style>
 </head>
 <body>
@@ -610,6 +699,7 @@
             <nav>
                 <a href="#home" data-lang="nav_home">Home</a>
                 <a href="#showroom" data-lang="nav_showroom">Showroom</a>
+                <a href="#reviews" data-lang="nav_reviews">Reviews</a>
                 <a href="#about" data-lang="nav_about">About Us</a>
                 <a href="#contact" data-lang="nav_contact">Contact</a>
             </nav>
@@ -639,15 +729,15 @@
                 <h2 data-lang="features_title">Why Choose Orbi City?</h2>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <h3><i class="icon-location"></i> <span data-lang="feature1_title">Prime Location</span></h3>
+                        <h3><i class="fas fa-map-marker-alt"></i> <span data-lang="feature1_title">Prime Location</span></h3>
                         <p data-lang="feature1_desc">Nestled in the heart of Batumi, with easy access to attractions, dining, and entertainment.</p>
                     </div>
                     <div class="feature-item">
-                        <h3><i class="icon-view"></i> <span data-lang="feature2_title">Stunning Sea Views</span></h3>
+                        <h3><i class="fas fa-umbrella-beach"></i> <span data-lang="feature2_title">Stunning Sea Views</span></h3>
                         <p data-lang="feature2_desc">Wake up to breathtaking panoramic views of the Black Sea and city skyline.</p>
                     </div>
                     <div class="feature-item">
-                        <h3><i class="icon-luxury"></i> <span data-lang="feature3_title">Luxury Amenities</span></h3>
+                        <h3><i class="fas fa-gem"></i> <span data-lang="feature3_title">Luxury Amenities</span></h3>
                         <p data-lang="feature3_desc">Enjoy modern, fully-equipped apartments with all the comforts of home.</p>
                     </div>
                 </div>
@@ -675,6 +765,14 @@
             </div>
         </div>
 
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <h2 data-lang="reviews_title">What Our Guests Say</h2>
+                <div id="review-grid" class="review-grid">
+                    </div>
+            </div>
+        </section>
+
         <section id="about" class="about-page-section">
             <div class="container">
                 <h2 data-lang="about_page_title">Our Story</h2>
@@ -697,9 +795,9 @@
                 <div class="contact-details-grid">
                     <div class="contact-info">
                         <h3 data-lang="contact_info_heading">Contact Information</h3>
-                        <p><i class="icon-phone"></i> <strong data-lang="phone_label">Phone:</strong> <a href="tel:+995555123456">+995 555 123 456</a></p>
-                        <p><i class="icon-email"></i> <strong data-lang="email_label">Email:</strong> <a href="mailto:info@orbicity.com">info@orbicity.com</a></p>
-                        <p><i class="icon-address"></i> <strong data-lang="address_label">Address:</strong> Alley of Heroes, Batumi, Georgia</p>
+                        <p><i class="fas fa-phone"></i> <strong data-lang="phone_label">Phone:</strong> <a href="tel:+995555123456">+995 555 123 456</a></p>
+                        <p><i class="fas fa-envelope"></i> <strong data-lang="email_label">Email:</strong> <a href="mailto:info@orbicity.com">info@orbicity.com</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong data-lang="address_label">Address:</strong> Alley of Heroes, Batumi, Georgia</p>
 
                         <h3 data-lang="whatsapp_title">Direct Contact</h3>
                         <img src="https://i.imgur.com/orbi-qr-code.png" alt="Scan to chat on WhatsApp" class="qr-code">
@@ -714,18 +812,22 @@
                             <div class="form-group">
                                 <label for="name" data-lang="form_name">Your Name</label>
                                 <input type="text" id="name" name="name" required>
+                                <span class="validation-message" id="name-error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="email" data-lang="form_email">Your Email</label>
                                 <input type="email" id="email" name="email" required>
+                                <span class="validation-message" id="email-error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="subject" data-lang="form_subject">Subject</label>
                                 <input type="text" id="subject" name="subject" required>
+                                <span class="validation-message" id="subject-error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="message" data-lang="form_message">Message</label>
                                 <textarea id="message" name="message" rows="5" required></textarea>
+                                <span class="validation-message" id="message-error"></span>
                             </div>
                             <button type="submit" class="btn-submit" data-lang="btn_send_message">Send Message</button>
                         </form>
@@ -748,9 +850,9 @@
             const translations = {
                 en: {
                     site_title: "Orbi City | Premium Apartments in Batumi",
-                    hotel_name: "Orbi City", // This is no longer used for the logo text
                     nav_home: "Home",
                     nav_showroom: "Showroom",
+                    nav_reviews: "Reviews", // New translation key
                     nav_about: "About Us",
                     nav_contact: "Contact",
                     hero_title: "Experience Batumi From Above",
@@ -779,6 +881,7 @@
                     modal_desc: "To inquire about purchasing this apartment, please contact the owner directly via WhatsApp:",
                     btn_whatsapp_modal: "Chat on WhatsApp",
                     modal_phone: "Or call: +995 555 123 456",
+                    reviews_title: "What Our Guests Say", // New translation key
                     about_page_title: "Our Story",
                     about_paragraph1: "Orbi City Apartments emerged from a vision to offer an unparalleled luxury experience in Batumi, Georgia. Located in the iconic Orbi City complex, our properties combine modern design with breathtaking panoramic views of the Black Sea and the vibrant city.",
                     about_paragraph2: "We believe in providing more than just accommodation; we offer a lifestyle. Each apartment is meticulously furnished and equipped with high-end amenities to ensure maximum comfort and convenience for our guests and residents. From spacious living areas to fully-equipped kitchens, every detail is crafted with your enjoyment in mind.",
@@ -798,12 +901,16 @@
                     form_message: "Message",
                     btn_send_message: "Send Message",
                     footer_text: "© 2025 Orbi City Apartments. All Rights Reserved.",
+                    form_name_error: "Please enter your name.",
+                    form_email_error: "Please enter a valid email address.",
+                    form_subject_error: "Please enter a subject.",
+                    form_message_error: "Please enter your message.",
                 },
                 ka: { // Georgian
                     site_title: "ორბი სითი | პრემიუმ აპარტამენტები ბათუმში",
-                    hotel_name: "ორბი სითი",
                     nav_home: "მთავარი",
                     nav_showroom: "შოურუმი",
+                    nav_reviews: "შეფასებები", // New translation key
                     nav_about: "ჩვენს შესახებ",
                     nav_contact: "კონტაქტი",
                     hero_title: "განიცადე ბათუმი მაღლიდან",
@@ -832,6 +939,7 @@
                     modal_desc: "აპარტამენტის შესაძენად, გთხოვთ, დაუკავშირდეთ მფლობელს უშუალოდ WhatsApp-ის საშუალებით:",
                     btn_whatsapp_modal: "ჩატი WhatsApp-ზე",
                     modal_phone: "ან დარეკეთ: +995 555 123 456",
+                    reviews_title: "რას ამბობენ ჩვენი სტუმრები", // New translation key
                     about_page_title: "ჩვენი ისტორია",
                     about_paragraph1: "ორბი სითი აპარტამენტები შეიქმნა ბათუმში, საქართველო, შეუდარებელი ფუფუნების გამოცდილების შეთავაზების ხედვით. მდებარეობს საკულტო ორბი სითის კომპლექსში, ჩვენი თვისებები აერთიანებს თანამედროვე დიზაინს შავი ზღვისა და ცოცხალი ქალაქის თვალწარმტაც პანორამულ ხედებთან.",
                     about_paragraph2: "ჩვენ გვჯერა, რომ ვაძლევთ უბრალოდ განთავსებას; ჩვენ ვთავაზობთ ცხოვრების წესს. თითოეული აპარტამენტი ზედმიწევნით არის მოწყობილი და აღჭურვილი მაღალი დონის კეთილმოწყობით, რათა უზრუნველყოფილი იყოს მაქსიმალური კომფორტი და მოხერხებულობა ჩვენი სტუმრებისა და მაცხოვრებლებისთვის. ფართო საცხოვრებელი ფართებიდან სრულად აღჭურვილი სამზარეულოებით, ყოველი დეტალი თქვენი სიამოვნებისთვის არის შექმნილი.",
@@ -851,12 +959,16 @@
                     form_message: "შეტყობინება",
                     btn_send_message: "შეტყობინების გაგზავნა",
                     footer_text: "© 2025 ორბი სითი აპარტამენტები. ყველა უფლება დაცულია.",
+                    form_name_error: "გთხოვთ, შეიყვანოთ თქვენი სახელი.",
+                    form_email_error: "გთხოვთ, შეიყვანოთ ვალიდური ელფოსტის მისამართი.",
+                    form_subject_error: "გთხოვთ, შეიყვანოთ თემა.",
+                    form_message_error: "გთხოვთ, შეიყვანოთ თქვენი შეტყობინება.",
                 },
                 ar: { // Arabic
                     site_title: "أوربي سيتي | شقق فاخرة في باتومي",
-                    hotel_name: "أوربي سيتي",
                     nav_home: "الرئيسية",
                     nav_showroom: "معرض الشقق",
+                    nav_reviews: "المراجعات", // New translation key
                     nav_about: "عنا",
                     nav_contact: "اتصل بنا",
                     hero_title: "استمتع بتجربة باتومي من الأعلى",
@@ -885,6 +997,7 @@
                     modal_desc: "للاستفسار عن شراء هذه الشقة، يرجى الاتصال بالمالك مباشرة عبر الواتساب:",
                     btn_whatsapp_modal: "الدردشة على واتساب",
                     modal_phone: "أو اتصل: +995 555 123 456",
+                    reviews_title: "ماذا يقول ضيوفنا", // New translation key
                     about_page_title: "قصتنا",
                     about_paragraph1: "ظهرت شقق أوربي سيتي من رؤية لتقديم تجربة فاخرة لا مثيل لها في باتومي، جورجيا. تقع عقاراتنا في مجمع أوربي سيتي الشهير، وتجمع بين التصميم الحديث والإطلالات البانورامية الخلابة على البحر الأسود وأفق المدينة النابض بالحياة.",
                     about_paragraph2: "نحن نؤمن بتقديم أكثر من مجرد إقامة؛ نحن نقدم أسلوب حياة. تم تأثيث كل شقة وتجهيزها بدقة بوسائل راحة عالية الجودة لضمان أقصى قدر من الراحة والملاءمة لضيوفنا والمقيمين. من مناطق المعيشة الفسيحة إلى المطابخ المجهزة بالكامل، تم تصميم كل التفاصيل مع مراعاة استمتاعك.",
@@ -904,12 +1017,16 @@
                     form_message: "الرسالة",
                     btn_send_message: "إرسال الرسالة",
                     footer_text: "© 2025 شقق أوربي سيتي. جميع الحقوق محفوظة.",
+                    form_name_error: "الرجاء إدخال اسمك.",
+                    form_email_error: "الرجاء إدخال عنوان بريد إلكتروني صحيح.",
+                    form_subject_error: "الرجاء إدخال الموضوع.",
+                    form_message_error: "الرجاء إدخال رسالتك.",
                 },
                 ru: { // Russian
                     site_title: "Орби Сити | Премиум Апартаменты в Батуми",
-                    hotel_name: "Орби Сити",
                     nav_home: "Главная",
                     nav_showroom: "Шоурум",
+                    nav_reviews: "Отзывы", // New translation key
                     nav_about: "О нас",
                     nav_contact: "Контакты",
                     hero_title: "Почувствуйте Батуми с высоты",
@@ -938,6 +1055,7 @@
                     modal_desc: "Чтобы узнать о покупке этой квартиры, пожалуйста, свяжитесь с владельцем напрямую через WhatsApp:",
                     btn_whatsapp_modal: "Чат в WhatsApp",
                     modal_phone: "Или позвоните: +995 555 123 456",
+                    reviews_title: "Что говорят наши гости", // New translation key
                     about_page_title: "Наша История",
                     about_paragraph1: "Апартаменты Орби Сити возникли из идеи предложить несравненный роскошный опыт в Батуми, Грузия. Расположенные в знаковом комплексе Орби Сити, наши объекты сочетают современный дизайн с захватывающими панорамными видами на Черное море и оживленный городской пейзаж.",
                     about_paragraph2: "Мы верим, что предлагаем не просто жилье; мы предлагаем образ жизни. Каждая квартира тщательно меблирована и оборудована высококлассными удобствами для обеспечения максимального комфорта и удобства для наших гостей и жителей. От просторных гостиных до полностью оборудованных кухонь, каждая деталь создана для вашего наслаждения.",
@@ -957,12 +1075,16 @@
                     form_message: "Сообщение",
                     btn_send_message: "Отправить сообщение",
                     footer_text: "© 2025 Орби Сити Апартаменты. Все права защищены.",
+                    form_name_error: "Пожалуйста, введите ваше имя.",
+                    form_email_error: "Пожалуйста, введите действующий адрес электронной почты.",
+                    form_subject_error: "Пожалуйста, введите тему.",
+                    form_message_error: "Пожалуйста, введите ваше сообщение.",
                 },
                 tr: { // Turkish
                     site_title: "Orbi City | Batum'da Premium Daireler",
-                    hotel_name: "Orbi City",
                     nav_home: "Ana Sayfa",
                     nav_showroom: "Showroom",
+                    nav_reviews: "Yorumlar", // New translation key
                     nav_about: "Hakkımızda",
                     nav_contact: "İletişim",
                     hero_title: "Batum'u Yukarıdan Deneyimleyin",
@@ -991,6 +1113,7 @@
                     modal_desc: "Bu daireyi satın alma hakkında bilgi almak için lütfen doğrudan WhatsApp üzerinden sahibiyle iletişime geçin:",
                     btn_whatsapp_modal: "WhatsApp'ta Sohbet Et",
                     modal_phone: "Veya arayın: +995 555 123 456",
+                    reviews_title: "Ne Diyor Misafirlerimiz", // New translation key
                     about_page_title: "Hikayemiz",
                     about_paragraph1: "Orbi City Daireleri, Batum, Gürcistan'da eşsiz bir lüks deneyimi sunma vizyonuyla ortaya çıktı. İkonik Orbi City kompleksinde yer alan mülklerimiz, modern tasarımı Karadeniz'in ve hareketli şehir silüetinin nefes kesen panoramik manzaralarıyla birleştiriyor.",
                     about_paragraph2: "Sadece konaklama değil, bir yaşam tarzı sunduğumuza inanıyoruz. Her daire, misafirlerimize ve sakinlerimize maksimum konfor ve kolaylık sağlamak için titizlikle döşenmiş ve yüksek kaliteli olanaklarla donatılmıştır. Geniş yaşam alanlarından tam donanımlı mutfaklara kadar her ayrıntı, sizin keyfiniz düşünülerek tasarlanmıştır.",
@@ -1010,6 +1133,10 @@
                     form_message: "Mesaj",
                     btn_send_message: "Mesaj Gönder",
                     footer_text: "© 2025 Orbi City Daireleri. Tüm Hakları Saklıdır.",
+                    form_name_error: "Lütfen adınızı girin.",
+                    form_email_error: "Lütfen geçerli bir e-posta adresi girin.",
+                    form_subject_error: "Lütfen bir konu girin.",
+                    form_message_error: "Lütfen mesajınızı girin.",
                 }
             };
 
@@ -1052,10 +1179,56 @@
                 }
             ];
 
+            // New: Review data
+            const reviews = [
+                {
+                    name: "Anna K.",
+                    rating: 5,
+                    comment: "Absolutely stunning views and a very comfortable stay! The apartment was spotless and had everything we needed. Highly recommend for a luxurious getaway in Batumi.",
+                    commentKey: "review1_comment" // Added for potential future translation
+                },
+                {
+                    name: "David M.",
+                    rating: 4,
+                    comment: "Great location, close to all the main attractions. The sea view from the balcony was incredible. A minor issue with the Wi-Fi was quickly resolved by the friendly staff.",
+                    commentKey: "review2_comment"
+                },
+                {
+                    name: "Sophia L.",
+                    rating: 5,
+                    comment: "Fantastic experience! The apartment was spacious, beautifully designed, and very well-equipped. It felt like a home away from home. Will definitely be back!",
+                    commentKey: "review3_comment"
+                },
+                {
+                    name: "George P.",
+                    rating: 4,
+                    comment: "Excellent value for money. The apartment was clean and the check-in process was smooth. Enjoyed the modern amenities. Only wish there was a closer grocery store.",
+                    commentKey: "review4_comment"
+                }
+            ];
+
             const langSelect = document.getElementById('lang-select');
             const apartmentListings = document.getElementById('apartment-listings');
+            const reviewGrid = document.getElementById('review-grid'); // New: Reviews container
             const purchaseModal = document.getElementById('purchase-modal');
             const closeButton = purchaseModal.querySelector('.close-button');
+            const contactForm = document.getElementById('contact-form');
+
+
+            // --- Performance Logging (for demonstration) ---
+            const logPerformanceMetrics = () => {
+                if (window.performance) {
+                    const timing = performance.timing;
+                    const fcp = timing.responseEnd - timing.fetchStart; // Very basic FCP approximation
+                    console.log(`Performance Metrics:`);
+                    console.log(`  Time to First Byte (TTFB): ${timing.responseStart - timing.requestStart} ms`);
+                    console.log(`  DOM Content Loaded: ${timing.domContentLoadedEventEnd - timing.domLoading} ms`);
+                    console.log(`  Page Load Time: ${timing.loadEventEnd - timing.navigationStart} ms`);
+                    console.log(`  Estimated First Contentful Paint (FCP): ${fcp} ms`); // Using a simplified calculation
+                }
+            };
+            // Call this at the end of DOMContentLoaded
+            logPerformanceMetrics();
 
             const getTranslation = (key) => {
                 const lang = localStorage.getItem('selectedLanguage') || 'en';
@@ -1082,6 +1255,7 @@
                 document.title = t.site_title;
 
                 renderApartments(); // Re-render apartments to update text and carousels
+                renderReviews(); // New: Re-render reviews
             };
 
             const createApartmentCard = (apartment) => {
@@ -1089,25 +1263,40 @@
                 card.classList.add('apartment-card');
                 card.dataset.id = apartment.id;
 
-                const amenitiesList = apartment.amenitiesKeys.map(key => `<li>${getTranslation(key)}</li>`).join('');
+                const amenitiesList = apartment.amenitiesKeys.map(key => `<li><i class="fas fa-check-circle"></i> ${getTranslation(key)}</li>`).join('');
 
                 card.innerHTML = `
                     <div class="carousel-container" data-single-image="${apartment.images.length <= 1}">
                         <div class="carousel-images">
-                            ${apartment.images.map(imgSrc => `<img src="${imgSrc}" alt="${getTranslation(apartment.nameKey)}">`).join('')}
+                            ${apartment.images.map(imgSrc => `<img data-src="${imgSrc}" alt="${getTranslation(apartment.nameKey)}" class="lazy-load">`).join('')}
                         </div>
                         ${apartment.images.length > 1 ? '<button class="carousel-btn prev">&lt;</button><button class="carousel-btn next">&gt;</button>' : ''}
                         ${apartment.images.length > 1 ? `<div class="carousel-dots">${apartment.images.map((_, i) => `<span class="dot" data-index="${i}"></span>`).join('')}</div>` : ''}
                     </div>
                     <div class="card-content">
                         <h3 data-lang="${apartment.nameKey}">${getTranslation(apartment.nameKey)}</h3>
-                        <p class="location">${apartment.location}</p>
+                        <p class="location"><i class="fas fa-map-marker-alt"></i> ${apartment.location}</p>
                         <p class="price" data-lang-price="${apartment.price}">${getTranslation('price_prefix')} <span>$${apartment.price}</span> ${getTranslation('price_suffix')}</p>
                         <ul class="amenities">
                             ${amenitiesList}
                         </ul>
                         <button class="btn-primary btn-purchase" data-lang="btn_purchase">${getTranslation('btn_purchase')}</button>
                     </div>
+                `;
+                return card;
+            };
+
+            // New: Function to create a review card
+            const createReviewCard = (review) => {
+                const card = document.createElement('div');
+                card.classList.add('review-card');
+
+                const starIcons = '<i class="fas fa-star"></i>'.repeat(review.rating) + '<i class="far fa-star"></i>'.repeat(5 - review.rating);
+
+                card.innerHTML = `
+                    <div class="stars">${starIcons}</div>
+                    <p>${review.comment}</p>
+                    <div class="reviewer-name">- ${review.name}</div>
                 `;
                 return card;
             };
@@ -1176,7 +1365,45 @@
                         document.body.style.overflow = 'hidden';
                     });
                 });
+                lazyLoadImages(); // Trigger lazy load for new images
             };
+
+            // New: Function to render reviews
+            const renderReviews = () => {
+                reviewGrid.innerHTML = ''; // Clear existing reviews
+                reviews.forEach(review => {
+                    const card = createReviewCard(review);
+                    reviewGrid.appendChild(card);
+                });
+            };
+
+            // --- Lazy Loading Images ---
+            const lazyLoadImages = () => {
+                const lazyImages = document.querySelectorAll('img.lazy-load');
+
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy-load', 'loading'); // Remove loading class
+                            img.classList.add('loaded'); // Add loaded class for opacity transition
+                            observer.unobserve(img); // Stop observing once loaded
+                        } else {
+                            // Add a 'loading' class immediately to show a placeholder or animation
+                            entry.target.classList.add('loading');
+                        }
+                    });
+                }, {
+                    rootMargin: '0px 0px 200px 0px', // Load images when they are 200px from viewport
+                    threshold: 0.01 // Trigger when 1% of the image is visible
+                });
+
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            };
+
 
             // --- Language Selector Logic ---
             const storedLang = localStorage.getItem('selectedLanguage');
@@ -1215,7 +1442,8 @@
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.clientHeight;
-                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                    // Adjust offset to make the active state change when section is more visible
+                    if (pageYOffset >= sectionTop - sectionHeight / 2) {
                         current = section.getAttribute('id');
                     }
                 });
@@ -1244,8 +1472,53 @@
                 }
             });
 
+            // --- Contact Form Validation ---
+            const showValidationMessage = (input, messageKey) => {
+                const errorElement = document.getElementById(`${input.id}-error`);
+                if (errorElement) {
+                    errorElement.textContent = getTranslation(messageKey);
+                }
+            };
+
+            const clearValidationMessage = (input) => {
+                const errorElement = document.getElementById(`${input.id}-error`);
+                if (errorElement) {
+                    errorElement.textContent = '';
+                }
+            };
+
+            const checkFormValidity = (form) => {
+                let isValid = true;
+                const inputs = form.querySelectorAll('input[required], textarea[required]');
+                inputs.forEach(input => {
+                    clearValidationMessage(input); // Clear previous errors
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        showValidationMessage(input, `form_${input.id}_error`);
+                    } else if (input.type === 'email' && !input.value.includes('@')) {
+                        isValid = false;
+                        showValidationMessage(input, `form_${input.id}_error`); // Use email specific error if needed
+                    }
+                });
+                return isValid;
+            };
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevent default form submission
+                    if (checkFormValidity(this)) {
+                        // If valid, you would typically send data to a server
+                        alert('Message sent successfully! (This is a demo, no actual send)');
+                        this.reset(); // Clear form
+                        // Optionally hide modal or show success message
+                    } else {
+                        alert('Please correct the errors in the form.');
+                    }
+                });
+            }
+
             // Initial setup
-            setLanguage(langSelect.value); // Set initial language and render apartments
+            setLanguage(langSelect.value); // Set initial language and render apartments & reviews
         });
     </script>
 
