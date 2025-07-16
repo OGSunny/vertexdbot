@@ -17,9 +17,9 @@
             --text-light: #757575;
             --bg-light: #f5f7fa;
             --bg-white: #ffffff;
-            --border-color: #e0e0e0;
-            --shadow-light: 0 4px 20px rgba(0,0,0,0.07);
-            --shadow-hover: 0 10px 30px rgba(0,0,0,0.1);
+            --border-color: #d0d0d0; /* Slightly darker for more definition */
+            --shadow-light: 0 6px 25px rgba(0,0,0,0.1); /* Stronger light shadow */
+            --shadow-hover: 0 12px 35px rgba(0,0,0,0.15); /* Stronger hover shadow */
         }
 
         body {
@@ -28,7 +28,7 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
-            scroll-behavior: smooth; /* Smooth scroll for navigation */
+            scroll-behavior: smooth;
         }
         .container {
             max-width: 1200px;
@@ -50,14 +50,14 @@
             transition: all 0.3s ease;
             text-align: center;
             cursor: pointer;
-            border: none;
+            border: 1px solid transparent; /* Added for definition */
             font-size: 1rem;
         }
 
         .btn-primary {
             background: var(--primary-color);
             color: white;
-            border: 1px solid var(--primary-color);
+            border-color: var(--primary-color);
         }
         .btn-primary:hover {
             background: #0b3a8a;
@@ -68,7 +68,7 @@
         .btn-secondary {
             background: var(--bg-white);
             color: var(--primary-color);
-            border: 1px solid var(--primary-color);
+            border-color: var(--primary-color);
         }
         .btn-secondary:hover {
             background: var(--primary-color);
@@ -79,17 +79,21 @@
         .btn-book, .btn-submit {
             background: var(--secondary-color);
             color: var(--text-dark);
+            border-color: var(--secondary-color);
         }
         .btn-book:hover, .btn-submit:hover {
             background: #f9a825;
+            border-color: #f9a825;
         }
 
         .btn-whatsapp {
             background: #25D366;
             color: white;
+            border-color: #25D366;
         }
         .btn-whatsapp:hover {
             background: #1DAE56;
+            border-color: #1DAE56;
         }
 
         /* --- HEADER --- */
@@ -99,7 +103,8 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Stronger shadow */
+            border-bottom: 1px solid var(--border-color); /* Added border */
         }
         header .container {
             display: flex;
@@ -114,10 +119,12 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 600;
-            transition: color 0.3s;
+            transition: color 0.3s, border-bottom 0.3s;
             padding: 5px 0;
+            border-bottom: 2px solid transparent; /* Added for active state definition */
         }
-        nav a:hover, nav a.active { color: var(--primary-color); }
+        nav a:hover { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+        nav a.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
         .language-selector { margin-left: 20px; }
         #lang-select {
             padding: 8px 12px;
@@ -126,12 +133,13 @@
             background: transparent;
             font-size: 14px;
             cursor: pointer;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for depth */
         }
 
         /* --- HERO SECTION --- */
         .hero-section {
             height: 70vh;
-            background: url('https://i.imgur.com/k4nJ7wR.jpeg') no-repeat center center/cover;
+            background: url('https://i.ibb.co/jkxt8sqd/IMG-20250716-WA0019.jpg') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -149,8 +157,8 @@
             z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 20px; }
-        .hero-content h1 { font-size: 4.5rem; margin: 0 0 20px 0; line-height: 1.1; color: white; }
-        .hero-content p { font-size: 1.6rem; font-family: 'Poppins'; margin-bottom: 40px; color: rgba(255,255,255,0.9); }
+        .hero-content h1 { font-size: 4.5rem; margin: 0 0 20px 0; line-height: 1.1; color: white; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* Text shadow for definition */ }
+        .hero-content p { font-size: 1.6rem; font-family: 'Poppins'; margin-bottom: 40px; color: rgba(255,255,255,0.9); text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
 
         /* --- FEATURES SECTION --- */
         .features-section { padding: 80px 0; background: var(--bg-white); }
@@ -166,11 +174,13 @@
             background: var(--bg-light);
             border-radius: 12px;
             box-shadow: var(--shadow-light);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color); /* Added border */
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
         .feature-item:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
+            border-color: var(--primary-color); /* Border highlight on hover */
         }
         .feature-item h3 {
             font-size: 1.8rem;
@@ -184,6 +194,7 @@
             font-size: 2rem;
             margin-right: 10px;
             color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Icon definition */
         }
         /* Placeholder for icons, use font awesome or similar */
         .icon-location::before { content: '📍'; }
@@ -202,12 +213,13 @@
             background: var(--bg-white);
             border-radius: 15px;
             box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color); /* Added border */
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             display: flex;
             flex-direction: column;
         }
-        .apartment-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .apartment-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--primary-color); }
 
         .card-content {
             padding: 25px;
@@ -247,6 +259,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-bottom: 1px solid var(--border-color); /* Added for separation */
         }
 
         .carousel-images {
@@ -262,6 +275,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            border-bottom: 1px solid var(--border-color); /* Slight border on images */
         }
 
         /* Navigation Arrows */
@@ -269,7 +283,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6); /* Darker for better visibility */
             color: white;
             border: none;
             padding: 10px 15px;
@@ -277,12 +291,13 @@
             font-size: 1.5rem;
             z-index: 10;
             border-radius: 5px;
-            opacity: 0.8;
+            opacity: 0.9;
             transition: background-color 0.3s, opacity 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Shadow for definition */
         }
 
         .carousel-btn:hover {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             opacity: 1;
         }
 
@@ -308,14 +323,17 @@
         .dot {
             width: 10px;
             height: 10px;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.7); /* Brighter for more definition */
             border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.2); /* Added border */
         }
 
         .dot.active {
             background-color: var(--secondary-color);
+            border-color: var(--primary-color);
+            transform: scale(1.2); /* Slight scale for active state */
         }
 
         /* Hide navigation if only one image */
@@ -344,6 +362,7 @@
             height: auto;
             border-radius: 15px;
             box-shadow: var(--shadow-hover);
+            border: 1px solid var(--border-color); /* Added border */
         }
 
         /* --- CONTACT PAGE SECTION --- */
@@ -360,6 +379,7 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color); /* Added border */
         }
         .contact-info p {
             font-size: 1.1rem;
@@ -374,7 +394,7 @@
             margin-right: 15px;
         }
         .contact-info p a { color: var(--primary-color); text-decoration: none; }
-        .contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; }
+        .contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; border: 1px solid var(--border-color); /* Added border for QR */ border-radius: 5px; }
         .contact-info .btn-whatsapp { display: block; margin-top: 20px; }
         .contact-info h3 { margin-top: 40px; }
         .contact-info p:last-of-type { margin-bottom: 0; }
@@ -389,6 +409,7 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color); /* Added border */
         }
         .form-group { margin-bottom: 25px; }
         .form-group label {
@@ -405,6 +426,13 @@
             font-size: 1rem;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for definition */
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2); /* Focus ring */
         }
         .form-group textarea { resize: vertical; min-height: 100px; }
         .btn-submit { width: 100%; padding: 15px; font-size: 1.1rem; }
@@ -416,6 +444,7 @@
             background: var(--primary-color);
             color: white;
             margin-top: 50px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); /* Shadow for definition */
         }
         footer p { margin: 0; font-size: 0.95rem; }
 
@@ -440,7 +469,8 @@
             border-radius: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Stronger shadow */
+            border: 1px solid var(--primary-color); /* Prominent border */
             text-align: center;
             position: relative;
             animation: fadeIn 0.3s ease-out;
@@ -477,6 +507,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
             border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .whatsapp-contact-info .btn-whatsapp {
             margin-top: 10px;
@@ -980,9 +1011,9 @@
                     location: 'Orbi City, Block A',
                     price: 80,
                     images: [
-                        'https://i.imgur.com/8aAdSzC.jpeg', // Changed to imgur for direct access
-                        'https://i.imgur.com/k4nJ7wR.jpeg',
-                        'https://i.imgur.com/tB6qM91.jpeg'
+                        'https://i.ibb.co/WNLg3xmj/IMG-20250716-WA0030.jpg',
+                        'https://i.ibb.co/LzmL8mP7/IMG-20250716-WA0024.jpg',
+                        'https://i.ibb.co/xKnJDYrz/IMG-20250716-WA0018.jpg'
                     ],
                     amenitiesKeys: ['amenity_balcony', 'amenity_kitchenette', 'amenity_wifi']
                 },
@@ -992,9 +1023,9 @@
                     location: 'Orbi City, Block B',
                     price: 120,
                     images: [
-                        'https://i.imgur.com/o5Xf9gT.jpeg',
-                        'https://i.imgur.com/f0sCgEB.jpeg',
-                        'https://i.imgur.com/8aAdSzC.jpeg'
+                        'https://i.ibb.co/LzmL8mP7/IMG-20250716-WA0024.jpg',
+                        'https://i.ibb.co/xKnJDYrz/IMG-20250716-WA0018.jpg',
+                        'https://i.ibb.co/WNLg3xmj/IMG-20250716-WA0030.jpg'
                     ],
                     amenitiesKeys: ['amenity_balcony', 'amenity_fullkitchen', 'amenity_livingarea']
                 },
@@ -1004,9 +1035,9 @@
                     location: 'Orbi City, Block C',
                     price: 150,
                     images: [
-                        'https://i.imgur.com/f0sCgEB.jpeg',
-                        'https://i.imgur.com/o5Xf9gT.jpeg',
-                        'https://i.imgur.com/k4nJ7wR.jpeg'
+                        'https://i.ibb.co/xKnJDYrz/IMG-20250716-WA0018.jpg',
+                        'https://i.ibb.co/jkYtn2N5/IMG-20250716-WA0017.jpg',
+                        'https://i.ibb.co/WNLg3xmj/IMG-20250716-WA0030.jpg'
                     ],
                     amenitiesKeys: ['amenity_2bedrooms', 'amenity_fullkitchen', 'amenity_washingmachine']
                 }
@@ -1175,7 +1206,7 @@
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.clientHeight;
-                    if (pageYOffset >= sectionTop - sectionHeight / 3) { // Adjust for better trigger point
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
                         current = section.getAttribute('id');
                     }
                 });
