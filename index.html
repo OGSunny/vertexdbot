@@ -8,19 +8,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <style>
         /* --- GLOBAL STYLES & FONTS --- */
         :root {
-            --primary-color: #0d47a1; /* Deep Blue */
-            --secondary-color: #fbc02d; /* Gold */
+            --primary-color: #0b3a8a; /* Deeper Blue */
+            --secondary-color: #f9a825; /* More Vibrant Gold */
             --text-dark: #212121;
             --text-light: #757575;
             --bg-light: #f5f7fa;
             --bg-white: #ffffff;
-            --border-color: #d0d0d0; /* Slightly darker for more definition */
-            --shadow-light: 0 6px 25px rgba(0,0,0,0.1); /* Stronger light shadow */
-            --shadow-hover: 0 12px 35px rgba(0,0,0,0.15); /* Stronger hover shadow */
+            --border-color: #d0d0d0;
+            --shadow-light: 0 8px 30px rgba(0,0,0,0.12); /* Stronger light shadow */
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.2); /* Stronger hover shadow */
             --success-color: #28a745;
             --error-color: #dc3545;
         }
@@ -53,7 +53,7 @@
             transition: all 0.3s ease;
             text-align: center;
             cursor: pointer;
-            border: 1px solid transparent; /* Added for definition */
+            border: 1px solid transparent;
             font-size: 1rem;
         }
 
@@ -63,10 +63,10 @@
             border-color: var(--primary-color);
         }
         .btn-primary:hover {
-            background: #0b3a8a;
-            border-color: #0b3a8a;
+            background: #082d6b;
+            border-color: #082d6b;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .btn-secondary {
@@ -78,7 +78,7 @@
             background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .btn-book, .btn-submit {
@@ -87,10 +87,10 @@
             border-color: var(--secondary-color);
         }
         .btn-book:hover, .btn-submit:hover {
-            background: #f9a825;
-            border-color: #f9a825;
+            background: #e69519;
+            border-color: #e69519;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .btn-whatsapp {
@@ -102,7 +102,7 @@
             background: #1DAE56;
             border-color: #1DAE56;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         /* --- HEADER --- */
@@ -112,8 +112,8 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Stronger shadow */
-            border-bottom: 1px solid var(--border-color); /* Added border */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* Stronger shadow */
+            border-bottom: 1px solid var(--border-color);
         }
         header .container {
             display: flex;
@@ -121,9 +121,8 @@
             align-items: center;
             flex-wrap: wrap;
         }
-        /* Updated logo styles */
         .logo img {
-            height: 40px; /* Adjust height as needed */
+            height: 40px;
             width: auto;
             display: block;
         }
@@ -135,7 +134,7 @@
             font-weight: 600;
             transition: color 0.3s, border-bottom 0.3s;
             padding: 5px 0;
-            border-bottom: 2px solid transparent; /* Added for active state definition */
+            border-bottom: 2px solid transparent;
         }
         nav a:hover { color: var(--primary-color); border-bottom-color: var(--primary-color); }
         nav a.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
@@ -147,13 +146,13 @@
             background: transparent;
             font-size: 14px;
             cursor: pointer;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for depth */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         #lang-select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+            box-shadow: 0 0 0 3px rgba(11, 58, 138, 0.2);
         }
 
 
@@ -174,12 +173,24 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.65); /* Slightly darker overlay */
             z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 20px; }
-        .hero-content h1 { font-size: 4.5rem; margin: 0 0 20px 0; line-height: 1.1; color: white; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* Text shadow for definition */ }
-        .hero-content p { font-size: 1.6rem; font-family: 'Poppins'; margin-bottom: 40px; color: rgba(255,255,255,0.9); text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin: 0 0 20px 0;
+            line-height: 1.1;
+            color: white;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.7); /* Stronger text shadow */
+        }
+        .hero-content p {
+            font-size: 1.6rem;
+            font-family: 'Poppins';
+            margin-bottom: 40px;
+            color: rgba(255,255,255,0.95);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.6); /* Stronger text shadow */
+        }
 
         /* --- FEATURES SECTION --- */
         .features-section { padding: 80px 0; background: var(--bg-white); }
@@ -195,13 +206,13 @@
             background: var(--bg-light);
             border-radius: 12px;
             box-shadow: var(--shadow-light);
-            border: 1px solid var(--border-color); /* Added border */
+            border: 1px solid var(--border-color);
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
         .feature-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
-            border-color: var(--primary-color); /* Border highlight on hover */
+            border-color: var(--primary-color);
         }
         .feature-item h3 {
             font-size: 1.8rem;
@@ -215,14 +226,7 @@
             font-size: 2rem;
             margin-right: 10px;
             color: var(--secondary-color);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Icon definition */
-        }
-        /* Placeholder for icons, use font awesome or similar */
-        .feature-item .fas {
-            font-size: 2rem;
-            margin-right: 10px;
-            color: var(--secondary-color);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Icon definition */
         }
 
         /* --- SHOWROOM SECTION --- */
@@ -237,13 +241,13 @@
             background: var(--bg-white);
             border-radius: 15px;
             box-shadow: var(--shadow-light);
-            border: 1px solid var(--border-color); /* Added border */
+            border: 1px solid var(--border-color);
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             display: flex;
             flex-direction: column;
         }
-        .apartment-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--primary-color); }
+        .apartment-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-color: var(--primary-color); }
 
         .card-content {
             padding: 25px;
@@ -256,7 +260,7 @@
             font-size: 0.95rem;
             color: var(--text-light);
             margin-bottom: 15px;
-            flex-grow: 1; /* Allows description to take up available space */
+            flex-grow: 1;
         }
         .location {
             font-size: 0.95rem;
@@ -271,7 +275,7 @@
         .amenities { list-style: none; padding: 0; margin: 20px 0 30px 0; color: var(--text-dark); font-size: 0.95rem; }
         .amenities li { margin-bottom: 10px; display: flex; align-items: center; }
         .amenities li .fas {
-            color: var(--success-color); /* Checkmark color */
+            color: var(--success-color);
             font-weight: bold;
             margin-right: 10px;
             font-size: 1.2em;
@@ -288,7 +292,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-bottom: 1px solid var(--border-color); /* Added for separation */
+            border-bottom: 1px solid var(--border-color);
         }
 
         .carousel-images {
@@ -304,8 +308,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            border-bottom: 1px solid var(--border-color); /* Slight border on images */
-            /* Initial styling for lazy loading */
+            border-bottom: 1px solid var(--border-color);
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
@@ -313,7 +316,6 @@
             opacity: 1;
         }
         .carousel-images img.loading {
-             /* Optional: Add a subtle loading indicator */
             background-color: #f0f0f0;
             animation: pulse-bg 1s infinite alternate;
         }
@@ -329,22 +331,23 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.6); /* Darker for better visibility */
+            background-color: rgba(0, 0, 0, 0.7); /* Darker for better visibility */
             color: white;
             border: none;
             padding: 10px 15px;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             z-index: 10;
             border-radius: 5px;
-            opacity: 0.9;
-            transition: background-color 0.3s, opacity 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Shadow for definition */
+            opacity: 0.95;
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* Stronger shadow for definition */
         }
 
         .carousel-btn:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             opacity: 1;
+            transform: translateY(-50%) scale(1.05);
         }
 
         .carousel-btn.prev {
@@ -369,17 +372,17 @@
         .dot {
             width: 10px;
             height: 10px;
-            background-color: rgba(255, 255, 255, 0.7); /* Brighter for more definition */
+            background-color: rgba(255, 255, 255, 0.8); /* Brighter for more definition */
             border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            border: 1px solid rgba(0,0,0,0.2); /* Added border */
+            transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
+            border: 1px solid rgba(0,0,0,0.3); /* Added border */
         }
 
         .dot.active {
             background-color: var(--secondary-color);
             border-color: var(--primary-color);
-            transform: scale(1.2); /* Slight scale for active state */
+            transform: scale(1.3); /* Slight scale for active state */
         }
 
         /* Hide navigation if only one image */
@@ -410,10 +413,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-between; /* Distribute space */
         }
         .review-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
         }
         .review-card .stars {
@@ -425,7 +428,7 @@
             font-style: italic;
             color: var(--text-dark);
             margin-bottom: 20px;
-            flex-grow: 1;
+            flex-grow: 1; /* Allows description to take up available space */
         }
         .review-card .reviewer-name {
             font-weight: 600;
@@ -455,7 +458,7 @@
             height: auto;
             border-radius: 15px;
             box-shadow: var(--shadow-hover);
-            border: 1px solid var(--border-color); /* Added border */
+            border: 1px solid var(--border-color);
         }
 
         /* --- CONTACT PAGE SECTION --- */
@@ -472,7 +475,7 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: var(--shadow-light);
-            border: 1px solid var(--border-color); /* Added border */
+            border: 1px solid var(--border-color);
         }
         .contact-info p {
             font-size: 1.1rem;
@@ -487,8 +490,8 @@
             margin-right: 15px;
         }
         .contact-info p a { color: var(--primary-color); text-decoration: none; transition: color 0.3s; }
-        .contact-info p a:hover { color: #0b3a8a; text-decoration: underline; }
-        .contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; border: 1px solid var(--border-color); /* Added border for QR */ border-radius: 5px; }
+        .contact-info p a:hover { color: #082d6b; text-decoration: underline; }
+        .contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; border: 1px solid var(--border-color); border-radius: 5px; }
         .contact-info .btn-whatsapp { display: block; margin-top: 20px; }
         .contact-info h3 { margin-top: 40px; }
         .contact-info p:last-of-type { margin-bottom: 0; }
@@ -499,7 +502,7 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: var(--shadow-light);
-            border: 1px solid var(--border-color); /* Added border */
+            border: 1px solid var(--border-color);
         }
         .form-group { margin-bottom: 25px; position: relative; }
         .form-group label {
@@ -516,13 +519,13 @@
             font-size: 1rem;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Inner shadow for definition */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2); /* Focus ring */
+            box-shadow: 0 0 0 3px rgba(11, 58, 138, 0.2);
         }
         .form-group textarea { resize: vertical; min-height: 100px; }
         .btn-submit { width: 100%; padding: 15px; font-size: 1.1rem; }
@@ -541,7 +544,7 @@
             background: var(--primary-color);
             color: white;
             margin-top: 50px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); /* Shadow for definition */
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
         }
         footer p { margin: 0; font-size: 0.95rem; }
 
@@ -555,7 +558,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.6);
+            background-color: rgba(0,0,0,0.7); /* Darker overlay */
             align-items: center;
             justify-content: center;
         }
@@ -566,8 +569,8 @@
             border-radius: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Stronger shadow */
-            border: 1px solid var(--primary-color); /* Prominent border */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Stronger shadow */
+            border: 1px solid var(--primary-color);
             text-align: center;
             position: relative;
             animation: fadeIn 0.3s ease-out;
@@ -604,7 +607,7 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
             border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .whatsapp-contact-info .btn-whatsapp {
             margin-top: 10px;
@@ -628,7 +631,6 @@
             nav { margin-left: 0; width: 100%; text-align: center; }
             nav a { margin: 0 10px; }
             .language-selector { margin-left: 0; margin-top: 10px; }
-            /* Adjust logo for smaller screens if needed */
             .logo img { height: 35px; }
 
             .hero-content h1 { font-size: 3.5rem; }
@@ -674,6 +676,7 @@
         }
         body.rtl .about-preview-section { text-align: right; }
 
+        body.rtl .amenities { text-align: right; }
         body.rtl .amenities li { text-align: right; justify-content: flex-end; }
         body.rtl .amenities li .fas { margin-left: 10px; margin-right: 0; }
 
@@ -1054,7 +1057,6 @@
                     form_email: "بريدك الإلكتروني",
                     form_subject: "الموضوع",
                     form_message: "الرسالة",
-                    btn_send_message: "إرسال الرسالة",
                     footer_text: "© 2025 شقق أوربي سيتي. جميع الحقوق محفوظة.",
                     form_name_error: "الرجاء إدخال اسمك.",
                     form_email_error: "الرجاء إدخال عنوان بريد إلكتروني صحيح.",
@@ -1205,7 +1207,7 @@
                 {
                     id: 'studio-sea-view',
                     nameKey: 'room1_name',
-                    descriptionKey: 'room1_desc', // New: Description key
+                    descriptionKey: 'room1_desc',
                     location: 'Orbi City, Block A',
                     price: 80,
                     images: [
@@ -1218,7 +1220,7 @@
                 {
                     id: 'panoramic-suite',
                     nameKey: 'room2_name',
-                    descriptionKey: 'room2_desc', // New: Description key
+                    descriptionKey: 'room2_desc',
                     location: 'Orbi City, Block B',
                     price: 120,
                     images: [
@@ -1231,7 +1233,7 @@
                 {
                     id: 'family-apartment',
                     nameKey: 'room3_name',
-                    descriptionKey: 'room3_desc', // New: Description key
+                    descriptionKey: 'room3_desc',
                     location: 'Orbi City, Block C',
                     price: 150,
                     images: [
