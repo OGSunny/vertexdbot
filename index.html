@@ -252,6 +252,12 @@
             flex-direction: column;
         }
         .card-content h3 { margin-top: 0; font-size: 1.8rem; color: var(--text-dark); }
+        .card-content p.apartment-description {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            flex-grow: 1; /* Allows description to take up available space */
+        }
         .location {
             font-size: 0.95rem;
             color: var(--text-light);
@@ -760,7 +766,7 @@
                 <div class="whatsapp-contact-info">
                     <img src="https://i.imgur.com/orbi-qr-code.png" alt="WhatsApp QR Code" class="qr-code">
                     <a href="https://wa.me/1234567890" target="_blank" class="btn-whatsapp" data-lang="btn_whatsapp_modal">Chat on WhatsApp</a>
-                    <p data-lang="modal_phone">Or call: +995 555 123 456</p>
+                    <p data-lang="modal_phone"></p>
                 </div>
             </div>
         </div>
@@ -852,7 +858,7 @@
                     site_title: "Orbi City | Premium Apartments in Batumi",
                     nav_home: "Home",
                     nav_showroom: "Showroom",
-                    nav_reviews: "Reviews", // New translation key
+                    nav_reviews: "Reviews",
                     nav_about: "About Us",
                     nav_contact: "Contact",
                     hero_title: "Experience Batumi From Above",
@@ -866,8 +872,15 @@
                     feature3_title: "Luxury Amenities",
                     feature3_desc: "Enjoy modern, fully-equipped apartments with all the comforts of home.",
                     showroom_title: "Our Premium Apartments",
+                    price_info: "Average price",
                     price_prefix: "From",
-                    price_suffix: "/ night",
+                    price_suffix: " / night",
+                    room1_name: "Cozy Studio with Sea View",
+                    room1_desc: "A charming studio apartment perfect for couples, featuring a balcony with direct sea views and all essential amenities for a comfortable stay.",
+                    room2_name: "Spacious One-Bedroom Suite",
+                    room2_desc: "Enjoy ample space in this one-bedroom suite, complete with a separate living area, a full kitchen, and a large balcony offering stunning city and partial sea views.",
+                    room3_name: "Luxury Two-Bedroom Family Apartment",
+                    room3_desc: "Ideal for families or groups, this apartment boasts two comfortable bedrooms, a spacious living room, a fully equipped kitchen, and a washing machine for your convenience.",
                     amenity_balcony: "Sea View Balcony",
                     amenity_kitchenette: "Kitchenette",
                     amenity_wifi: "High-Speed WiFi",
@@ -881,7 +894,11 @@
                     modal_desc: "To inquire about purchasing this apartment, please contact the owner directly via WhatsApp:",
                     btn_whatsapp_modal: "Chat on WhatsApp",
                     modal_phone: "Or call: +995 555 123 456",
-                    reviews_title: "What Our Guests Say", // New translation key
+                    reviews_title: "What Our Guests Say",
+                    review1_comment: "Absolutely stunning views and a very comfortable stay! The apartment was spotless and had everything we needed. Highly recommend for a luxurious getaway in Batumi.",
+                    review2_comment: "Great location, close to all the main attractions. The sea view from the balcony was incredible. A minor issue with the Wi-Fi was quickly resolved by the friendly staff.",
+                    review3_comment: "Fantastic experience! The apartment was spacious, beautifully designed, and very well-equipped. It felt like a home away from home. Will definitely be back!",
+                    review4_comment: "Excellent value for money. The apartment was clean and the check-in process was smooth. Enjoyed the modern amenities. Only wish there was a closer grocery store.",
                     about_page_title: "Our Story",
                     about_paragraph1: "Orbi City Apartments emerged from a vision to offer an unparalleled luxury experience in Batumi, Georgia. Located in the iconic Orbi City complex, our properties combine modern design with breathtaking panoramic views of the Black Sea and the vibrant city.",
                     about_paragraph2: "We believe in providing more than just accommodation; we offer a lifestyle. Each apartment is meticulously furnished and equipped with high-end amenities to ensure maximum comfort and convenience for our guests and residents. From spacious living areas to fully-equipped kitchens, every detail is crafted with your enjoyment in mind.",
@@ -910,7 +927,7 @@
                     site_title: "ორბი სითი | პრემიუმ აპარტამენტები ბათუმში",
                     nav_home: "მთავარი",
                     nav_showroom: "შოურუმი",
-                    nav_reviews: "შეფასებები", // New translation key
+                    nav_reviews: "შეფასებები",
                     nav_about: "ჩვენს შესახებ",
                     nav_contact: "კონტაქტი",
                     hero_title: "განიცადე ბათუმი მაღლიდან",
@@ -924,8 +941,15 @@
                     feature3_title: "ფუფუნების საყოფაცხოვრებო პირობები",
                     feature3_desc: "ისიამოვნეთ თანამედროვე, სრულად აღჭურვილი აპარტამენტებით სახლის ყველა კომფორტით.",
                     showroom_title: "ჩვენი პრემიუმ აპარტამენტები",
-                    price_prefix: "",
+                    price_info: "საშუალო ფასი",
+                    price_prefix: "დან",
                     price_suffix: " / ღამე",
+                    room1_name: "კომფორტული სტუდია ზღვის ხედით",
+                    room1_desc: "მომხიბლავი სტუდიოს ტიპის ბინა წყვილებისთვის, აივნით ზღვის პირდაპირი ხედებით და ყველა აუცილებელი კეთილმოწყობით კომფორტული დასვენებისთვის.",
+                    room2_name: "ფართო ერთსაძინებლიანი ლუქსი",
+                    room2_desc: "ისიამოვნეთ ფართო სივრცით ამ ერთსაძინებლიან ლუქსში, ცალკე მისაღები ზონით, სრული სამზარეულოთი და დიდი აივნით, რომელიც გთავაზობთ ქალაქისა და ზღვის ნაწილობრივ ულამაზეს ხედებს.",
+                    room3_name: "ფუფუნების ორსაძინებლიანი საოჯახო აპარტამენტი",
+                    room3_desc: "იდეალურია ოჯახებისთვის ან ჯგუფებისთვის, ეს აპარტამენტი მოიცავს ორ კომფორტულ საძინებელს, ფართო მისაღებ ოთახს, სრულად აღჭურვილ სამზარეულოს და სარეცხ მანქანას თქვენი მოხერხებულობისთვის.",
                     amenity_balcony: "აივანი ზღვის ხედით",
                     amenity_kitchenette: "სამზარეულო კუთხე",
                     amenity_wifi: "სწრაფი WiFi",
@@ -939,7 +963,11 @@
                     modal_desc: "აპარტამენტის შესაძენად, გთხოვთ, დაუკავშირდეთ მფლობელს უშუალოდ WhatsApp-ის საშუალებით:",
                     btn_whatsapp_modal: "ჩატი WhatsApp-ზე",
                     modal_phone: "ან დარეკეთ: +995 555 123 456",
-                    reviews_title: "რას ამბობენ ჩვენი სტუმრები", // New translation key
+                    reviews_title: "რას ამბობენ ჩვენი სტუმრები",
+                    review1_comment: "აბსოლუტურად განსაცვიფრებელი ხედები და ძალიან კომფორტული დასვენება! ბინა უზადო იყო და გვქონდა ყველაფერი, რაც გვჭირდებოდა. უაღრესად გირჩევთ ძვირადღირებული დასვენებისთვის ბათუმში.",
+                    review2_comment: "შესანიშნავი მდებარეობა, ყველა ძირითად ატრაქციონთან ახლოს. აივნიდან ზღვის ხედი წარმოუდგენელი იყო. Wi-Fi-თან დაკავშირებული მცირე პრობლემა სწრაფად მოგვარდა მეგობრული პერსონალის მიერ.",
+                    review3_comment: "ფანტასტიური გამოცდილება! ბინა იყო ფართო, ლამაზად გაფორმებული და ძალიან კარგად აღჭურვილი. თავს ისე ვგრძნობდით, როგორც საკუთარ სახლში. ნამდვილად დავბრუნდებით!",
+                    review4_comment: "ფულის შესანიშნავი ღირებულება. ბინა იყო სუფთა და რეგისტრაციის პროცესი შეუფერხებლად მიმდინარეობდა. ვისიამოვნეთ თანამედროვე კეთილმოწყობილობით. ერთადერთი, რისი სურვილიც მქონდა, იყო უფრო ახლოს მდებარე სასურსათო მაღაზია.",
                     about_page_title: "ჩვენი ისტორია",
                     about_paragraph1: "ორბი სითი აპარტამენტები შეიქმნა ბათუმში, საქართველო, შეუდარებელი ფუფუნების გამოცდილების შეთავაზების ხედვით. მდებარეობს საკულტო ორბი სითის კომპლექსში, ჩვენი თვისებები აერთიანებს თანამედროვე დიზაინს შავი ზღვისა და ცოცხალი ქალაქის თვალწარმტაც პანორამულ ხედებთან.",
                     about_paragraph2: "ჩვენ გვჯერა, რომ ვაძლევთ უბრალოდ განთავსებას; ჩვენ ვთავაზობთ ცხოვრების წესს. თითოეული აპარტამენტი ზედმიწევნით არის მოწყობილი და აღჭურვილი მაღალი დონის კეთილმოწყობით, რათა უზრუნველყოფილი იყოს მაქსიმალური კომფორტი და მოხერხებულობა ჩვენი სტუმრებისა და მაცხოვრებლებისთვის. ფართო საცხოვრებელი ფართებიდან სრულად აღჭურვილი სამზარეულოებით, ყოველი დეტალი თქვენი სიამოვნებისთვის არის შექმნილი.",
@@ -968,7 +996,7 @@
                     site_title: "أوربي سيتي | شقق فاخرة في باتومي",
                     nav_home: "الرئيسية",
                     nav_showroom: "معرض الشقق",
-                    nav_reviews: "المراجعات", // New translation key
+                    nav_reviews: "المراجعات",
                     nav_about: "عنا",
                     nav_contact: "اتصل بنا",
                     hero_title: "استمتع بتجربة باتومي من الأعلى",
@@ -982,8 +1010,15 @@
                     feature3_title: "وسائل راحة فاخرة",
                     feature3_desc: "استمتع بشقق عصرية ومجهزة بالكامل مع جميع وسائل الراحة المنزلية.",
                     showroom_title: "شققنا الفاخرة",
+                    price_info: "متوسط السعر",
                     price_prefix: "ابتداءً من",
                     price_suffix: " / الليلة",
+                    room1_name: "استوديو مريح بإطلالة بحرية",
+                    room1_desc: "شقة استوديو ساحرة مثالية للأزواج، تتميز بشرفة مطلة مباشرة على البحر وجميع وسائل الراحة الأساسية لإقامة مريحة.",
+                    room2_name: "جناح واسع بغرفة نوم واحدة",
+                    room2_desc: "استمتع بمساحة واسعة في هذا الجناح المكون من غرفة نوم واحدة، والذي يضم منطقة معيشة منفصلة، ومطبخًا كاملاً، وشرفة كبيرة توفر إطلالات خلابة على المدينة والبحر جزئيًا.",
+                    room3_name: "شقة عائلية فاخرة بغرفتي نوم",
+                    room3_desc: "مثالية للعائلات أو المجموعات، تتميز هذه الشقة بغرفتي نوم مريحتين، وغرفة معيشة واسعة، ومطبخ مجهز بالكامل، وغسالة ملابس لراحتك.",
                     amenity_balcony: "شرفة مطلة على البحر",
                     amenity_kitchenette: "مطبخ صغير",
                     amenity_wifi: "واي فاي عالي السرعة",
@@ -997,7 +1032,11 @@
                     modal_desc: "للاستفسار عن شراء هذه الشقة، يرجى الاتصال بالمالك مباشرة عبر الواتساب:",
                     btn_whatsapp_modal: "الدردشة على واتساب",
                     modal_phone: "أو اتصل: +995 555 123 456",
-                    reviews_title: "ماذا يقول ضيوفنا", // New translation key
+                    reviews_title: "ماذا يقول ضيوفنا",
+                    review1_comment: "إطلالات خلابة للغاية وإقامة مريحة للغاية! كانت الشقة نظيفة تمامًا وتحتوي على كل ما نحتاجه. أوصي بشدة لقضاء عطلة فاخرة في باتومي.",
+                    review2_comment: "موقع رائع، قريب من جميع مناطق الجذب الرئيسية. كانت إطلالة البحر من الشرفة لا تصدق. تم حل مشكلة بسيطة في Wi-Fi بسرعة من قبل الموظفين الودودين.",
+                    review3_comment: "تجربة رائعة! كانت الشقة واسعة، مصممة بشكل جميل، ومجهزة جيدًا. شعرت وكأنها منزل بعيد عن المنزل. سأعود بالتأكيد!",
+                    review4_comment: "قيمة ممتازة مقابل المال. كانت الشقة نظيفة وكانت عملية تسجيل الدخول سلسة. استمتعت بوسائل الراحة الحديثة. أتمنى فقط لو كان هناك متجر بقالة أقرب.",
                     about_page_title: "قصتنا",
                     about_paragraph1: "ظهرت شقق أوربي سيتي من رؤية لتقديم تجربة فاخرة لا مثيل لها في باتومي، جورجيا. تقع عقاراتنا في مجمع أوربي سيتي الشهير، وتجمع بين التصميم الحديث والإطلالات البانورامية الخلابة على البحر الأسود وأفق المدينة النابض بالحياة.",
                     about_paragraph2: "نحن نؤمن بتقديم أكثر من مجرد إقامة؛ نحن نقدم أسلوب حياة. تم تأثيث كل شقة وتجهيزها بدقة بوسائل راحة عالية الجودة لضمان أقصى قدر من الراحة والملاءمة لضيوفنا والمقيمين. من مناطق المعيشة الفسيحة إلى المطابخ المجهزة بالكامل، تم تصميم كل التفاصيل مع مراعاة استمتاعك.",
@@ -1026,7 +1065,7 @@
                     site_title: "Орби Сити | Премиум Апартаменты в Батуми",
                     nav_home: "Главная",
                     nav_showroom: "Шоурум",
-                    nav_reviews: "Отзывы", // New translation key
+                    nav_reviews: "Отзывы",
                     nav_about: "О нас",
                     nav_contact: "Контакты",
                     hero_title: "Почувствуйте Батуми с высоты",
@@ -1040,8 +1079,15 @@
                     feature3_title: "Роскошные удобства",
                     feature3_desc: "Наслаждайтесь современными, полностью оборудованными апартаментами со всеми домашними удобствами.",
                     showroom_title: "Наши Премиум Апартаменты",
+                    price_info: "Средняя цена",
                     price_prefix: "От",
                     price_suffix: " / ночь",
+                    room1_name: "Уютная студия с видом на море",
+                    room1_desc: "Очаровательная студия, идеально подходящая для пар, с балконом с прямым видом на море и всеми необходимыми удобствами для комфортного проживания.",
+                    room2_name: "Просторный люкс с одной спальней",
+                    room2_desc: "Наслаждайтесь большим пространством в этом люксе с одной спальней, отдельной гостиной зоной, полностью оборудованной кухней и большим балконом с потрясающим видом на город и частичным видом на море.",
+                    room3_name: "Роскошные апартаменты с двумя спальнями для семьи",
+                    room3_desc: "Идеально подходит для семей или групп, эти апартаменты располагают двумя комфортабельными спальнями, просторной гостиной, полностью оборудованной кухней и стиральной машиной для вашего удобства.",
                     amenity_balcony: "Балкон с видом на море",
                     amenity_kitchenette: "Мини-кухня",
                     amenity_wifi: "Высокоскоростной Wi-Fi",
@@ -1055,7 +1101,11 @@
                     modal_desc: "Чтобы узнать о покупке этой квартиры, пожалуйста, свяжитесь с владельцем напрямую через WhatsApp:",
                     btn_whatsapp_modal: "Чат в WhatsApp",
                     modal_phone: "Или позвоните: +995 555 123 456",
-                    reviews_title: "Что говорят наши гости", // New translation key
+                    reviews_title: "Что говорят наши гости",
+                    review1_comment: "Абсолютно потрясающие виды и очень комфортное пребывание! Квартира была безупречной, и в ней было все, что нам нужно. Настоятельно рекомендую для роскошного отдыха в Батуми.",
+                    review2_comment: "Отличное расположение, близко ко всем основным достопримечательностям. Вид на море с балкона был невероятным. Небольшая проблема с Wi-Fi была быстро решена дружелюбным персоналом.",
+                    review3_comment: "Фантастический опыт! Квартира была просторной, красиво оформленной и очень хорошо оборудованной. Чувствовал себя как дома вдали от дома. Обязательно вернусь!",
+                    review4_comment: "Отличное соотношение цены и качества. Квартира была чистой, и процесс регистрации прошел гладко. Понравились современные удобства. Хотелось бы, чтобы был продуктовый магазин поближе.",
                     about_page_title: "Наша История",
                     about_paragraph1: "Апартаменты Орби Сити возникли из идеи предложить несравненный роскошный опыт в Батуми, Грузия. Расположенные в знаковом комплексе Орби Сити, наши объекты сочетают современный дизайн с захватывающими панорамными видами на Черное море и оживленный городской пейзаж.",
                     about_paragraph2: "Мы верим, что предлагаем не просто жилье; мы предлагаем образ жизни. Каждая квартира тщательно меблирована и оборудована высококлассными удобствами для обеспечения максимального комфорта и удобства для наших гостей и жителей. От просторных гостиных до полностью оборудованных кухонь, каждая деталь создана для вашего наслаждения.",
@@ -1084,7 +1134,7 @@
                     site_title: "Orbi City | Batum'da Premium Daireler",
                     nav_home: "Ana Sayfa",
                     nav_showroom: "Showroom",
-                    nav_reviews: "Yorumlar", // New translation key
+                    nav_reviews: "Yorumlar",
                     nav_about: "Hakkımızda",
                     nav_contact: "İletişim",
                     hero_title: "Batum'u Yukarıdan Deneyimleyin",
@@ -1098,8 +1148,15 @@
                     feature3_title: "Lüks Olanaklar",
                     feature3_desc: "Ev konforunda, modern, tam donanımlı dairelerin keyfini çıkarın.",
                     showroom_title: "Premium Dairelerimiz",
+                    price_info: "Ortalama fiyat",
                     price_prefix: "Başlangıç",
                     price_suffix: " / gece",
+                    room1_name: "Deniz Manzaralı Konforlu Stüdyo",
+                    room1_desc: "Doğrudan deniz manzaralı balkona ve konforlu bir konaklama için tüm temel olanaklara sahip, çiftler için mükemmel büyüleyici bir stüdyo daire.",
+                    room2_name: "Geniş Tek Yatak Odalı Süit",
+                    room2_desc: "Ayrı oturma alanı, tam donanımlı mutfak ve şehrin ve kısmi deniz manzaralı büyük bir balkonu olan bu tek yatak odalı süitte geniş alanın keyfini çıkarın.",
+                    room3_name: "Lüks İki Yatak Odalı Aile Dairesi",
+                    room3_desc: "Aileler veya gruplar için ideal olan bu dairede iki konforlu yatak odası, geniş bir oturma odası, tam donanımlı bir mutfak ve rahatınız için çamaşır makinesi bulunmaktadır.",
                     amenity_balcony: "Deniz Manzaralı Balkon",
                     amenity_kitchenette: "Mutfak Köşesi",
                     amenity_wifi: "Yüksek Hızlı WiFi",
@@ -1113,7 +1170,11 @@
                     modal_desc: "Bu daireyi satın alma hakkında bilgi almak için lütfen doğrudan WhatsApp üzerinden sahibiyle iletişime geçin:",
                     btn_whatsapp_modal: "WhatsApp'ta Sohbet Et",
                     modal_phone: "Veya arayın: +995 555 123 456",
-                    reviews_title: "Ne Diyor Misafirlerimiz", // New translation key
+                    reviews_title: "Ne Diyor Misafirlerimiz",
+                    review1_comment: "Kesinlikle muhteşem manzaralar ve çok rahat bir konaklama! Daire tertemizdi ve ihtiyacımız olan her şeye sahipti. Batum'da lüks bir kaçamak için şiddetle tavsiye edilir.",
+                    review2_comment: "Harika konum, tüm ana cazibe merkezlerine yakın. Balkondan deniz manzarası inanılmazdı. Wi-Fi ile ilgili küçük bir sorun, güler yüzlü personel tarafından hızla çözüldü.",
+                    review3_comment: "Harika bir deneyim! Daire geniş, güzel tasarlanmış ve çok iyi donatılmıştı. Evden uzakta bir ev gibi hissettik. Kesinlikle geri döneceğiz!",
+                    review4_comment: "Para için mükemmel değer. Daire temizdi ve check-in süreci sorunsuzdu. Modern olanaklardan keyif aldım. Keşke daha yakın bir market olsaydı.",
                     about_page_title: "Hikayemiz",
                     about_paragraph1: "Orbi City Daireleri, Batum, Gürcistan'da eşsiz bir lüks deneyimi sunma vizyonuyla ortaya çıktı. İkonik Orbi City kompleksinde yer alan mülklerimiz, modern tasarımı Karadeniz'in ve hareketli şehir silüetinin nefes kesen panoramik manzaralarıyla birleştiriyor.",
                     about_paragraph2: "Sadece konaklama değil, bir yaşam tarzı sunduğumuza inanıyoruz. Her daire, misafirlerimize ve sakinlerimize maksimum konfor ve kolaylık sağlamak için titizlikle döşenmiş ve yüksek kaliteli olanaklarla donatılmıştır. Geniş yaşam alanlarından tam donanımlı mutfaklara kadar her ayrıntı, sizin keyfiniz düşünülerek tasarlanmıştır.",
@@ -1144,6 +1205,7 @@
                 {
                     id: 'studio-sea-view',
                     nameKey: 'room1_name',
+                    descriptionKey: 'room1_desc', // New: Description key
                     location: 'Orbi City, Block A',
                     price: 80,
                     images: [
@@ -1156,6 +1218,7 @@
                 {
                     id: 'panoramic-suite',
                     nameKey: 'room2_name',
+                    descriptionKey: 'room2_desc', // New: Description key
                     location: 'Orbi City, Block B',
                     price: 120,
                     images: [
@@ -1168,6 +1231,7 @@
                 {
                     id: 'family-apartment',
                     nameKey: 'room3_name',
+                    descriptionKey: 'room3_desc', // New: Description key
                     location: 'Orbi City, Block C',
                     price: 150,
                     images: [
@@ -1179,37 +1243,32 @@
                 }
             ];
 
-            // New: Review data
             const reviews = [
                 {
                     name: "Anna K.",
                     rating: 5,
-                    comment: "Absolutely stunning views and a very comfortable stay! The apartment was spotless and had everything we needed. Highly recommend for a luxurious getaway in Batumi.",
-                    commentKey: "review1_comment" // Added for potential future translation
+                    commentKey: "review1_comment"
                 },
                 {
                     name: "David M.",
                     rating: 4,
-                    comment: "Great location, close to all the main attractions. The sea view from the balcony was incredible. A minor issue with the Wi-Fi was quickly resolved by the friendly staff.",
                     commentKey: "review2_comment"
                 },
                 {
                     name: "Sophia L.",
                     rating: 5,
-                    comment: "Fantastic experience! The apartment was spacious, beautifully designed, and very well-equipped. It felt like a home away from home. Will definitely be back!",
                     commentKey: "review3_comment"
                 },
                 {
                     name: "George P.",
                     rating: 4,
-                    comment: "Excellent value for money. The apartment was clean and the check-in process was smooth. Enjoyed the modern amenities. Only wish there was a closer grocery store.",
                     commentKey: "review4_comment"
                 }
             ];
 
             const langSelect = document.getElementById('lang-select');
             const apartmentListings = document.getElementById('apartment-listings');
-            const reviewGrid = document.getElementById('review-grid'); // New: Reviews container
+            const reviewGrid = document.getElementById('review-grid');
             const purchaseModal = document.getElementById('purchase-modal');
             const closeButton = purchaseModal.querySelector('.close-button');
             const contactForm = document.getElementById('contact-form');
@@ -1245,17 +1304,18 @@
                     }
                 });
 
-                document.querySelectorAll('[data-lang-price]').forEach(el => {
-                    const price = el.dataset.langPrice;
-                    el.innerHTML = `${t.price_prefix} <span>$${price}</span> ${t.price_suffix}`;
-                });
+                // Handle specific elements that might need special translation logic (like the modal phone)
+                const modalPhoneElement = document.querySelector('.whatsapp-contact-info .modal_phone');
+                if (modalPhoneElement) {
+                    modalPhoneElement.textContent = t.modal_phone;
+                }
 
                 document.body.className = lang === 'ar' ? 'rtl' : '';
                 document.documentElement.lang = lang;
                 document.title = t.site_title;
 
-                renderApartments(); // Re-render apartments to update text and carousels
-                renderReviews(); // New: Re-render reviews
+                renderApartments();
+                renderReviews();
             };
 
             const createApartmentCard = (apartment) => {
@@ -1275,8 +1335,11 @@
                     </div>
                     <div class="card-content">
                         <h3 data-lang="${apartment.nameKey}">${getTranslation(apartment.nameKey)}</h3>
+                        <p class="apartment-description" data-lang="${apartment.descriptionKey}">${getTranslation(apartment.descriptionKey)}</p>
                         <p class="location"><i class="fas fa-map-marker-alt"></i> ${apartment.location}</p>
-                        <p class="price" data-lang-price="${apartment.price}">${getTranslation('price_prefix')} <span>$${apartment.price}</span> ${getTranslation('price_suffix')}</p>
+                        <p class="price">
+                            <span data-lang="price_info">${getTranslation('price_info')}</span> ${getTranslation('price_prefix')} <span>$${apartment.price}</span> ${getTranslation('price_suffix')}
+                        </p>
                         <ul class="amenities">
                             ${amenitiesList}
                         </ul>
@@ -1286,7 +1349,6 @@
                 return card;
             };
 
-            // New: Function to create a review card
             const createReviewCard = (review) => {
                 const card = document.createElement('div');
                 card.classList.add('review-card');
@@ -1295,7 +1357,7 @@
 
                 card.innerHTML = `
                     <div class="stars">${starIcons}</div>
-                    <p>${review.comment}</p>
+                    <p data-lang="${review.commentKey}">${getTranslation(review.commentKey)}</p>
                     <div class="reviewer-name">- ${review.name}</div>
                 `;
                 return card;
@@ -1368,7 +1430,6 @@
                 lazyLoadImages(); // Trigger lazy load for new images
             };
 
-            // New: Function to render reviews
             const renderReviews = () => {
                 reviewGrid.innerHTML = ''; // Clear existing reviews
                 reviews.forEach(review => {
@@ -1497,7 +1558,7 @@
                         showValidationMessage(input, `form_${input.id}_error`);
                     } else if (input.type === 'email' && !input.value.includes('@')) {
                         isValid = false;
-                        showValidationMessage(input, `form_${input.id}_error`); // Use email specific error if needed
+                        showValidationMessage(input, `form_email_error`); // Use email specific error for consistency
                     }
                 });
                 return isValid;
