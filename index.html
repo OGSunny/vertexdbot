@@ -123,7 +123,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Prevent wrapping in header */
         }
         .logo img {
             height: 40px;
@@ -180,6 +180,30 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(11, 58, 138, 0.2);
         }
+
+        /* Hamburger Menu */
+        .hamburger-menu {
+            display: none; /* Hidden by default on larger screens */
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            z-index: 1001; /* Above nav when open */
+            margin-left: 20px; /* Space from lang selector */
+        }
+
+        .hamburger-menu .bar {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.open .bar:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+        .hamburger-menu.open .bar:nth-child(2) { opacity: 0; }
+        .hamburger-menu.open .bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
 
 
         /* --- HERO SECTION --- */
@@ -551,7 +575,7 @@
         .contact-page-section h2 { margin-bottom: 60px; }
         .contact-details-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
+            grid-template-columns: 1fr; /* Make it single column after removing contact form */
             gap: 50px;
             margin-top: 50px;
         }
@@ -561,59 +585,29 @@
             border-radius: 15px;
             box-shadow: var(--shadow-light);
             border: 1px solid var(--border-color);
+            max-width: 800px; /* Constrain width for better readability */
+            margin: 0 auto; /* Center it */
         }
         .contact-info p {
             font-size: 1.1rem;
             margin-bottom: 15px;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Align icon to top of text */
             color: var(--text-dark);
         }
         .contact-info p .fas {
             font-size: 1.5rem;
             color: var(--primary-color);
             margin-right: 15px;
+            line-height: 1.6; /* Match line-height with text */
         }
         .contact-info p a { color: var(--primary-color); text-decoration: none; transition: color 0.3s; }
         .contact-info p a:hover { color: #082d6b; text-decoration: underline; }
         .contact-info .qr-code { width: 120px; height: 120px; margin: 25px auto 15px auto; display: block; border: 1px solid var(--border-color); border-radius: 5px; }
-        .contact-info .btn-whatsapp { display: block; margin-top: 20px; }
+        .contact-info .btn-whatsapp { display: block; margin-top: 20px; width: fit-content; margin-left: auto; margin-right: auto; }
         .contact-info h3 { margin-top: 40px; }
         .contact-info p:last-of-type { margin-bottom: 0; }
 
-
-        .contact-form {
-            background: var(--bg-light);
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: var(--shadow-light);
-            border: 1px solid var(--border-color);
-        }
-        .form-group { margin-bottom: 25px; position: relative; }
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        .form-group input, .form-group textarea {
-            width: calc(100% - 24px);
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(11, 58, 138, 0.2);
-        }
-        .form-group textarea { resize: vertical; min-height: 100px; }
-        .btn-submit { width: 100%; padding: 15px; font-size: 1.1rem; }
 
         .validation-message {
             color: var(--error-color);
@@ -719,6 +713,60 @@
             text-decoration: underline;
         }
 
+        /* Booking Modal Specific Styles */
+        .booking-form .form-group input[type="date"],
+        .booking-form .form-group input[type="number"] {
+            width: calc(100% - 24px);
+        }
+        .booking-form .form-group.checkbox-group label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        .booking-form .form-group.checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .booking-form .form-group.checkbox-group input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .booking-form .form-group.checkbox-group input[type="checkbox"]:checked::before {
+            content: "\f00c"; /* FontAwesome check icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            height: 100%;
+        }
+
+        /* Signup Email Verification Step */
+        #signup-form-step-1, #signup-form-step-2 {
+            display: none;
+        }
+        #signup-form-step-1.active, #signup-form-step-2.active {
+            display: block;
+        }
+        .signup-step-message {
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -737,19 +785,80 @@
 
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 992px) {
-            header .container { flex-direction: column; gap: 15px; }
-            nav { margin-left: 0; width: 100%; text-align: center; justify-content: center; }
-            nav a { margin: 0 10px; }
-            .language-selector, .auth-buttons { margin-left: 0; margin-top: 10px; }
-            .logo img { height: 35px; }
+            header .container {
+                flex-wrap: wrap; /* Allow wrapping for general layout */
+                justify-content: space-between;
+            }
+            header nav {
+                flex-direction: column;
+                position: absolute;
+                top: 70px; /* Below header */
+                left: 0;
+                width: 100%;
+                background: var(--bg-white);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+                border-top: 1px solid var(--border-color);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+                align-items: flex-start; /* Align items to the left in column */
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            header nav.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            header nav a {
+                margin: 10px 0;
+                width: 100%;
+                text-align: left;
+                padding: 10px 0;
+                border-bottom: none; /* Remove border for menu items */
+                border-left: 3px solid transparent;
+            }
+            header nav a:hover {
+                border-left-color: var(--primary-color);
+            }
+            .auth-buttons {
+                flex-direction: column;
+                gap: 5px;
+                margin-left: 0; /* Remove left margin */
+                width: 100%;
+                margin-top: 15px;
+                border-top: 1px solid var(--border-color);
+                padding-top: 15px;
+            }
+            .auth-buttons .btn {
+                width: 100%;
+            }
+            .language-selector {
+                margin-left: auto; /* Push language selector to the right */
+                order: 2; /* Change order to appear after logo, before burger */
+            }
+            .hamburger-menu {
+                display: flex; /* Show hamburger on smaller screens */
+                order: 3; /* Position after language selector */
+            }
+
             .hero-content h1 { font-size: 3.5rem; }
             .hero-content p { font-size: 1.3rem; }
-            .features-grid, .apartment-grid, .contact-details-grid, .review-grid { grid-template-columns: 1fr; }
-            .contact-form, .contact-info { margin-top: 20px; }
+            .features-grid, .apartment-grid, .review-grid { grid-template-columns: 1fr; }
             .apartment-card { max-width: 450px; margin: 0 auto; }
             .about-content-grid { grid-template-columns: 1fr; }
             .about-image { order: -1; }
             .modal-content { padding: 30px; }
+
+            /* Contact section on mobile - only one column now, center info */
+            .contact-details-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-info {
+                margin: 0 auto;
+                max-width: 100%; /* Allow full width on smaller screens */
+            }
         }
 
         @media (max-width: 768px) {
@@ -762,23 +871,33 @@
                 padding: 12px 20px;
                 font-size: 0.95rem;
             }
-            .auth-buttons {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .auth-buttons .btn {
-                width: 100%;
-            }
         }
 
         /* --- RTL (ARABIC) STYLES --- */
         body.rtl { direction: rtl; text-align: right; }
-        body.rtl header .container { flex-direction: column; }
-        body.rtl nav { margin-right: auto; margin-left: 0; text-align: center; }
-        body.rtl nav a { margin: 0 10px; }
-        body.rtl .language-selector { margin-right: 0; margin-left: 20px; }
-        body.rtl .auth-buttons { margin-right: 20px; margin-left: 0; }
-        body.rtl .logo { text-align: right; }
+        body.rtl header .container { flex-direction: row-reverse; } /* Reverse main flex order */
+        body.rtl .logo { order: 1; } /* Keep logo on the right */
+        body.rtl .hamburger-menu { order: 2; margin-right: 20px; margin-left: 0; }
+        body.rtl .language-selector { order: 3; margin-right: 0; margin-left: auto; }
+
+        body.rtl nav {
+            align-items: flex-end; /* Align items to the right in column */
+            left: auto;
+            right: 0;
+            box-shadow: -8px 8px 20px rgba(0,0,0,0.1); /* Shadow to the left */
+        }
+        body.rtl nav a {
+            text-align: right;
+            border-left: none;
+            border-right: 3px solid transparent;
+        }
+        body.rtl nav a:hover {
+            border-left-color: transparent;
+            border-right-color: var(--primary-color);
+        }
+        body.rtl .auth-buttons {
+            align-items: flex-end; /* Buttons align to the right */
+        }
 
         body.rtl h1, body.rtl h2, body.rtl h3, body.rtl p { text-align: right; }
         body.rtl .features-section h2,
@@ -805,7 +924,9 @@
 
         body.rtl .contact-info p .fas { margin-left: 15px; margin-right: 0; }
         body.rtl .whatsapp-contact-info { text-align: right; }
-        body.rtl .whatsapp-contact-info .qr-code { margin-left: auto; margin-right: 0; }
+        body.rtl .whatsapp-contact-info .qr-code { margin-left: auto; margin-right: auto; }
+        body.rtl .btn-whatsapp { margin-left: auto; margin-right: auto; } /* Center whatsapp button in RTL */
+
         body.rtl .modal-content { text-align: right; }
         body.rtl .modal-content .close-button { right: auto; left: 25px; }
 
@@ -816,6 +937,14 @@
             background-position: left 8px center; /* Adjust arrow position for RTL */
             padding: 8px 12px 8px 30px; /* Adjust padding for arrow on left */
         }
+        body.rtl .booking-form .form-group.checkbox-group label {
+            margin-left: 15px;
+            margin-right: 0;
+        }
+        body.rtl .booking-form .form-group.checkbox-group input[type="checkbox"] {
+            margin-left: 8px;
+            margin-right: 0;
+        }
     </style>
 </head>
 <body>
@@ -825,7 +954,7 @@
             <div class="logo">
                 <img src="https://orbi.ge/img/logo/logo-orbigroup.svg" alt="Orbi City Logo">
             </div>
-            <nav>
+            <nav id="main-nav">
                 <a href="#home" data-lang="nav_home">Home</a>
                 <a href="#showroom" data-lang="nav_showroom">Showroom</a>
                 <a href="#reviews" data-lang="nav_reviews">Reviews</a>
@@ -834,8 +963,8 @@
                 <div class="auth-buttons">
                     <button class="btn btn-primary" id="login-btn" data-lang="btn_login">Login</button>
                     <button class="btn btn-secondary" id="signup-btn" data-lang="btn_signup">Sign Up</button>
-                    <button class="btn btn-primary" id="admin-login-btn" data-lang="btn_admin_login" style="display:none;">Admin Login</button>
-                    <button class="btn btn-secondary" id="logout-btn" data-lang="btn_logout" style="display:none;">Logout</button>
+                    <button class="btn btn-secondary" id="admin-login-btn" data-lang="btn_admin_login">Admin Login</button>
+                    <button class="btn btn-primary" id="logout-btn" data-lang="btn_logout" style="display:none;">Logout</button>
                 </div>
             </nav>
             <div class="language-selector">
@@ -846,6 +975,11 @@
                     <option value="tr">Türkçe</option>
                     <option value="ar">العربية</option>
                 </select>
+            </div>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
             </div>
         </div>
     </header>
@@ -887,16 +1021,32 @@
             </div>
         </section>
 
-        <div id="purchase-modal" class="modal">
+        <div id="booking-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                <h3 data-lang="modal_title">Contact Owner for Purchase</h3>
-                <p data-lang="modal_desc">To inquire about purchasing this apartment, please contact the owner directly via WhatsApp:</p>
-                <div class="whatsapp-contact-info">
-                    <img src="https://i.imgur.com/orbi-qr-code.png" alt="WhatsApp QR Code" class="qr-code">
-                    <a href="https://wa.me/1234567890" target="_blank" class="btn-whatsapp" data-lang="btn_whatsapp_modal">Chat on WhatsApp</a>
-                    <p class="modal_phone" data-lang="modal_phone"></p>
-                </div>
+                <h3 data-lang="booking_heading">Book Your Stay</h3>
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label for="booking-date" data-lang="form_checkin_date">Check-in Date (1 Day Only)</label>
+                        <input type="date" id="booking-date" name="checkinDate" required>
+                        <span class="validation-message" id="booking-date-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-guests" data-lang="form_num_guests">Number of Guests</label>
+                        <input type="number" id="booking-guests" name="numGuests" min="1" value="1" required>
+                        <span class="validation-message" id="booking-guests-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label data-lang="form_services_needed">Services Needed (All Free):</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="services" value="cleaning" data-lang="service_cleaning"> <span data-lang="service_cleaning">Daily Cleaning</span></label>
+                            <label><input type="checkbox" name="services" value="laundry" data-lang="service_laundry"> <span data-lang="service_laundry">Laundry Service</span></label>
+                            <label><input type="checkbox" name="services" value="airport_transfer" data-lang="service_airport_transfer"> <span data-lang="service_airport_transfer">Airport Transfer</span></label>
+                            <label><input type="checkbox" name="services" value="breakfast" data-lang="service_breakfast"> <span data-lang="service_breakfast">Breakfast</span></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-book" data-lang="btn_confirm_booking">Confirm Booking</button>
+                </form>
             </div>
         </div>
 
@@ -960,42 +1110,17 @@
                 <div class="contact-details-grid">
                     <div class="contact-info">
                         <h3 data-lang="contact_info_heading">Contact Information</h3>
-                        <p><i class="fas fa-phone"></i> <strong data-lang="phone_label">Phone:</strong> <a href="tel:+995555123456">+995 555 123 456</a></p>
-                        <p><i class="fas fa-envelope"></i> <strong data-lang="email_label">Email:</strong> <a href="mailto:info@orbicity.com">info@orbicity.com</a></p>
+                        <p><i class="fas fa-user"></i> <strong data-lang="seller_name_label">Seller:</strong> Nika</p>
+                        <p><i class="fas fa-phone"></i> <strong data-lang="phone_label">Phone:</strong> <a href="tel:+995595463068">+995 595 46 30 68</a></p>
+                        <p><i class="fas fa-envelope"></i> <strong data-lang="email_label">Email:</strong> <a href="mailto:orbicity.store@gmail.com">orbicity.store@gmail.com</a></p>
                         <p><i class="fas fa-map-marker-alt"></i> <strong data-lang="address_label">Address:</strong> Alley of Heroes, Batumi, Georgia</p>
 
                         <h3 data-lang="whatsapp_title">Direct Contact</h3>
-                        <img src="https://i.imgur.com/orbi-qr-code.png" alt="Scan to chat on WhatsApp" class="qr-code">
+                        <img src="https://i.ibb.co/hJWP98Nj/IMG-20250716-WA0005.jpg" alt="Scan to chat on WhatsApp" class="qr-code">
                         <p data-lang="whatsapp_desc">For immediate assistance or special requests, contact us directly on WhatsApp.</p>
-                        <a href="https://wa.me/1234567890" target="_blank" class="btn-whatsapp" data-lang="btn_whatsapp">
+                        <a href="https://wa.me/qr/KLSWZEYLDOCJD1" target="_blank" class="btn-whatsapp" data-lang="btn_whatsapp">
                             Chat on WhatsApp
                         </a>
-                    </div>
-                    <div class="contact-form">
-                        <h3 data-lang="contact_form_heading">Send Us a Message</h3>
-                        <form id="contact-form">
-                            <div class="form-group">
-                                <label for="name" data-lang="form_name">Your Name</label>
-                                <input type="text" id="name" name="name" required>
-                                <span class="validation-message" id="name-error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" data-lang="form_email">Your Email</label>
-                                <input type="email" id="email" name="email" required>
-                                <span class="validation-message" id="email-error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject" data-lang="form_subject">Subject</label>
-                                <input type="text" id="subject" name="subject" required>
-                                <span class="validation-message" id="subject-error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="message" data-lang="form_message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
-                                <span class="validation-message" id="message-error"></span>
-                            </div>
-                            <button type="submit" class="btn-submit" data-lang="btn_send_message">Send Message</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -1034,28 +1159,41 @@
             <span class="close-button signup-close-button">&times;</span>
             <h3 data-lang="signup_heading">User Sign Up</h3>
             <form id="signup-form" class="auth-form">
-                <div class="form-group">
-                    <label for="signup-username" data-lang="form_username">Username</label>
-                    <input type="text" id="signup-username" name="username" required>
-                    <span class="validation-message" id="signup-username-error"></span>
+                <div id="signup-form-step-1" class="active">
+                    <div class="form-group">
+                        <label for="signup-username" data-lang="form_username">Username</label>
+                        <input type="text" id="signup-username" name="username" required>
+                        <span class="validation-message" id="signup-username-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email" data-lang="form_email">Email</label>
+                        <input type="email" id="signup-email" name="email" required>
+                        <span class="validation-message" id="signup-email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password" data-lang="form_password">Password</label>
+                        <input type="password" id="signup-password" name="password" required>
+                        <span class="validation-message" id="signup-password-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm-password" data-lang="form_confirm_password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" name="confirmPassword" required>
+                        <span class="validation-message" id="signup-confirm-password-error"></span>
+                    </div>
+                    <button type="button" class="btn-auth" id="signup-next-step" data-lang="btn_signup_continue">Continue</button>
+                    <p data-lang="signup_login_prompt">Already have an account? <a href="#" id="show-login-modal" data-lang="btn_login">Login</a></p>
                 </div>
-                <div class="form-group">
-                    <label for="signup-email" data-lang="form_email">Email</label>
-                    <input type="email" id="signup-email" name="email" required>
-                    <span class="validation-message" id="signup-email-error"></span>
+
+                <div id="signup-form-step-2">
+                    <p class="signup-step-message" data-lang="signup_email_sent_prompt">A verification code has been sent to your email. Please enter it below.</p>
+                    <div class="form-group">
+                        <label for="email-code" data-lang="form_email_code">Verification Code</label>
+                        <input type="text" id="email-code" name="emailCode" required>
+                        <span class="validation-message" id="email-code-error"></span>
+                    </div>
+                    <button type="submit" class="btn-auth" data-lang="btn_verify_signup">Verify & Sign Up</button>
+                    <p data-lang="signup_login_prompt">Already have an account? <a href="#" id="show-login-modal-step2" data-lang="btn_login">Login</a></p>
                 </div>
-                <div class="form-group">
-                    <label for="signup-password" data-lang="form_password">Password</label>
-                    <input type="password" id="signup-password" name="password" required>
-                    <span class="validation-message" id="signup-password-error"></span>
-                </div>
-                <div class="form-group">
-                    <label for="signup-confirm-password" data-lang="form_confirm_password">Confirm Password</label>
-                    <input type="password" id="signup-confirm-password" name="confirmPassword" required>
-                    <span class="validation-message" id="signup-confirm-password-error"></span>
-                </div>
-                <button type="submit" class="btn-auth" data-lang="btn_signup">Sign Up</button>
-                <p data-lang="signup_login_prompt">Already have an account? <a href="#" id="show-login-modal" data-lang="btn_login">Login</a></p>
             </form>
         </div>
     </div>
@@ -1124,12 +1262,18 @@
                     amenity_livingarea: "Living Area",
                     amenity_2bedrooms: "2 Bedrooms",
                     amenity_washingmachine: "Washing Machine",
-                    btn_view_details: "View Details",
-                    btn_purchase: "Purchase",
-                    modal_title: "Contact Owner for Purchase",
-                    modal_desc: "To inquire about purchasing this apartment, please contact the owner directly via WhatsApp:",
-                    btn_whatsapp_modal: "Chat on WhatsApp",
-                    modal_phone: "Or call: +995 555 123 456",
+                    btn_book_now: "Book Now",
+                    booking_heading: "Book Your Stay",
+                    form_checkin_date: "Check-in Date (1 Day Only)",
+                    form_num_guests: "Number of Guests",
+                    form_services_needed: "Services Needed (All Free):",
+                    service_cleaning: "Daily Cleaning",
+                    service_laundry: "Laundry Service",
+                    service_airport_transfer: "Airport Transfer",
+                    service_breakfast: "Breakfast",
+                    btn_confirm_booking: "Confirm Booking",
+                    booking_success: "Booking request sent! We'll contact you shortly.",
+                    booking_failed: "Please fill in all booking details.",
                     reviews_title: "What Our Guests Say",
                     review1_comment: "Absolutely stunning views and a very comfortable stay! The apartment was spotless and had everything we needed. Highly recommend for a luxurious getaway in Batumi.",
                     review2_comment: "Great location, close to all the main attractions. The sea view from the balcony was incredible. A minor issue with the Wi-Fi was quickly resolved by the friendly staff.",
@@ -1145,23 +1289,18 @@
                     about_paragraph3: "Whether you're looking for a memorable vacation spot, a promising investment opportunity, or a new home in a thriving city, Orbi City Apartments is your ideal choice. Our dedicated team is committed to delivering exceptional service and ensuring your experience with us is nothing short of perfect.",
                     contact_page_title: "Get in Touch",
                     contact_info_heading: "Contact Information",
+                    seller_name_label: "Seller:",
                     phone_label: "Phone:",
                     email_label: "Email:",
                     address_label: "Address:",
                     whatsapp_title: "Direct Contact",
                     whatsapp_desc: "For immediate assistance or special requests, contact us directly on WhatsApp.",
                     btn_whatsapp: "Chat on WhatsApp",
-                    contact_form_heading: "Send Us a Message",
-                    form_name: "Your Name",
-                    form_email: "Your Email",
-                    form_subject: "Subject",
-                    form_message: "Message",
-                    btn_send_message: "Send Message",
                     footer_text: "© 2025 Orbi City Apartments. All Rights Reserved.",
                     form_name_error: "Please enter your name.",
                     form_email_error: "Please enter a valid email address.",
-                    form_subject_error: "Please enter a subject.",
-                    form_message_error: "Please enter your message.",
+                    form_subject_error: "Please enter a subject.", // Not used now, but keeping for completeness
+                    form_message_error: "Please enter your message.", // Not used now, but keeping for completeness
                     login_heading: "User Login",
                     signup_heading: "User Sign Up",
                     admin_login_heading: "Admin Login",
@@ -1170,6 +1309,7 @@
                     form_confirm_password: "Confirm Password",
                     form_admin_username: "Admin Username",
                     form_admin_password: "Admin Password",
+                    form_email_code: "Verification Code",
                     login_signup_prompt: "Don't have an account? Sign Up",
                     signup_login_prompt: "Already have an account? Login",
                     username_required: "Please enter a username.",
@@ -1178,12 +1318,19 @@
                     password_mismatch: "Passwords do not match.",
                     rating_required: "Please select a rating.",
                     review_comment_required: "Please enter your review.",
+                    checkin_date_required: "Please select a check-in date.",
+                    num_guests_required: "Please enter the number of guests.",
                     login_success: "Logged in successfully!",
-                    signup_success: "Signed up successfully! Please login.",
+                    signup_success: "Signed up successfully! You can now log in.",
                     admin_login_success: "Admin logged in successfully!",
                     logout_success: "Logged out successfully!",
                     login_failed: "Login failed. Invalid username or password.",
                     admin_login_failed: "Admin login failed. Invalid username or password.",
+                    btn_signup_continue: "Continue",
+                    btn_verify_signup: "Verify & Sign Up",
+                    signup_email_sent_prompt: "A verification code has been sent to your email. Please enter it below.",
+                    email_code_required: "Please enter the verification code.",
+                    email_code_invalid: "Invalid verification code."
                 },
                 ka: { // Georgian
                     site_title: "ორბი სითი | პრემიუმ აპარტამენტები ბათუმში",
@@ -1223,12 +1370,18 @@
                     amenity_livingarea: "მისაღები ზონა",
                     amenity_2bedrooms: "2 საძინებელი",
                     amenity_washingmachine: "სარეცხი მანქანა",
-                    btn_view_details: "დეტალების ნახვა",
-                    btn_purchase: "ყიდვა",
-                    modal_title: "მფლობელთან დაკავშირება შესყიდვისთვის",
-                    modal_desc: "აპარტამენტის შესაძენად, გთხოვთ, დაუკავშირდეთ მფლობელს უშუალოდ WhatsApp-ის საშუალებით:",
-                    btn_whatsapp_modal: "ჩატი WhatsApp-ზე",
-                    modal_phone: "ან დარეკეთ: +995 555 123 456",
+                    btn_book_now: "დაჯავშნე ახლა",
+                    booking_heading: "თქვენი დასვენების დაჯავშნა",
+                    form_checkin_date: "შესვლის თარიღი (მხოლოდ 1 დღე)",
+                    form_num_guests: "სტუმრების რაოდენობა",
+                    form_services_needed: "საჭირო სერვისები (ყველა უფასოა):",
+                    service_cleaning: "ყოველდღიური დასუფთავება",
+                    service_laundry: "სამრეცხაო სერვისი",
+                    service_airport_transfer: "აეროპორტის ტრანსფერი",
+                    service_breakfast: "საუზმე",
+                    btn_confirm_booking: "დაჯავშნის დადასტურება",
+                    booking_success: "დაჯავშნის მოთხოვნა გაგზავნილია! მალე დაგიკავშირდებით.",
+                    booking_failed: "გთხოვთ, შეავსოთ დაჯავშნის ყველა დეტალი.",
                     reviews_title: "რას ამბობენ ჩვენი სტუმრები",
                     review1_comment: "აბსოლუტურად განსაცვიფრებელი ხედები და ძალიან კომფორტული დასვენება! ბინა უზადო იყო და გვქონდა ყველაფერი, რაც გვჭირდებოდა. უაღრესად გირჩევთ ძვირადღირებული დასვენებისთვის ბათუმში.",
                     review2_comment: "შესანიშნავი მდებარეობა, ყველა ძირითად ატრაქციონთან ახლოს. აივნიდან ზღვის ხედი წარმოუდგენელი იყო. Wi-Fi-თან დაკავშირებული მცირე პრობლემა სწრაფად მოგვარდა მეგობრული პერსონალის მიერ.",
@@ -1244,22 +1397,16 @@
                     about_paragraph3: "მიუხედავად იმისა, ეძებთ დასამახსოვრებელ დასასვენებელ ადგილს, პერსპექტიულ საინვესტიციო შესაძლებლობას, თუ ახალ სახლს აყვავებულ ქალაქში, ორბი სითი აპარტამენტები თქვენი იდეალური არჩევანია. ჩვენი ერთგული გუნდი მზად არის უზრუნველყოს განსაკუთრებული მომსახურება და გარანტიას გაძლევთ, რომ თქვენი გამოცდილება ჩვენთან არ იქნება სრულყოფილი.",
                     contact_page_title: "დაგვიკავშირდით",
                     contact_info_heading: "საკონტაქტო ინფორმაცია",
+                    seller_name_label: "გამყიდველი:",
                     phone_label: "ტელეფონი:",
                     email_label: "ელ-ფოსტა:",
                     address_label: "მისამართი:",
                     whatsapp_title: "პირდაპირი კონტაქტი",
                     whatsapp_desc: "დაუყოვნებელი დახმარებისთვის ან სპეციალური მოთხოვნებისთვის, დაგვიკავშირდით პირდაპირ WhatsApp-ზე.",
                     btn_whatsapp: "ჩატი WhatsApp-ზე",
-                    contact_form_heading: "გამოგვიგზავნეთ შეტყობინება",
-                    form_name: "თქვენი სახელი",
-                    form_email: "თქვენი ელ-ფოსტა",
-                    form_subject: "თემა",
-                    form_message: "შეტყობინება",
                     footer_text: "© 2025 ორბი სითი აპარტამენტები. ყველა უფლება დაცულია.",
                     form_name_error: "გთხოვთ, შეიყვანოთ თქვენი სახელი.",
                     form_email_error: "გთხოვთ, შეიყვანოთ ვალიდური ელფოსტის მისამართი.",
-                    form_subject_error: "გთხოვთ, შეიყვანოთ თემა.",
-                    form_message_error: "გთხოვთ, შეიყვანოთ თქვენი შეტყობინება.",
                     login_heading: "მომხმარებლის შესვლა",
                     signup_heading: "მომხმარებლის რეგისტრაცია",
                     admin_login_heading: "ადმინისტრატორის შესვლა",
@@ -1268,6 +1415,7 @@
                     form_confirm_password: "პაროლის დადასტურება",
                     form_admin_username: "ადმინისტრატორის მომხმარებლის სახელი",
                     form_admin_password: "ადმინისტრატორის პაროლი",
+                    form_email_code: "დამადასტურებელი კოდი",
                     login_signup_prompt: "არ გაქვთ ანგარიში? დარეგისტრირდით",
                     signup_login_prompt: "უკვე გაქვთ ანგარიში? შედით",
                     username_required: "გთხოვთ, შეიყვანოთ მომხმარებლის სახელი.",
@@ -1276,12 +1424,19 @@
                     password_mismatch: "პაროლები არ ემთხვევა.",
                     rating_required: "გთხოვთ, აირჩიოთ შეფასება.",
                     review_comment_required: "გთხოვთ, დაწეროთ თქვენი შეფასება.",
+                    checkin_date_required: "გთხოვთ, აირჩიოთ შესვლის თარიღი.",
+                    num_guests_required: "გთხოვთ, შეიყვანოთ სტუმრების რაოდენობა.",
                     login_success: "წარმატებით შეხვედით!",
-                    signup_success: "წარმატებით დარეგისტრირდით! გთხოვთ, შეხვიდეთ.",
+                    signup_success: "წარმატებით დარეგისტრირდით! შეგიძლიათ შეხვიდეთ.",
                     admin_login_success: "ადმინისტრატორი წარმატებით შეხვედით!",
                     logout_success: "წარმატებით გამოხვედით!",
                     login_failed: "შესვლა ვერ მოხერხდა. არასწორი მომხმარებლის სახელი ან პაროლი.",
                     admin_login_failed: "ადმინისტრატორის შესვლა ვერ მოხერხდა. არასწორი მომხმარებლის სახელი ან პაროლი.",
+                    btn_signup_continue: "გაგრძელება",
+                    btn_verify_signup: "დადასტურება და რეგისტრაცია",
+                    signup_email_sent_prompt: "დამადასტურებელი კოდი გაიგზავნა თქვენს ელფოსტაზე. გთხოვთ, შეიყვანოთ იგი ქვემოთ.",
+                    email_code_required: "გთხოვთ, შეიყვანოთ დამადასტურებელი კოდი.",
+                    email_code_invalid: "არასწორი დამადასტურებელი კოდი."
                 },
                 ar: { // Arabic
                     site_title: "أوربي سيتي | شقق فاخرة في باتومي",
@@ -1321,12 +1476,18 @@
                     amenity_livingarea: "منطقة معيشة",
                     amenity_2bedrooms: "غرفتي نوم",
                     amenity_washingmachine: "غسالة ملابس",
-                    btn_view_details: "عرض التفاصيل",
-                    btn_purchase: "شراء",
-                    modal_title: "تواصل مع المالك للشراء",
-                    modal_desc: "للاستفسار عن شراء هذه الشقة، يرجى الاتصال بالمالك مباشرة عبر الواتساب:",
-                    btn_whatsapp_modal: "الدردشة على واتساب",
-                    modal_phone: "أو اتصل: +995 555 123 456",
+                    btn_book_now: "احجز الآن",
+                    booking_heading: "احجز إقامتك",
+                    form_checkin_date: "تاريخ تسجيل الدخول (يوم واحد فقط)",
+                    form_num_guests: "عدد الضيوف",
+                    form_services_needed: "الخدمات المطلوبة (جميعها مجانية):",
+                    service_cleaning: "تنظيف يومي",
+                    service_laundry: "خدمة غسيل الملابس",
+                    service_airport_transfer: "نقل المطار",
+                    service_breakfast: "وجبة الإفطار",
+                    btn_confirm_booking: "تأكيد الحجز",
+                    booking_success: "تم إرسال طلب الحجز! سنتواصل معك قريبًا.",
+                    booking_failed: "يرجى ملء جميع تفاصيل الحجز.",
                     reviews_title: "ماذا يقول ضيوفنا",
                     review1_comment: "إطلالات خلابة للغاية وإقامة مريحة للغاية! كانت الشقة نظيفة تمامًا وتحتوي على كل ما نحتاجه. أوصي بشدة لقضاء عطلة فاخرة في باتومي.",
                     review2_comment: "موقع رائع، قريب من جميع مناطق الجذب الرئيسية. كانت إطلالة البحر من الشرفة لا تصدق. تم حل مشكلة بسيطة في Wi-Fi بسرعة من قبل الموظفين الودودين.",
@@ -1342,23 +1503,16 @@
                     about_paragraph3: "سواء كنت تبحث عن مكان عطلة لا يُنسى، أو فرصة استثمار واعدة، أو منزل جديد في مدينة مزدهرة، فإن شقق أوربي سيتي هي خيارك الأمثل. يلتزم فريقنا المتفاني بتقديم خدمة استثنائية وضمان أن تكون تجربتك معنا لا تقل عن الكمال.",
                     contact_page_title: "تواصل معنا",
                     contact_info_heading: "معلومات الاتصال",
+                    seller_name_label: "البائع:",
                     phone_label: "الهاتف:",
                     email_label: "البريد الإلكتروني:",
                     address_label: "العنوان:",
                     whatsapp_title: "اتصال مباشر",
                     whatsapp_desc: "للمساعدة الفورية أو الطلبات الخاصة، تواصل معنا مباشرة عبر الواتساب.",
                     btn_whatsapp: "الدردشة على واتساب",
-                    contact_form_heading: "أرسل لنا رسالة",
-                    form_name: "اسمك",
-                    form_email: "بريدك الإلكتروني",
-                    form_subject: "الموضوع",
-                    form_message: "الرسالة",
-                    btn_send_message: "إرسال الرسالة",
                     footer_text: "© 2025 شقق أوربي سيتي. جميع الحقوق محفوظة.",
                     form_name_error: "الرجاء إدخال اسمك.",
                     form_email_error: "الرجاء إدخال عنوان بريد إلكتروني صحيح.",
-                    form_subject_error: "الرجاء إدخال الموضوع.",
-                    form_message_error: "الرجاء إدخال رسالتك.",
                     login_heading: "تسجيل دخول المستخدم",
                     signup_heading: "تسجيل مستخدم جديد",
                     admin_login_heading: "تسجيل دخول المدير",
@@ -1367,6 +1521,7 @@
                     form_confirm_password: "تأكيد كلمة المرور",
                     form_admin_username: "اسم مستخدم المدير",
                     form_admin_password: "كلمة مرور المدير",
+                    form_email_code: "رمز التحقق",
                     login_signup_prompt: "ليس لديك حساب؟ التسجيل",
                     signup_login_prompt: "هل لديك حساب بالفعل؟ تسجيل الدخول",
                     username_required: "الرجاء إدخال اسم المستخدم.",
@@ -1375,111 +1530,19 @@
                     password_mismatch: "كلمات المرور غير متطابقة.",
                     rating_required: "الرجاء تحديد التقييم.",
                     review_comment_required: "الرجاء إدخال مراجعتك.",
+                    checkin_date_required: "الرجاء تحديد تاريخ تسجيل الدخول.",
+                    num_guests_required: "الرجاء إدخال عدد الضيوف.",
                     login_success: "تم تسجيل الدخول بنجاح!",
-                    signup_success: "تم التسجيل بنجاح! يرجى تسجيل الدخول.",
+                    signup_success: "تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.",
                     admin_login_success: "تم تسجيل دخول المدير بنجاح!",
                     logout_success: "تم تسجيل الخروج بنجاح!",
                     login_failed: "فشل تسجيل الدخول. اسم المستخدم أو كلمة المرور غير صحيحة.",
-                    admin_login_failed: "فشل تسجيل دخول المدير. اسم المستخدم أو كلمة المرور غير صحيحة.",
-                },
-                ru: { // Russian
-                    site_title: "Орби Сити | Премиум Апартаменты в Батуми",
-                    nav_home: "Главная",
-                    nav_showroom: "Шоурум",
-                    nav_reviews: "Отзывы",
-                    nav_about: "О нас",
-                    nav_contact: "Контакты",
-                    btn_login: "Войти",
-                    btn_signup: "Регистрация",
-                    btn_admin_login: "Вход для администратора",
-                    btn_logout: "Выйти",
-                    hero_title: "Почувствуйте Батуми с высоты",
-                    hero_subtitle: "Роскошные апартаменты с панорамным видом на море в самом сердце города.",
-                    btn_view_apartments: "Посмотреть Апартаменты",
-                    features_title: "Почему стоит выбрать Орби Сити?",
-                    feature1_title: "Идеальное расположение",
-                    feature1_desc: "Расположен в самом центре Батуми, с легким доступом к достопримечательностям, ресторанам и развлечениям.",
-                    feature2_title: "Потрясающие виды на море",
-                    feature2_desc: "Просыпайтесь с захватывающими панорамными видами на Черное море и городской пейзаж.",
-                    feature3_title: "Роскошные удобства",
-                    feature3_desc: "Наслаждайтесь современными, полностью оборудованными апартаментами со всеми домашними удобствами.",
-                    showroom_title: "Наши Премиум Апартаменты",
-                    price_info: "Средняя цена",
-                    price_prefix: "От",
-                    price_suffix: " / ночь",
-                    room1_name: "Уютная студия с видом на город",
-                    room1_desc: "Очаровательная студия, идеально подходящая для пар, с балконом с прямым видом на город и всеми необходимыми удобствами для комфортного проживания.",
-                    room2_name: "Просторный люкс с одной спальней и видом на море",
-                    room2_desc: "Наслаждайтесь большим пространством в этом люксе с одной спальней, отдельной гостиной зоной, полностью оборудованной кухней и большим балконом с потрясающим видом на город и частичным видом на море.",
-                    room3_name: "Роскошные апартаменты с двумя спальнями для семьи с панорамным видом",
-                    room3_desc: "Идеально подходит для семей или групп, эти апартаменты располагают двумя комфортабельными спальнями, просторной гостиной, полностью оборудованной кухней и стиральной машиной для вашего удобства, все с потрясающим панорамным видом.",
-                    amenity_balcony: "Балкон с видом на море",
-                    amenity_kitchenette: "Мини-кухня",
-                    amenity_wifi: "Высокоскоростной Wi-Fi",
-                    amenity_fullkitchen: "Полная кухня",
-                    amenity_livingarea: "Гостиная зона",
-                    amenity_2bedrooms: "2 Спальни",
-                    amenity_washingmachine: "Стиральная машина",
-                    btn_view_details: "Посмотреть детали",
-                    btn_purchase: "Купить",
-                    modal_title: "Свяжитесь с владельцем для покупки",
-                    modal_desc: "Чтобы узнать о покупке этой квартиры, пожалуйста, свяжитесь с владельцем напрямую через WhatsApp:",
-                    btn_whatsapp_modal: "Чат в WhatsApp",
-                    modal_phone: "Или позвоните: +995 555 123 456",
-                    reviews_title: "Что говорят наши гости",
-                    review1_comment: "Абсолютно потрясающие виды и очень комфортное пребывание! Квартира была безупречной, и в ней было все, что нам нужно. Настоятельно рекомендую для роскошного отдыха в Батуми.",
-                    review2_comment: "Отличное расположение, близко ко всем основным достопримечательностям. Вид на море с балкона был невероятным. Небольшая проблема с Wi-Fi была быстро решена дружелюбным персоналом.",
-                    review3_comment: "Фантастический опыт! Квартира была просторной, красиво оформленной и очень хорошо оборудованной. Чувствовал себя как дома вдали от дома. Обязательно вернусь!",
-                    review4_comment: "Отличное соотношение цены и качества. Квартира была чистой, и процесс регистрации прошел гладко. Понравились современные удобства. Хотелось бы, чтобы был продуктовый магазин поближе.",
-                    add_review_heading: "Оставить отзыв",
-                    form_rating: "Ваша оценка",
-                    form_comment: "Ваш отзыв",
-                    btn_submit_review: "Отправить отзыв",
-                    about_page_title: "Наша История",
-                    about_paragraph1: "Апартаменты Орби Сити возникли из идеи предложить несравненный роскошный опыт в Батуми, Грузия. Расположенные в знаковом комплексе Орби Сити, наши объекты сочетают современный дизайн с захватывающими панорамными видами на Черное море и оживленный городской пейзаж.",
-                    about_paragraph2: "Мы верим, что предлагаем не просто жилье; мы предлагаем образ жизни. Каждая квартира тщательно меблирована и оборудована высококлассными удобствами для обеспечения максимального комфорта и удобства для наших гостей и жителей. От просторных гостиных до полностью оборудованных кухонь, каждая деталь создана для вашего наслаждения.",
-                    about_paragraph3: "Будь то незабываемое место для отпуска, многообещающая инвестиционная возможность или новый дом в процветающем городе, апартаменты Орби Сити — ваш идеальный выбор. Наша преданная команда стремится предоставлять исключительный сервис и гарантировать, что ваш опыт с нами будет идеальным.",
-                    contact_page_title: "Свяжитесь с нами",
-                    contact_info_heading: "Контактная информация",
-                    phone_label: "Телефон:",
-                    email_label: "Электронная почта:",
-                    address_label: "Адрес:",
-                    whatsapp_title: "Прямой контакт",
-                    whatsapp_desc: "Для немедленной помощи или специальных запросов, свяжитесь с нами напрямую через WhatsApp.",
-                    btn_whatsapp: "Чат в WhatsApp",
-                    contact_form_heading: "Отправьте нам сообщение",
-                    form_name: "Ваше имя",
-                    form_email: "Ваш Email",
-                    form_subject: "Тема",
-                    form_message: "Сообщение",
-                    btn_send_message: "Отправить сообщение",
-                    footer_text: "© 2025 Орби Сити Апартаменты. Все права защищены.",
-                    form_name_error: "Пожалуйста, введите ваше имя.",
-                    form_email_error: "Пожалуйста, введите действующий адрес электронной почты.",
-                    form_subject_error: "Пожалуйста, введите тему.",
-                    form_message_error: "Пожалуйста, введите ваше сообщение.",
-                    login_heading: "Вход пользователя",
-                    signup_heading: "Регистрация пользователя",
-                    admin_login_heading: "Вход для администратора",
-                    form_username: "Имя пользователя",
-                    form_password: "Пароль",
-                    form_confirm_password: "Подтвердите пароль",
-                    form_admin_username: "Имя пользователя администратора",
-                    form_admin_password: "Пароль администратора",
-                    login_signup_prompt: "Нет аккаунта? Зарегистрируйтесь",
-                    signup_login_prompt: "Уже есть аккаунт? Войти",
-                    username_required: "Пожалуйста, введите имя пользователя.",
-                    password_required: "Пожалуйста, введите пароль.",
-                    confirm_password_required: "Пожалуйста, подтвердите пароль.",
-                    password_mismatch: "Пароли не совпадают.",
-                    rating_required: "Пожалуйста, выберите оценку.",
-                    review_comment_required: "Пожалуйста, введите свой отзыв.",
-                    login_success: "Успешный вход!",
-                    signup_success: "Успешная регистрация! Пожалуйста, войдите.",
-                    admin_login_success: "Администратор успешно вошел!",
-                    logout_success: "Выход выполнен успешно!",
-                    login_failed: "Ошибка входа. Неверное имя пользователя или пароль.",
-                    admin_login_failed: "Ошибка входа администратора. Неверное имя пользователя или пароль.",
+                    admin_login_failed: "فشل دخول المدير. اسم المستخدم أو كلمة المرور غير صحيحة.",
+                    btn_signup_continue: "متابعة",
+                    btn_verify_signup: "تحقق وتسجيل",
+                    signup_email_sent_prompt: "تم إرسال رمز تحقق إلى بريدك الإلكتروني. يرجى إدخاله أدناه.",
+                    email_code_required: "الرجاء إدخال رمز التحقق.",
+                    email_code_invalid: "رمز التحقق غير صالح."
                 },
                 tr: { // Turkish
                     site_title: "Orbi City | Batum'da Premium Daireler",
@@ -1519,12 +1582,18 @@
                     amenity_livingarea: "Oturma Alanı",
                     amenity_2bedrooms: "2 Yatak Odası",
                     amenity_washingmachine: "Çamaşır Makinesi",
-                    btn_view_details: "Detayları Görüntüle",
-                    btn_purchase: "Satın Al",
-                    modal_title: "Satın Alma İçin Sahibine Ulaşın",
-                    modal_desc: "Bu daireyi satın alma hakkında bilgi almak için lütfen doğrudan WhatsApp üzerinden sahibiyle iletişime geçin:",
-                    btn_whatsapp_modal: "WhatsApp'ta Sohbet Et",
-                    modal_phone: "Veya arayın: +995 555 123 456",
+                    btn_book_now: "Şimdi Rezervasyon Yap",
+                    booking_heading: "Konaklamanızı Ayırın",
+                    form_checkin_date: "Giriş Tarihi (Sadece 1 Gün)",
+                    form_num_guests: "Misafir Sayısı",
+                    form_services_needed: "İhtiyaç Duyulan Hizmetler (Tümü Ücretsizdir):",
+                    service_cleaning: "Günlük Temizlik",
+                    service_laundry: "Çamaşırhane Hizmeti",
+                    service_airport_transfer: "Havaalanı Transferi",
+                    service_breakfast: "Kahvaltı",
+                    btn_confirm_booking: "Rezervasyonu Onayla",
+                    booking_success: "Rezervasyon talebi gönderildi! Kısa süre içinde sizinle iletişime geçeceğiz.",
+                    booking_failed: "Lütfen tüm rezervasyon detaylarını doldurun.",
                     reviews_title: "Ne Diyor Misafirlerimiz",
                     review1_comment: "Kesinlikle muhteşem manzaralar ve çok rahat bir konaklama! Daire tertemizdi ve ihtiyacımız olan her şeye sahipti. Batum'da lüks bir kaçamak için şiddetle tavsiye edilir.",
                     review2_comment: "Harika konum, tüm ana cazibe merkezlerine yakın. Balkondan deniz manzarası inanılmazdı. Wi-Fi ile ilgili küçük bir sorun, güler yüzlü personel tarafından hızla çözüldü.",
@@ -1540,23 +1609,16 @@
                     about_paragraph3: "İster unutulmaz bir tatil yeri, ister umut vadeden bir yatırım fırsatı, isterse gelişen bir şehirde yeni bir ev arıyor olun, Orbi City Daireleri ideal seçiminizdir. Özel ekibimiz, olağanüstü hizmet sunmaya ve bizimle olan deneyiminizin mükemmel olmasını sağlamaya kararlıdır.",
                     contact_page_title: "Bize Ulaşın",
                     contact_info_heading: "İletişim Bilgileri",
+                    seller_name_label: "Satıcı:",
                     phone_label: "Telefon:",
                     email_label: "E-postanız:",
                     address_label: "Adres:",
                     whatsapp_title: "Doğrudan İletişim",
                     whatsapp_desc: "Acil yardım veya özel istekleriniz için doğrudan WhatsApp üzerinden bizimle iletişime geçin.",
                     btn_whatsapp: "WhatsApp'ta Sohbet Et",
-                    contact_form_heading: "Bize Mesaj Gönderin",
-                    form_name: "Adınız",
-                    form_email: "E-postanız",
-                    form_subject: "Konu",
-                    form_message: "Mesaj",
-                    btn_send_message: "Mesaj Gönder",
                     footer_text: "© 2025 Orbi City Daireleri. Tüm Hakları Saklıdır.",
                     form_name_error: "Lütfen adınızı girin.",
                     form_email_error: "Lütfen geçerli bir e-posta adresi girin.",
-                    form_subject_error: "Lütfen bir konu girin.",
-                    form_message_error: "Lütfen mesajınızı girin.",
                     login_heading: "Kullanıcı Girişi",
                     signup_heading: "Kullanıcı Kaydı",
                     admin_login_heading: "Yönetici Girişi",
@@ -1565,6 +1627,7 @@
                     form_confirm_password: "Şifreyi Onayla",
                     form_admin_username: "Yönetici Kullanıcı Adı",
                     form_admin_password: "Yönetici Şifresi",
+                    form_email_code: "Doğrulama Kodu",
                     login_signup_prompt: "Hesabınız yok mu? Kaydolun",
                     signup_login_prompt: "Zaten hesabınız var mı? Giriş Yapın",
                     username_required: "Lütfen bir kullanıcı adı girin.",
@@ -1573,12 +1636,19 @@
                     password_mismatch: "Şifreler eşleşmiyor.",
                     rating_required: "Lütfen bir puan seçin.",
                     review_comment_required: "Lütfen yorumunuzu girin.",
+                    checkin_date_required: "Lütfen giriş tarihi seçin.",
+                    num_guests_required: "Lütfen misafir sayısını girin.",
                     login_success: "Başarıyla giriş yapıldı!",
-                    signup_success: "Başarıyla kaydolundu! Lütfen giriş yapın.",
+                    signup_success: "Başarıyla kaydolundu! Şimdi giriş yapabilirsiniz.",
                     admin_login_success: "Yönetici başarıyla giriş yaptı!",
                     logout_success: "Başarıyla çıkış yapıldı!",
                     login_failed: "Giriş başarısız oldu. Geçersiz kullanıcı adı veya şifre.",
                     admin_login_failed: "Yönetici girişi başarısız oldu. Geçersiz kullanıcı adı veya şifre.",
+                    btn_signup_continue: "Devam Et",
+                    btn_verify_signup: "Doğrula ve Kaydol",
+                    signup_email_sent_prompt: "E-postanıza bir doğrulama kodu gönderildi. Lütfen aşağıya girin.",
+                    email_code_required: "Lütfen doğrulama kodunu girin.",
+                    email_code_invalid: "Geçersiz doğrulama kodu."
                 }
             };
 
@@ -1651,10 +1721,9 @@
             const apartmentListings = document.getElementById('apartment-listings');
             const reviewGrid = document.getElementById('review-grid');
             const addReviewForm = document.getElementById('add-review-form');
-            const contactForm = document.getElementById('contact-form');
 
             // Modals
-            const purchaseModal = document.getElementById('purchase-modal');
+            const bookingModal = document.getElementById('booking-modal');
             const loginModal = document.getElementById('login-modal');
             const signupModal = document.getElementById('signup-modal');
             const adminLoginModal = document.getElementById('admin-login-modal');
@@ -1667,9 +1736,24 @@
 
             const showSignupFromLogin = document.getElementById('show-signup-modal');
             const showLoginFromSignup = document.getElementById('show-login-modal');
+            const showLoginFromSignupStep2 = document.getElementById('show-login-modal-step2');
+
+            // Signup steps
+            const signupFormStep1 = document.getElementById('signup-form-step-1');
+            const signupFormStep2 = document.getElementById('signup-form-step-2');
+            const signupNextStepBtn = document.getElementById('signup-next-step');
+            const signupForm = document.getElementById('signup-form'); // Target the main form
+
+            // Booking form
+            const bookingForm = document.getElementById('booking-form');
+
 
             // Close buttons for modals
             const closeButtons = document.querySelectorAll('.modal .close-button');
+
+            // Hamburger menu
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
 
 
             // --- Utility Functions ---
@@ -1699,7 +1783,10 @@
 
                 document.querySelectorAll('[data-lang]').forEach(el => {
                     const key = el.dataset.lang;
-                    if (t[key]) {
+                    // Handle input placeholders
+                    if (el.tagName === 'INPUT' && el.placeholder) {
+                        // For inputs that might have dynamic placeholders later, not data-lang directly
+                    } else if (t[key]) {
                         el.textContent = t[key];
                     }
                 });
@@ -1740,9 +1827,11 @@
                     const offset = -currentIndex * 100;
                     carouselImages.style.transform = `translateX(${offset}%)`;
 
-                    dotsContainer.querySelectorAll('.dot').forEach((dot, idx) => {
-                        dot.classList.toggle('active', idx === currentIndex);
-                    });
+                    if (dotsContainer) { // Check if dotsContainer exists
+                        dotsContainer.querySelectorAll('.dot').forEach((dot, idx) => {
+                            dot.classList.toggle('active', idx === currentIndex);
+                        });
+                    }
                 };
 
                 const goToNext = () => {
@@ -1795,7 +1884,7 @@
                         <ul class="amenities">
                             ${amenitiesList}
                         </ul>
-                        <button class="btn-primary btn-purchase" data-lang="btn_purchase">${getTranslation('btn_purchase')}</button>
+                        <button class="btn-primary btn-book-now" data-lang="btn_book_now">${getTranslation('btn_book_now')}</button>
                     </div>
                 `;
                 return card;
@@ -1808,10 +1897,10 @@
                     apartmentListings.appendChild(card);
                     initCarousel(card);
                 });
-                // Attach purchase event listeners to newly rendered buttons
-                document.querySelectorAll('.btn-purchase').forEach(button => {
+                // Attach booking event listeners to newly rendered buttons
+                document.querySelectorAll('.btn-book-now').forEach(button => {
                     button.addEventListener('click', () => {
-                        openModal(purchaseModal);
+                        openModal(bookingModal);
                     });
                 });
                 lazyLoadImages(); // Trigger lazy load for new images
@@ -1825,7 +1914,7 @@
 
                 card.innerHTML = `
                     <div class="stars">${starIcons}</div>
-                    <p>${review.commentKey.startsWith('review') ? getTranslation(review.commentKey) : review.comment}</p>
+                    <p>${review.commentKey ? getTranslation(review.commentKey) : review.comment}</p>
                     <div class="reviewer-name">- ${review.name}</div>
                 `;
                 return card;
@@ -1885,6 +1974,13 @@
                     const modal = e.target.closest('.modal');
                     if (modal) {
                         closeModal(modal);
+                        // Reset signup modal steps if closed
+                        if (modal.id === 'signup-modal') {
+                            signupFormStep1.classList.add('active');
+                            signupFormStep2.classList.remove('active');
+                            signupForm.reset(); // Clear signup form fields
+                            clearAllValidationMessages(signupForm);
+                        }
                     }
                 });
             });
@@ -1892,6 +1988,13 @@
             window.addEventListener('click', (event) => {
                 if (event.target.classList.contains('modal')) {
                     closeModal(event.target);
+                    // Reset signup modal steps if closed by clicking outside
+                    if (event.target.id === 'signup-modal') {
+                        signupFormStep1.classList.add('active');
+                        signupFormStep2.classList.remove('active');
+                        signupForm.reset();
+                        clearAllValidationMessages(signupForm);
+                    }
                 }
             });
 
@@ -1912,33 +2015,59 @@
                 }
             };
 
-            const validateForm = (form) => {
+            const clearAllValidationMessages = (form) => {
+                form.querySelectorAll('.validation-message').forEach(span => span.textContent = '');
+                form.querySelectorAll('input, textarea, select').forEach(input => input.classList.remove('error-border'));
+            };
+
+
+            const validateForm = (form, step = 0) => {
                 let isValid = true;
-                const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
-                inputs.forEach(input => {
+                let inputsToValidate;
+
+                if (form.id === 'signup-form') {
+                    if (step === 1) { // Signup Step 1
+                        inputsToValidate = form.querySelectorAll('#signup-form-step-1 input[required]');
+                    } else if (step === 2) { // Signup Step 2 (email code)
+                        inputsToValidate = form.querySelectorAll('#signup-form-step-2 input[required]');
+                    }
+                } else { // General forms (login, review, booking)
+                    inputsToValidate = form.querySelectorAll('input[required], textarea[required], select[required]');
+                }
+
+                inputsToValidate.forEach(input => {
                     clearValidationMessage(input); // Clear previous errors
 
                     if (!input.value.trim()) {
                         isValid = false;
-                        showValidationMessage(input, `${input.id.replace(/-/g, '_')}_required`); // e.g., 'form_name_error'
-                        return; // Move to next input
+                        showValidationMessage(input, `${input.id.replace(/-/g, '_')}_required`);
+                        return;
                     }
 
                     if (input.type === 'email' && !/\S+@\S+\.\S+/.test(input.value)) {
                         isValid = false;
                         showValidationMessage(input, 'form_email_error');
                     }
-                });
 
-                // Specific validation for signup password
-                if (form.id === 'signup-form') {
-                    const password = form.querySelector('#signup-password');
-                    const confirmPassword = form.querySelector('#signup-confirm-password');
-                    if (password.value !== confirmPassword.value) {
+                    if (input.tagName === 'SELECT' && input.value === '') {
                         isValid = false;
-                        showValidationMessage(confirmPassword, 'password_mismatch');
+                        showValidationMessage(input, `${input.id.replace(/-/g, '_')}_required`);
                     }
-                }
+
+                    if (input.type === 'number' && input.min && parseInt(input.value) < parseInt(input.min)) {
+                        isValid = false;
+                        showValidationMessage(input, `${input.id.replace(/-/g, '_')}_min_error`); // e.g. num_guests_min_error
+                    }
+
+                    // Specific validation for signup password (only for step 1)
+                    if (form.id === 'signup-form' && input.id === 'signup-confirm-password' && step === 1) {
+                        const password = form.querySelector('#signup-password');
+                        if (password.value !== input.value) {
+                            isValid = false;
+                            showValidationMessage(input, 'password_mismatch');
+                        }
+                    }
+                });
                 return isValid;
             };
 
@@ -1951,19 +2080,12 @@
                     loginBtn.style.display = 'none';
                     signupBtn.style.display = 'none';
                     logoutBtn.style.display = 'inline-block';
-                    adminLoginBtn.style.display = 'none'; // Admin login button hides for regular logged in users
-                } else if (isAdmin) {
-                    loginBtn.style.display = 'none';
-                    signupBtn.style.display = 'none';
-                    logoutBtn.style.display = 'inline-block';
-                    adminLoginBtn.style.display = 'none'; // Admin is logged in
-                    // Potentially show admin specific links here
-                }
-                else {
+                    adminLoginBtn.style.display = isAdmin ? 'inline-block' : 'none'; // Only show if admin AND logged in as admin
+                } else {
                     loginBtn.style.display = 'inline-block';
                     signupBtn.style.display = 'inline-block';
                     logoutBtn.style.display = 'none';
-                    adminLoginBtn.style.display = 'inline-block';
+                    adminLoginBtn.style.display = 'inline-block'; // Admin login visible when not logged in as user
                 }
             };
 
@@ -1982,6 +2104,23 @@
                 localStorage.setItem('selectedLanguage', newLang);
                 setLanguage(newLang);
             });
+
+            // Hamburger menu toggle
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('open');
+                mainNav.classList.toggle('open');
+            });
+
+            // Close mobile nav when a link is clicked
+            mainNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav.classList.contains('open')) {
+                        hamburgerMenu.classList.remove('open');
+                        mainNav.classList.remove('open');
+                    }
+                });
+            });
+
 
             // Navigation Active State & Smooth Scroll
             document.querySelectorAll('nav a').forEach(link => {
@@ -2028,23 +2167,6 @@
             window.addEventListener('scroll', activateNavLinkOnScroll);
             activateNavLinkOnScroll(); // Call on load to set initial active link
 
-            // Contact Form Submission (Frontend only - replace with actual API call)
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    if (validateForm(this)) {
-                        // In a real application, you'd send this data to a backend server.
-                        // Example: fetch('/api/contact', { method: 'POST', body: new FormData(this) })
-                        // .then(response => response.json())
-                        // .then(data => { alert('Message sent!'); this.reset(); })
-                        // .catch(error => console.error('Error:', error));
-                        alert(getTranslation('btn_send_message') + ' - (Demo: Message sent successfully!)');
-                        this.reset();
-                    } else {
-                        alert(getTranslation('contact_form_heading') + ' - ' + getTranslation('form_message_error'));
-                    }
-                });
-            }
 
             // Add Review Form Submission (Frontend only - replace with actual API call)
             if (addReviewForm) {
@@ -2067,9 +2189,38 @@
                 });
             }
 
+            // Booking Form Submission (Frontend Mock)
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    clearAllValidationMessages(this);
+                    if (validateForm(this)) {
+                        const checkinDate = document.getElementById('booking-date').value;
+                        const numGuests = document.getElementById('booking-guests').value;
+                        const selectedServices = Array.from(this.querySelectorAll('input[name="services"]:checked'))
+                                                     .map(checkbox => checkbox.value);
+
+                        console.log("Booking Details:", { checkinDate, numGuests, selectedServices });
+                        alert(getTranslation('booking_success'));
+                        closeModal(bookingModal);
+                        this.reset();
+                    } else {
+                        alert(getTranslation('booking_failed'));
+                    }
+                });
+            }
+
+
             // --- Authentication Modals Logic ---
             loginBtn.addEventListener('click', () => openModal(loginModal));
-            signupBtn.addEventListener('click', () => openModal(signupModal));
+            signupBtn.addEventListener('click', () => {
+                openModal(signupModal);
+                // Ensure on first step when opening signup
+                signupFormStep1.classList.add('active');
+                signupFormStep2.classList.remove('active');
+                signupForm.reset();
+                clearAllValidationMessages(signupForm);
+            });
             adminLoginBtn.addEventListener('click', () => openModal(adminLoginModal));
 
             logoutBtn.addEventListener('click', () => {
@@ -2079,10 +2230,15 @@
                 alert(getTranslation('logout_success'));
             });
 
+            // Switch between login/signup modals
             showSignupFromLogin.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeModal(loginModal);
                 openModal(signupModal);
+                signupFormStep1.classList.add('active');
+                signupFormStep2.classList.remove('active');
+                signupForm.reset();
+                clearAllValidationMessages(signupForm);
             });
 
             showLoginFromSignup.addEventListener('click', (e) => {
@@ -2091,9 +2247,17 @@
                 openModal(loginModal);
             });
 
+            showLoginFromSignupStep2.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeModal(signupModal);
+                openModal(loginModal);
+            });
+
+
             // Login Form Submission (Frontend Mock)
             document.getElementById('login-form').addEventListener('submit', function(e) {
                 e.preventDefault();
+                clearAllValidationMessages(this);
                 if (validateForm(this)) {
                     const username = this.querySelector('#login-username').value;
                     const password = this.querySelector('#login-password').value;
@@ -2112,26 +2276,50 @@
                 }
             });
 
-            // Signup Form Submission (Frontend Mock)
-            document.getElementById('signup-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                if (validateForm(this)) {
-                    const username = this.querySelector('#signup-username').value;
-                    const email = this.querySelector('#signup-email').value;
-                    const password = this.querySelector('#signup-password').value;
-
-                    // In a real app, send this to backend to create user
-                    console.log(`Mock Signup: Username: ${username}, Email: ${email}, Password: ${password}`);
-                    alert(getTranslation('signup_success'));
-                    closeModal(signupModal);
-                    openModal(loginModal); // Suggest login after signup
-                    this.reset();
+            // Signup Form - Step 1 (Continue button)
+            signupNextStepBtn.addEventListener('click', () => {
+                clearAllValidationMessages(signupForm);
+                if (validateForm(signupForm, 1)) {
+                    // Simulate email sending and move to step 2
+                    alert(getTranslation('signup_email_sent_prompt') + " (Demo: Code is '12345')"); // For demo purposes
+                    signupFormStep1.classList.remove('active');
+                    signupFormStep2.classList.add('active');
                 }
             });
+
+            // Signup Form - Step 2 (Verify & Sign Up button)
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearAllValidationMessages(this); // Clear any old messages
+                if (signupFormStep2.classList.contains('active')) { // Ensure we are on step 2
+                    if (validateForm(this, 2)) {
+                        const emailCode = document.getElementById('email-code').value;
+
+                        // Mock code verification
+                        if (emailCode === '12345') { // This would be a real code from backend
+                            const username = this.querySelector('#signup-username').value;
+                            const email = this.querySelector('#signup-email').value;
+                            const password = this.querySelector('#signup-password').value;
+
+                            console.log(`Mock Signup Complete: Username: ${username}, Email: ${email}, Password: ${password}`);
+                            alert(getTranslation('signup_success'));
+                            closeModal(signupModal);
+                            openModal(loginModal); // Suggest login after successful signup
+                            this.reset(); // Clear form
+                            signupFormStep1.classList.add('active'); // Reset to step 1
+                            signupFormStep2.classList.remove('active');
+                        } else {
+                            showValidationMessage(document.getElementById('email-code'), 'email_code_invalid');
+                        }
+                    }
+                }
+            });
+
 
             // Admin Login Form Submission (Frontend Mock)
             document.getElementById('admin-login-form').addEventListener('submit', function(e) {
                 e.preventDefault();
+                clearAllValidationMessages(this);
                 if (validateForm(this)) {
                     const username = this.querySelector('#admin-username').value;
                     const password = this.querySelector('#admin-password').value;
@@ -2143,7 +2331,7 @@
                         updateAuthUI();
                         closeModal(adminLoginModal);
                         alert(getTranslation('admin_login_success'));
-                        // Redirect or show admin dashboard elements
+                        // Redirect or show admin specific elements
                     } else {
                         alert(getTranslation('admin_login_failed'));
                     }
