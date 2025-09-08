@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Roblox Discord Bot</title>
+    <title>Privacy Policy - RoxTether</title>
     <style>
         * {
             margin: 0;
@@ -12,9 +12,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
@@ -22,215 +22,336 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
         }
 
-        .logo {
+        .brand {
             font-size: 1.8rem;
+            font-weight: 800;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #667eea;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.98);
+            margin: 2rem 0;
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .page-title {
+            color: #2d3748;
+            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 1rem;
+        }
+
+        .last-updated {
+            background: linear-gradient(135deg, #e6fffa, #f0fff4);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .last-updated strong {
+            color: #2d3748;
             font-weight: 700;
-            color: #764ba2;
+        }
+
+        .section-heading {
+            color: #2d3748;
+            margin: 3rem 0 1.5rem 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-left: 4px solid #667eea;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .section-heading::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        ul {
+            margin-left: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .highlight-box h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #764ba2;
-        }
-
-        .main-content {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 2rem 0;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #764ba2;
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-            border-bottom: 3px solid #764ba2;
-            padding-bottom: 0.5rem;
-        }
-
-        .last-updated {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #764ba2;
-        }
-
-        .last-updated strong {
-            color: #764ba2;
-        }
-
-        h2 {
-            color: #333;
-            margin: 2rem 0 1rem 0;
-            font-size: 1.5rem;
-            border-left: 4px solid #764ba2;
-            padding-left: 1rem;
-        }
-
-        p {
-            margin-bottom: 1rem;
-            color: #555;
-        }
-
-        ul {
-            margin-left: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
-
-        .highlight-box {
-            background: #e8f4f8;
-            border: 1px solid #764ba2;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .highlight-box h3 {
-            color: #764ba2;
-            margin-bottom: 1rem;
-        }
-
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
             background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
             overflow: hidden;
         }
 
         .data-table th,
         .data-table td {
-            padding: 1rem;
+            padding: 1.2rem;
             text-align: left;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .data-table th {
-            background: #764ba2;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.95rem;
         }
 
         .data-table tr:nth-child(even) {
-            background: #f8f9fa;
+            background: #f8fafc;
+        }
+
+        .data-table tr:hover {
+            background: #edf2f7;
         }
 
         .contact-section {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 2rem 0;
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3rem 0;
             text-align: center;
+            border: 2px solid #bee3f8;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
         }
 
         .contact-section h3 {
-            color: #764ba2;
+            color: #2d3748;
             margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .contact-section a {
-            color: #764ba2;
+            color: #667eea;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .contact-section a:hover {
-            text-decoration: underline;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
         }
 
         .back-home {
-            background: #764ba2;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            padding: 1rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-top: 2rem;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .back-home:hover {
-            background: #5a3a7a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .code-snippet {
+            background: #1a202c;
+            color: #68d391;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            border: 2px solid #fc8181;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #742a2a;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 0 15px;
+                padding: 0 16px;
             }
 
             .main-content {
-                padding: 2rem;
+                padding: 2.5rem;
                 margin: 1rem 0;
             }
 
-            h1 {
-                font-size: 2rem;
+            .page-title {
+                font-size: 2.2rem;
             }
 
-            .nav-links {
+            .nav-menu {
                 display: none;
             }
 
             .data-table th,
             .data-table td {
-                padding: 0.8rem;
+                padding: 1rem;
                 font-size: 0.9rem;
             }
+
+            .section-heading {
+                font-size: 1.4rem;
+            }
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .info-card h4 {
+            color: #2d3748;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .privacy-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="container">
-            <div class="logo">
-                🤖 Roblox Bot
-            </div>
-            <ul class="nav-links">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🔗</div>
+                RoxTether
+            </a>
+            <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="privacy.html">Privacy</a></li>
                 <li><a href="terms.html">Terms</a></li>
@@ -240,16 +361,19 @@
 
     <div class="container">
         <div class="main-content">
-            <h1>🔒 Privacy Policy</h1>
+            <h1 class="page-title">
+                <span class="privacy-icon">🔒</span>Privacy Policy
+            </h1>
             
             <div class="last-updated">
-                <strong>Last Updated:</strong> September 9, 2025
+                <strong>Last Updated:</strong> September 9, 2025<br>
+                <strong>Effective Date:</strong> September 9, 2025
             </div>
 
-            <p>Your privacy is important to us. This Privacy Policy explains how our Roblox Discord Verification Bot ("the Bot") collects, uses, and protects your information when you use our services.</p>
+            <p>Your privacy matters to us. This Privacy Policy explains how RoxTether collects, uses, and protects your information when you use our Discord bot verification services.</p>
 
-            <h2>📊 Information We Collect</h2>
-            <p>We collect only the minimal information necessary to provide verification services:</p>
+            <h2 class="section-heading">📊 Information We Collect</h2>
+            <p>We collect only essential information needed to provide verification services between Discord and Roblox:</p>
 
             <table class="data-table">
                 <thead>
@@ -257,33 +381,39 @@
                         <th>Data Type</th>
                         <th>Purpose</th>
                         <th>Source</th>
+                        <th>Storage Duration</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Discord User ID</td>
-                        <td>Link Discord account to Roblox verification</td>
+                        <td>Link Discord account to verification</td>
                         <td>Discord API</td>
+                        <td>Until unverified</td>
                     </tr>
                     <tr>
                         <td>Roblox User ID</td>
                         <td>Verify group membership and ranks</td>
                         <td>Roblox OAuth</td>
+                        <td>Until unverified</td>
                     </tr>
                     <tr>
                         <td>Roblox Username</td>
                         <td>Display verification information</td>
                         <td>Roblox OAuth</td>
+                        <td>Until unverified</td>
                     </tr>
                     <tr>
                         <td>Verification Timestamp</td>
-                        <td>Track when verification occurred</td>
+                        <td>Track verification status</td>
                         <td>System Generated</td>
+                        <td>Until unverified</td>
                     </tr>
                     <tr>
-                        <td>Server Settings</td>
-                        <td>Role bindings and server configuration</td>
+                        <td>Server Configurations</td>
+                        <td>Role bindings and settings</td>
                         <td>Discord Commands</td>
+                        <td>Until bot removal</td>
                     </tr>
                 </tbody>
             </table>
@@ -291,77 +421,95 @@
             <div class="highlight-box">
                 <h3>🛡️ What We DON'T Collect</h3>
                 <ul>
-                    <li>Email addresses</li>
-                    <li>IP addresses (beyond standard web server logs)</li>
-                    <li>Personal messages or chat history</li>
-                    <li>Roblox passwords or login credentials</li>
-                    <li>Financial or payment information</li>
+                    <li>Email addresses or personal contact information</li>
+                    <li>IP addresses (beyond standard server logs)</li>
+                    <li>Personal messages or Discord chat history</li>
+                    <li>Roblox passwords or authentication credentials</li>
+                    <li>Financial information or payment data</li>
+                    <li>Device information or browser data</li>
                 </ul>
             </div>
 
-            <h2>🔄 How We Use Your Information</h2>
-            <p>Your information is used exclusively for:</p>
-            <ul>
-                <li><strong>Account Verification:</strong> Linking your Discord and Roblox accounts</li>
-                <li><strong>Role Assignment:</strong> Automatically assigning Discord roles based on Roblox group membership</li>
-                <li><strong>Service Maintenance:</strong> Ensuring the bot functions correctly and resolving technical issues</li>
-                <li><strong>Security:</strong> Preventing abuse and maintaining service integrity</li>
-            </ul>
+            <h2 class="section-heading">🔄 How We Use Your Information</h2>
+            <p>Your data is used exclusively for providing verification services:</p>
+            
+            <div class="info-card">
+                <h4>Account Verification</h4>
+                <p>Securely linking your Discord and Roblox accounts through official OAuth authentication.</p>
+            </div>
+            
+            <div class="info-card">
+                <h4>Role Management</h4>
+                <p>Automatically assigning Discord roles based on your current Roblox group memberships and ranks.</p>
+            </div>
+            
+            <div class="info-card">
+                <h4>Service Operation</h4>
+                <p>Maintaining bot functionality, resolving technical issues, and preventing service abuse.</p>
+            </div>
 
-            <h2>💾 Data Storage and Security</h2>
+            <h2 class="section-heading">💾 Data Storage and Security</h2>
             <div class="highlight-box">
-                <h3>🔐 Security Measures</h3>
+                <h3>🔐 Security Implementation</h3>
                 <ul>
-                    <li><strong>Encryption:</strong> Data stored in MongoDB Atlas with encryption at rest and in transit</li>
-                    <li><strong>Access Control:</strong> Limited access to authorized personnel only</li>
-                    <li><strong>OAuth Security:</strong> Uses official Roblox OAuth 2.0 - no password storage</li>
-                    <li><strong>Regular Updates:</strong> System security patches and monitoring</li>
+                    <li><strong>Encryption:</strong> All data stored with AES-256 encryption at rest and TLS 1.3 in transit</li>
+                    <li><strong>Access Control:</strong> Strict role-based access with multi-factor authentication</li>
+                    <li><strong>OAuth Security:</strong> Official Roblox OAuth 2.0 - zero password storage</li>
+                    <li><strong>Infrastructure:</strong> Hosted on secure MongoDB Atlas with enterprise-grade protection</li>
+                    <li><strong>Monitoring:</strong> 24/7 security monitoring and automated threat detection</li>
                 </ul>
             </div>
 
-            <p><strong>Data Location:</strong> Your data is stored securely on MongoDB Atlas servers, which comply with industry-standard security practices and regulations.</p>
+            <p><strong>Data Location:</strong> Your information is stored on MongoDB Atlas servers in secure data centers with SOC 2 Type II compliance and industry-leading security standards.</p>
 
-            <h2>🤝 Data Sharing</h2>
-            <p>We <strong>DO NOT</strong> share, sell, or distribute your personal information to third parties. Your data is used solely for the bot's functionality.</p>
+            <h2 class="section-heading">🤝 Data Sharing Policy</h2>
+            <p>We <strong>DO NOT</strong> sell, share, or distribute your personal information to third parties under any circumstances.</p>
 
-            <p><strong>Exception:</strong> We may disclose information if required by law or to protect our legal rights, but we will notify users when legally permissible.</p>
+            <div class="warning-box">
+                <h4>Legal Disclosure Exception</h4>
+                <p>We may disclose information only if legally required by court order or law enforcement, with advance notice to users when legally permissible.</p>
+            </div>
 
-            <h2>⚖️ Your Rights</h2>
+            <h2 class="section-heading">⚖️ Your Privacy Rights</h2>
             <ul>
-                <li><strong>Data Deletion:</strong> Use the <code>/unverify</code> command to delete your verification data instantly</li>
-                <li><strong>Data Access:</strong> Use the <code>/whois</code> command to view your stored verification information</li>
-                <li><strong>Data Portability:</strong> Contact us to request a copy of your data</li>
-                <li><strong>Correction:</strong> Re-verify using <code>/reverify</code> to update your information</li>
+                <li><strong>Instant Deletion:</strong> Use <span class="code-snippet">/unverify</span> to immediately delete all verification data</li>
+                <li><strong>Data Access:</strong> Use <span class="code-snippet">/whois @user</span> to view stored verification information</li>
+                <li><strong>Data Portability:</strong> Contact us to request a complete copy of your stored data</li>
+                <li><strong>Correction Rights:</strong> Re-verify using <span class="code-snippet">/reverify</span> to update your information</li>
+                <li><strong>Service Withdrawal:</strong> Remove the bot from your server to delete all associated data</li>
             </ul>
 
             <div class="highlight-box">
-                <h3>🗑️ Easy Data Deletion</h3>
-                <p>You can delete all your verification data immediately by using the <code>/unverify</code> command in Discord. This will:</p>
+                <h3>🗑️ Simple Data Deletion</h3>
+                <p>Complete data removal is instant and user-controlled:</p>
                 <ul>
-                    <li>Remove your Discord-Roblox account link</li>
-                    <li>Delete your stored Roblox information</li>
-                    <li>Remove associated Discord roles (if configured)</li>
+                    <li>Run <span class="code-snippet">/unverify</span> command in Discord</li>
+                    <li>All verification data is permanently deleted within seconds</li>
+                    <li>Discord roles may be removed based on server settings</li>
+                    <li>No residual data remains in our systems</li>
                 </ul>
             </div>
 
-            <h2>📱 Third-Party Services</h2>
-            <p>The bot interacts with:</p>
+            <h2 class="section-heading">📱 Third-Party Integrations</h2>
+            <p>RoxTether integrates with the following services to provide verification functionality:</p>
             <ul>
-                <li><strong>Discord API:</strong> For bot functionality and role management</li>
-                <li><strong>Roblox API/OAuth:</strong> For account verification and group data</li>
+                <li><strong>Discord API:</strong> For bot operations, role management, and user interactions</li>
+                <li><strong>Roblox API/OAuth:</strong> For secure account verification and group data retrieval</li>
+                <li><strong>MongoDB Atlas:</strong> For secure data storage and management</li>
             </ul>
-            <p>These services have their own privacy policies. We recommend reviewing Discord's and Roblox's privacy policies.</p>
+            <p>These services operate under their own privacy policies. We recommend reviewing Discord's and Roblox's privacy statements for comprehensive understanding.</p>
 
-            <h2>👶 Children's Privacy</h2>
-            <p>We are committed to protecting children's privacy. If you are under 13, please have a parent or guardian review this policy. We do not knowingly collect personal information from children under 13 without parental consent.</p>
+            <h2 class="section-heading">👶 Children's Privacy Protection</h2>
+            <p>We take children's privacy seriously and comply with COPPA requirements. Users under 13 should have parental guidance when using our service. We do not knowingly collect personal information from children under 13 without verified parental consent.</p>
 
-            <h2>🔄 Policy Changes</h2>
-            <p>We may update this Privacy Policy occasionally. Changes will be posted on this page with an updated date. Continued use of the bot after changes constitutes acceptance of the new policy.</p>
+            <h2 class="section-heading">🔄 Policy Updates</h2>
+            <p>This Privacy Policy may be updated to reflect service improvements or legal requirements. Material changes will be communicated through our official channels with reasonable advance notice. Continued use after updates indicates acceptance of revised terms.</p>
 
             <div class="contact-section">
-                <h3>📧 Questions or Concerns?</h3>
-                <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+                <h3>📧 Privacy Questions?</h3>
+                <p>For privacy concerns, data requests, or policy questions, contact our privacy team:</p>
                 <a href="mailto:jemalagegidze@gmail.com">jemalagegidze@gmail.com</a>
+                <p style="margin-top: 1rem; color: #718096; font-size: 0.9rem;">We respond to privacy inquiries within 48 hours</p>
             </div>
 
             <a href="index.html" class="back-home">← Back to Home</a>
