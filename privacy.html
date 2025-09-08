@@ -2,25 +2,370 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Privacy Policy - Your Roblox Discord Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Roblox Discord Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #764ba2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #764ba2;
+        }
+
+        .last-updated strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #333;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+            border-left: 4px solid #764ba2;
+            padding-left: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .highlight-box {
+            background: #e8f4f8;
+            border: 1px solid #764ba2;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table th {
+            background: #764ba2;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .contact-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section a {
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            background: #764ba2;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-home:hover {
+            background: #5a3a7a;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .main-content {
+                padding: 2rem;
+                margin: 1rem 0;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p>Last Updated: September 9, 2025</p>
-    <p>Your privacy is important. This bot verifies Roblox accounts for Discord role assignment.</p>
-    <h2>What We Collect</h2>
-    <ul>
-        <li>Discord User ID (for verification).</li>
-        <li>Roblox ID and Username (from OAuth login, stored in secure MongoDB).</li>
-        <li>Verification timestamp.</li>
-    </ul>
-    <p>We do not collect emails, IPs, or personal details beyond what's needed for verification.</p>
-    <h2>How We Use Data</h2>
-    <p>Data is used only to link accounts and assign roles based on Roblox groups. No sharing with third parties.</p>
-    <h2>Storage & Security</h2>
-    <p>Data is stored in MongoDB Atlas (encrypted, compliant with privacy laws). You can unverify to delete it via /unverify.</p>
-    <h2>Your Rights</h2>
-    <p>Request deletion anytime. Complies with applicable laws (e.g., GDPR). Contact: jemalagegidze@gmail.com</p>
-    <p>Changes to this policy will be posted here.</p>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                🤖 Roblox Bot
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <h1>🔒 Privacy Policy</h1>
+            
+            <div class="last-updated">
+                <strong>Last Updated:</strong> September 9, 2025
+            </div>
+
+            <p>Your privacy is important to us. This Privacy Policy explains how our Roblox Discord Verification Bot ("the Bot") collects, uses, and protects your information when you use our services.</p>
+
+            <h2>📊 Information We Collect</h2>
+            <p>We collect only the minimal information necessary to provide verification services:</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Purpose</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Discord User ID</td>
+                        <td>Link Discord account to Roblox verification</td>
+                        <td>Discord API</td>
+                    </tr>
+                    <tr>
+                        <td>Roblox User ID</td>
+                        <td>Verify group membership and ranks</td>
+                        <td>Roblox OAuth</td>
+                    </tr>
+                    <tr>
+                        <td>Roblox Username</td>
+                        <td>Display verification information</td>
+                        <td>Roblox OAuth</td>
+                    </tr>
+                    <tr>
+                        <td>Verification Timestamp</td>
+                        <td>Track when verification occurred</td>
+                        <td>System Generated</td>
+                    </tr>
+                    <tr>
+                        <td>Server Settings</td>
+                        <td>Role bindings and server configuration</td>
+                        <td>Discord Commands</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <h3>🛡️ What We DON'T Collect</h3>
+                <ul>
+                    <li>Email addresses</li>
+                    <li>IP addresses (beyond standard web server logs)</li>
+                    <li>Personal messages or chat history</li>
+                    <li>Roblox passwords or login credentials</li>
+                    <li>Financial or payment information</li>
+                </ul>
+            </div>
+
+            <h2>🔄 How We Use Your Information</h2>
+            <p>Your information is used exclusively for:</p>
+            <ul>
+                <li><strong>Account Verification:</strong> Linking your Discord and Roblox accounts</li>
+                <li><strong>Role Assignment:</strong> Automatically assigning Discord roles based on Roblox group membership</li>
+                <li><strong>Service Maintenance:</strong> Ensuring the bot functions correctly and resolving technical issues</li>
+                <li><strong>Security:</strong> Preventing abuse and maintaining service integrity</li>
+            </ul>
+
+            <h2>💾 Data Storage and Security</h2>
+            <div class="highlight-box">
+                <h3>🔐 Security Measures</h3>
+                <ul>
+                    <li><strong>Encryption:</strong> Data stored in MongoDB Atlas with encryption at rest and in transit</li>
+                    <li><strong>Access Control:</strong> Limited access to authorized personnel only</li>
+                    <li><strong>OAuth Security:</strong> Uses official Roblox OAuth 2.0 - no password storage</li>
+                    <li><strong>Regular Updates:</strong> System security patches and monitoring</li>
+                </ul>
+            </div>
+
+            <p><strong>Data Location:</strong> Your data is stored securely on MongoDB Atlas servers, which comply with industry-standard security practices and regulations.</p>
+
+            <h2>🤝 Data Sharing</h2>
+            <p>We <strong>DO NOT</strong> share, sell, or distribute your personal information to third parties. Your data is used solely for the bot's functionality.</p>
+
+            <p><strong>Exception:</strong> We may disclose information if required by law or to protect our legal rights, but we will notify users when legally permissible.</p>
+
+            <h2>⚖️ Your Rights</h2>
+            <ul>
+                <li><strong>Data Deletion:</strong> Use the <code>/unverify</code> command to delete your verification data instantly</li>
+                <li><strong>Data Access:</strong> Use the <code>/whois</code> command to view your stored verification information</li>
+                <li><strong>Data Portability:</strong> Contact us to request a copy of your data</li>
+                <li><strong>Correction:</strong> Re-verify using <code>/reverify</code> to update your information</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h3>🗑️ Easy Data Deletion</h3>
+                <p>You can delete all your verification data immediately by using the <code>/unverify</code> command in Discord. This will:</p>
+                <ul>
+                    <li>Remove your Discord-Roblox account link</li>
+                    <li>Delete your stored Roblox information</li>
+                    <li>Remove associated Discord roles (if configured)</li>
+                </ul>
+            </div>
+
+            <h2>📱 Third-Party Services</h2>
+            <p>The bot interacts with:</p>
+            <ul>
+                <li><strong>Discord API:</strong> For bot functionality and role management</li>
+                <li><strong>Roblox API/OAuth:</strong> For account verification and group data</li>
+            </ul>
+            <p>These services have their own privacy policies. We recommend reviewing Discord's and Roblox's privacy policies.</p>
+
+            <h2>👶 Children's Privacy</h2>
+            <p>We are committed to protecting children's privacy. If you are under 13, please have a parent or guardian review this policy. We do not knowingly collect personal information from children under 13 without parental consent.</p>
+
+            <h2>🔄 Policy Changes</h2>
+            <p>We may update this Privacy Policy occasionally. Changes will be posted on this page with an updated date. Continued use of the bot after changes constitutes acceptance of the new policy.</p>
+
+            <div class="contact-section">
+                <h3>📧 Questions or Concerns?</h3>
+                <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+                <a href="mailto:jemalagegidze@gmail.com">jemalagegidze@gmail.com</a>
+            </div>
+
+            <a href="index.html" class="back-home">← Back to Home</a>
+        </div>
+    </div>
 </body>
 </html>
