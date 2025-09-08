@@ -2,25 +2,386 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Terms of Service - Your Roblox Discord Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Discord Verification Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #764ba2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section {
+            background: white;
+            padding: 3rem 0;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-content {
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .cta-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .command-box {
+            background: #f8f9fa;
+            border: 2px dashed #764ba2;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .setup-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .setup-section h2 {
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .setup-steps {
+            counter-reset: step-counter;
+        }
+
+        .setup-step {
+            counter-increment: step-counter;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #764ba2;
+            position: relative;
+        }
+
+        .setup-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #764ba2;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .setup-step h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .setup-step p {
+            color: #666;
+            margin-left: 1rem;
+        }
+
+        .footer-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .contact-info {
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        .contact-info a {
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Terms of Service</h1>
-    <p>Last Updated: September 9, 2025</p>
-    <p>By using this bot, you agree to these terms.</p>
-    <h2>Usage</h2>
-    <p>The bot verifies Roblox accounts for Discord servers. Only use in authorized servers. No spamming or abuse.</p>
-    <h2>Roles & Verification</h2>
-    <p>Roles are assigned based on Roblox group ranks. Admins control bindings. Verification uses secure OAuth.</p>
-    <h2>Limitations</h2>
-    <p>Not liable for lost roles, API downtime, or misuse. Bot may be updated/discontinued.</p>
-    <h2>Prohibited</h2>
-    <ul>
-        <li>Fake verifications or exploiting the system.</li>
-        <li>Using for illegal activities.</li>
-    </ul>
-    <h2>Governing Law</h2>
-    <p>Subject to Georgia laws. Contact: jemalagegidze@gmail.com for disputes.</p>
-    <p>You can stop using the bot anytime. We may terminate access for violations.</p>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                🤖 Roblox Bot
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero" id="home">
+            <h1>🎮 Roblox Discord Verification Bot</h1>
+            <p>Connect your Roblox account to Discord and automatically receive roles based on your group membership. Simple, secure, and reliable.</p>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Get Started in Seconds</h2>
+                <p>Add the bot to your Discord server and start verifying members instantly</p>
+                <div class="command-box">
+                    /verify
+                </div>
+                <p>Use this command in Discord to begin the verification process</p>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure OAuth Login</h3>
+                    <p>Uses official Roblox OAuth 2.0 for safe and secure account verification without sharing passwords.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Role Assignment</h3>
+                    <p>Automatically assigns Discord roles based on your Roblox group ranks in real-time.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Auto-Sync</h3>
+                    <p>Keeps your Discord roles updated when your Roblox group status changes.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Easy Management</h3>
+                    <p>Simple commands for server admins to bind Roblox groups to Discord roles.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Privacy Focused</h3>
+                    <p>Only stores necessary verification data. Users can unverify and delete their data anytime.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Multiple Groups</h3>
+                    <p>Supports verification for multiple Roblox groups with different rank requirements.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="setup-section" id="setup">
+            <h2>🚀 How to Set Up</h2>
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <h4>Invite the Bot</h4>
+                    <p>Add the bot to your Discord server with the necessary permissions (Manage Roles, Send Messages).</p>
+                </div>
+                <div class="setup-step">
+                    <h4>Bind Your Groups</h4>
+                    <p>Use <code>/bind [group_id] [min_rank] [discord_role]</code> to connect Roblox groups to Discord roles.</p>
+                </div>
+                <div class="setup-step">
+                    <h4>Members Verify</h4>
+                    <p>Users run <code>/verify</code> and log in with their Roblox account securely.</p>
+                </div>
+                <div class="setup-step">
+                    <h4>Automatic Roles</h4>
+                    <p>Roles are assigned automatically based on group membership and ranks.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-section">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="#support">Support</a>
+            </div>
+            <div class="contact-info">
+                <p>Need help? Contact us at <a href="mailto:jemalagegidze@gmail.com">jemalagegidze@gmail.com</a></p>
+                <p>© 2025 Roblox Discord Bot. All rights reserved.</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
