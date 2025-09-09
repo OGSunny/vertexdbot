@@ -1,5 +1,5 @@
 <?php
-// api.php - Place this file on your website
+// api.php - Upload this to your website at unordinariness.xyz
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Configuration
-$API_KEY = 'your-secret-api-key-here'; // Change this!
+$API_KEY = 'UR_dc_rb_8k3m9p2x7q5w1z4n6v8b';
 $COMMANDS_FILE = 'commands.json'; // File to store commands
 
 // Authentication
@@ -70,7 +70,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         if ($endpoint === '' || $endpoint === 'status') {
             // Health check
-            echo json_encode(['status' => 'Discord-Roblox Bridge API is running!']);
+            echo json_encode([
+                'status' => 'Discord-Roblox Bridge API is running!',
+                'website' => 'unordinariness.xyz',
+                'version' => '1.0'
+            ]);
         } elseif ($endpoint === 'get') {
             // Get pending commands for Roblox
             authenticate();
@@ -109,7 +113,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
             echo json_encode([
                 'pendingCommands' => count($pending),
                 'totalCommands' => count($commands),
-                'serverTime' => date('Y-m-d H:i:s')
+                'serverTime' => date('Y-m-d H:i:s'),
+                'api' => 'unordinariness.xyz Discord-Roblox Bridge'
             ]);
         } else {
             http_response_code(404);
