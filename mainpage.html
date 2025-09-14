@@ -3,67 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Midnight Hub</title>
+  <title>Vertex Hub</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0a0a0f, #1a1a2e, #0f3460);
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #0f0f1a, #050510);
       color: #fff;
       min-height: 100vh;
     }
     header {
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px 40px;
       position: sticky;
       top: 0;
+      z-index: 10;
     }
     header h1 {
-      font-size: 1.5rem;
-      letter-spacing: 2px;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, #00e0ff, #7a5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
     }
     nav a {
-      color: #fff;
+      color: #ccc;
       text-decoration: none;
       margin-left: 20px;
       font-weight: 500;
-      transition: color 0.3s ease;
+      transition: color 0.3s;
     }
-    nav a:hover { color: #00f7ff; }
+    nav a:hover { color: #00e0ff; }
     .hero {
       text-align: center;
-      padding: 100px 20px;
+      padding: 120px 20px;
     }
     .hero h2 {
-      font-size: 3rem;
+      font-size: 3.2rem;
       margin-bottom: 20px;
+      background: linear-gradient(135deg, #00e0ff, #7a5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .hero p {
       font-size: 1.2rem;
-      color: #d1d1d1;
+      color: #bbb;
       max-width: 700px;
       margin: 0 auto 30px;
+      line-height: 1.6;
     }
     .hero a {
       display: inline-block;
-      padding: 12px 30px;
-      background: linear-gradient(135deg, #00f7ff, #0077ff);
-      border-radius: 8px;
+      padding: 14px 34px;
+      background: linear-gradient(135deg, #00e0ff, #7a5cff);
+      border-radius: 10px;
       text-decoration: none;
       color: #fff;
       font-weight: bold;
-      transition: transform 0.3s;
+      box-shadow: 0 0 15px rgba(0, 224, 255, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .hero a:hover { transform: scale(1.05); }
+    .hero a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(122, 92, 255, 0.8);
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Midnight Hub</h1>
+    <h1>Vertex Hub</h1>
     <nav>
       <a href="mainpage.html">Home</a>
       <a href="tos.html">TOS</a>
@@ -72,10 +85,10 @@
   </header>
 
   <section class="hero">
-    <h2>Welcome to Midnight Hub</h2>
+    <h2>Welcome to Vertex Hub</h2>
     <p>
-      Midnight Hub is built for script lovers, gamers, and creators who want quality tools and fair rules.  
-      Explore, create, and enjoy while respecting our simple terms.
+      The future of scripting. Clean tools, clear rules, and a focus on fairness.  
+      Dive into Vertex Hub and see how we’re shaping the next generation of scripts.
     </p>
     <a href="tos.html">Read Our TOS</a>
   </section>
