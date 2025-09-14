@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Verification - Vertex</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #5865f2;
+            margin-bottom: 20px;
+        }
+        .captcha-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #495057;
+            letter-spacing: 3px;
+        }
+        input[type="text"] {
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 16px;
+            width: 200px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        button {
+            background: #5865f2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover { background: #4752c4; }
+        .refresh-btn { background: #6c757d; }
+        .refresh-btn:hover { background: #5a6268; }
+        .status { padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .loading { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Vertex Discord Verification</h1>
+        <div id="content">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const user = urlParams.get('user');
+
+        // CHANGE THIS TO YOUR BOT'S ACTUAL URL
+        const BOT_API_URL = 'ptlc_O8SPMcrAnJw8HbP5jiSp1pnPiLFqMsnL5lvin8DKN4i'; // e.g., 'https://your-bot.herokuapp.com'
+
+        let currentCaptcha = '';
+        
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            currentCaptcha = '';
+            for (let i = 0; i < 6; i++) {
+                currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('captcha-text').textContent = currentCaptcha;
+        }
+
+        function showVerificationForm() {
+            document.getElementById('content').innerHTML = `
+                <p>Please solve the CAPTCHA below to verify you're human:</p>
+                
+                <div class="captcha-box" id="captcha-text"></div>
+                
+                <form id="verifyForm">
+                    <input type="text" id="captcha-input" placeholder="Enter CAPTCHA" required>
+                    <br>
+                    <button type="button" class="refresh-btn" onclick="generateCaptcha()">🔄 New CAPTCHA</button>
+                    <button type="submit">✅ Verify</button>
+                </form>
+            `;
+            generateCaptcha();
+
+            document.getElementById('verifyForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const userInput = document.getElementById('captcha-input').value.toUpperCase();
+                
+                if (userInput === currentCaptcha) {
+                    showLoading();
+                    await sendVerificationToBot();
+                } else {
+                    showError('CAPTCHA verification failed. Please try again.');
+                    generateCaptcha();
+                }
+            });
+        }
+
+        function showLoading() {
+            document.getElementById('content').innerHTML = `
+                <div class="status loading">
+                    <h2>⏳ Processing...</h2>
+                    <p>Verifying with Discord bot...</p>
+                </div>
+            `;
+        }
+
+        async function sendVerificationToBot() {
+            try {
+                // Send verification request to your bot
+                const response = await fetch(`${BOT_API_URL}/complete-verification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: code,
+                        user: user,
+                        captcha: currentCaptcha,
+                        expected_captcha: currentCaptcha
+                    })
+                });
+
+                if (response.ok) {
+                    showSuccess();
+                } else {
+                    const errorData = await response.text();
+                    showError('Verification failed. Please try again or contact support.');
+                }
+            } catch (error) {
+                console.error('Verification error:', error);
+                showError('Could not connect to verification server. Please try again later.');
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById('content').innerHTML = `
+                <div class="status success">
+                    <h2>✅ Verification Complete!</h2>
+                    <p>Your Discord account has been verified successfully!</p>
+                    <p>You should now have access to all server channels.</p>
+                    <p>You can close this page and return to Discord.</p>
+                    <p><strong>Welcome to Vertex! 🎉</strong></p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            document.getElementById('content').innerHTML = `
+                <div class="status error">
+                    <h2>❌ Verification Failed</h2>
+                    <p>${message}</p>
+                    <button onclick="location.reload()">Try Again</button>
+                </div>
+            `;
+        }
+
+        function showInfo(message) {
+            document.getElementById('content').innerHTML = `
+                <div class="status info">
+                    <h2>ℹ️ Information</h2>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Initialize page
+        if (!code || !user) {
+            showInfo('Welcome to Vertex Discord verification! Use the verification link provided by the bot to complete your verification.');
+        } else {
+            // Show the verification form
+            showVerificationForm();
+        }
+    </script>
+</body>
+</html>
