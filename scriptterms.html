@@ -51,6 +51,21 @@
       line-height: 1.7;
       color: #bbb;
     }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 12px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    ul li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #00e0ff;
+    }
   </style>
 </head>
 <body>
@@ -66,21 +81,27 @@
   <div class="content">
     <h2>Script Terms</h2>
     <p>
-      Vertex Hub scripts are for fair use only.  
-      Use them responsibly, and follow the rules below.
+      These rules apply to every script provided through Vertex Hub.  
+      By using them, you agree to follow the conditions below:
     </p>
 
-    <h2>Rules</h2>
-    <p>
-      ✔ Don’t leak or resell scripts.<br>
-      ✔ Don’t try to strip protections or bypass systems.<br>
-      ✔ No malicious use (scams, exploits beyond intended use).<br>
-      ✔ Scripts are provided “as is” — they may not always work or be supported.
-    </p>
+    <h2>Allowed Use</h2>
+    <ul>
+      <li>You may use our scripts for personal use inside supported platforms.</li>
+      <li>You may share feedback or request features — we welcome community input.</li>
+    </ul>
 
-    <h2>Reminder</h2>
+    <h2>Not Allowed</h2>
+    <ul>
+      <li>No leaking, selling, or redistributing scripts.</li>
+      <li>No editing or removing built-in protections.</li>
+      <li>No using scripts for malicious purposes such as scams, stealing accounts, or server disruption.</li>
+    </ul>
+
+    <h2>Disclaimer</h2>
     <p>
-      These scripts are built for learning and fun. Respect the rules, or you lose access — permanently.
+      Scripts are provided <em>"as is"</em>. We don’t guarantee 24/7 availability or compatibility forever.  
+      Use them responsibly — abuse leads to permanent bans from Vertex Hub.
     </p>
   </div>
 </body>
