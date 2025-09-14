@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vertex Hub</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,247 +14,459 @@
         }
 
         body {
-            background: #0f0f23;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
             color: #ffffff;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .header {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 80px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23333" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.1;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
         }
 
-        .header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .particle {
+            position: absolute;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
         }
 
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            font-weight: 300;
-            letter-spacing: 2px;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
-        .subtitle {
-            font-size: 1.3rem;
-            color: #b0b0b0;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: #4a90e2;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 2px solid #4a90e2;
-        }
-
-        .cta-button:hover {
-            background: transparent;
-            color: #4a90e2;
-        }
-
-        .nav {
-            position: sticky;
+        /* Navigation */
+        .navbar {
+            position: fixed;
             top: 0;
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #333;
-            z-index: 100;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            bottom: -5px;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 0;
+            gap: 40px;
         }
 
-        .nav-links li a {
-            display: block;
-            padding: 20px 30px;
+        .nav-links a {
             color: #ffffff;
             text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-links li a:hover {
-            background: rgba(74, 144, 226, 0.1);
-            border-bottom-color: #4a90e2;
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
-        .content {
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 0, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3)); }
+            to { filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.6)); }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #000000;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
 
-        .section {
-            margin-bottom: 80px;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            font-weight: 300;
+        .section-title {
             text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #ffffff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .cards {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
 
-        .card {
-            background: #1a1a2e;
-            padding: 40px 30px;
-            border-radius: 8px;
-            border: 1px solid #333;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #4a90e2;
-            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.2);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .card h3 {
-            font-size: 1.5rem;
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
             margin-bottom: 15px;
-            color: #4a90e2;
+            color: #ffffff;
         }
 
-        .card p {
+        .feature-card p {
             color: #b0b0b0;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
-        .footer {
-            background: #16213e;
-            padding: 40px 0;
+        /* Community Section */
+        .community {
+            background: rgba(0, 255, 136, 0.05);
+            padding: 120px 0;
+            margin: 80px 0;
+        }
+
+        .community-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
             text-align: center;
-            border-top: 1px solid #333;
+        }
+
+        .community h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .community p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #00ff88;
+            display: block;
+        }
+
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
         }
 
         .footer p {
-            color: #888;
+            color: #666;
         }
 
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
             .nav-links {
-                flex-wrap: wrap;
+                display: none;
             }
             
-            .nav-links li a {
-                padding: 15px 20px;
+            .hero h1 {
+                font-size: 3rem;
             }
             
-            .cards {
+            .features-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <h1>Vertex Hub</h1>
-            <p class="subtitle">Welcome to our creative community</p>
-            <a href="#about" class="cta-button">Learn More</a>
-        </div>
-    </div>
-
-    <nav class="nav">
+    <div class="bg-animation" id="bgAnimation"></div>
+    
+    <nav class="navbar">
         <div class="nav-container">
+            <div class="logo">Vertex Hub</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#community">Community</a></li>
                 <li><a href="TOS.html">Terms</a></li>
                 <li><a href="ScriptTerms.html">Script Terms</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="content">
-        <section id="about" class="section">
-            <h2>About Vertex Hub</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Creative Community</h3>
-                    <p>Join our vibrant community of creators, developers, and enthusiasts working together on exciting projects.</p>
-                </div>
-                <div class="card">
-                    <h3>Collaboration</h3>
-                    <p>Connect with like-minded individuals and collaborate on projects that push the boundaries of creativity.</p>
-                </div>
-                <div class="card">
-                    <h3>Learning</h3>
-                    <p>Share knowledge, learn new skills, and grow together as we explore new technologies and techniques.</p>
-                </div>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Vertex Hub</h1>
+            <p>Where creativity meets innovation. Join our community of developers, creators, and visionaries building the future together.</p>
+            <div class="cta-buttons">
+                <a href="#community" class="btn btn-primary">Join Community</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="community" class="section">
-            <h2>Our Community</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Discord Server</h3>
-                    <p>Join our active Discord community where members share ideas, get help, and collaborate on projects daily.</p>
+    <section class="features" id="about">
+        <h2 class="section-title">What We Offer</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Creative Community</h3>
+                <p>Connect with talented developers, designers, and creators from around the world. Share ideas, collaborate on projects, and learn from each other.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Cutting-Edge Projects</h3>
+                <p>Work on innovative projects that push boundaries. From game development to digital art, we're always exploring new frontiers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3>Knowledge Sharing</h3>
+                <p>Learn from experienced professionals and share your expertise. Our community thrives on mutual growth and development.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="community" id="community">
+        <div class="community-content">
+            <h2>Join Our Growing Community</h2>
+            <p>Be part of something bigger. Our community is built on collaboration, creativity, and pushing the boundaries of what's possible.</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Active Members</span>
                 </div>
-                <div class="card">
-                    <h3>Weekly Events</h3>
-                    <p>Participate in community challenges, workshops, and events designed to bring creators together.</p>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Community Support</span>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <footer class="footer">
-        <p>&copy; 2025 Vertex Hub. Built with passion by our community.</p>
+        <p>&copy; 2025 Vertex Hub. Built with passion by creators, for creators.</p>
     </footer>
 
     <script>
+        // Animated background particles
+        function createParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -266,13 +480,41 @@
             });
         });
 
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(15, 15, 35, 0.98)';
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+                navbar.style.backdropFilter = 'blur(20px)';
             } else {
-                nav.style.background = 'rgba(15, 15, 35, 0.95)';
+                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+                navbar.style.backdropFilter = 'blur(20px)';
             }
+        });
+
+        // Initialize particles
+        createParticles();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
         });
     </script>
 </body>
