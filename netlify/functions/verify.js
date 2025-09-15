@@ -1,8 +1,7 @@
-// Save as: netlify/functions/verify.js
-
+// netlify/functions/verify.js
 const crypto = require('crypto');
 
-// Store valid keys as environment variables or in the function
+// Hardcoded valid keys (will be updated by update-keys.js)
 const validKeys = new Set([
     'YOUR-VALID-KEY-1',
     'YOUR-VALID-KEY-2',
@@ -132,10 +131,10 @@ function checkRateLimit(ip) {
 }
 
 exports.handler = async (event, context) => {
-    // CORS headers
+    // CORS headers (aligned with netlify.toml)
     const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type, x-auth-token',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
     };
@@ -162,9 +161,7 @@ exports.handler = async (event, context) => {
     }
     
     try {
-        const clientIP = event.headers['x-forwarded-for'] || 
-                        event.headers['x-real-ip'] || 
-                        'unknown';
+        const clientIP = event.headers['x-forwarded-for'] || event.headers['x-real-ip'] || 'unknown';
         
         // Rate limiting
         if (!checkRateLimit(clientIP)) {
@@ -193,16 +190,16 @@ exports.handler = async (event, context) => {
             };
         }
         
-        const { key, userId, timestamp, signature } = requestBody;
+        const { key, userId, timestamp } = requestBody;
         
         // Basic validation
-        if (!key) {
+        if (!key || !userId || !timestamp) {
             return {
                 statusCode: 400,
                 headers,
                 body: JSON.stringify({
                     success: false,
-                    error: 'Missing authentication key'
+                    error: 'Missing key, userId, or timestamp'
                 })
             };
         }
@@ -215,47 +212,26 @@ exports.handler = async (event, context) => {
                 headers,
                 body: JSON.stringify({
                     success: false,
-                    error: 'Invalid authentication key'
+                    error: 'Invalid or inactive key'
                 })
             };
         }
         
-        // Optional: Verify timestamp to prevent replay attacks
-        if (timestamp) {
-            const now = Date.now();
-            const requestTime = parseInt(timestamp);
-            const timeDiff = Math.abs(now - requestTime);
-            
-            // Allow 5 minute window
-            if (timeDiff > 300000) {
-                return {
-                    statusCode: 401,
-                    headers,
-                    body: JSON.stringify({
-                        success: false,
-                        error: 'Request timestamp expired'
-                    })
-                };
-            }
-        }
+        // Verify timestamp to prevent replay attacks
+        const now = Date.now();
+        const requestTime = parseInt(timestamp);
+        const timeDiff = Math.abs(now - requestTime);
         
-        // Optional: Verify signature for additional security
-        if (signature && userId && timestamp) {
-            const expectedSignature = crypto
-                .createHmac('sha256', key)
-                .update(`${userId}:${timestamp}`)
-                .digest('hex');
-                
-            if (signature !== expectedSignature) {
-                return {
-                    statusCode: 401,
-                    headers,
-                    body: JSON.stringify({
-                        success: false,
-                        error: 'Invalid signature'
-                    })
-                };
-            }
+        // Allow 5 minute window
+        if (timeDiff > 300000) {
+            return {
+                statusCode: 401,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: 'Request timestamp expired'
+                })
+            };
         }
         
         // Success response
@@ -266,7 +242,7 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 success: true,
                 message: 'Authentication successful',
-                userId: userId || null,
+                userId: userId,
                 permissions: ['basic']
             })
         };
