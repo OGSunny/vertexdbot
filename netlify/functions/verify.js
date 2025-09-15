@@ -1,98 +1,6 @@
-// netlify/functions/verify.js
-const crypto = require('crypto');
+const { getStore } = require('@netlify/blobs');
 
-// Hardcoded valid keys (update manually or via update-keys function and redeploy)
-// This is for website/auth backup - main auth is now in bot for HWID support
-const validKeys = new Set([
-    'YOUR-VALID-KEY-1',
-    'YOUR-VALID-KEY-2',
-    'PREMIUM-KEY-123',
-    'ZKQWRPTLFNSXMU',
-    'BDTJLXWPAQHCRY',
-    'XGFRLNVWZMKTPQ',
-    'KJYDRTNLQMSXHB',
-    'WZRNYXCFDKJQTP',
-    'PJTBVHKRDMZLQX',
-    'LZXDWFNQYPKHMR',
-    'QWVZRKFMYNLXDP',
-    'XQKTLZNWVHPRDY',
-    'TMPRXZKNDLFYQW',
-    'KXJYLNQZRWMTDP',
-    'NZXYFRLHWQKTMD',
-    'DZRJXYWQLTKNMP',
-    'HXRZFWNYQJLTDP',
-    'JNZQYRXWKTDLPM',
-    'VYTRXQKJWNZPLD',
-    'QMLWZKXJYTRPND',
-    'YWXKRJNZTDLQMP',
-    'MZQRYXKNTWPLDJ',
-    'RQXZNYKWJLTMDP',
-    'NXYRQZTWKJLMDP',
-    'TWZKXJYRQNLMDP',
-    'JZXRYKWNTDQLPM',
-    'QZKXNWYJRLTMDP',
-    'WQKZJXRYNTLDMP',
-    'YXZKQWNJTRLMDP',
-    'MZKQXWYJTRLNDP',
-    'QZXYRWKJNTPDLM',
-    'KQXZYWJNRLTMDP',
-    'XQZRYWKNTJLMDP',
-    'ZQKXNYRWJTLDMP',
-    'QKXZYWJNRLTMDP',
-    'NZQXKYWJTRLMDP',
-    'YQKZXRWNTJLMDP',
-    'ZQXYKWRJNTPDLM',
-    'KXZQYWJNRLTMDP',
-    'QZXYRWKJNTPMDL',
-    'WZKXQYJRNTLDMP',
-    'JXZKQYWNRLTMDP',
-    'QXZRYWKJNTPDLM',
-    'ZQKYXWJNRLTMDP',
-    'XQZKYWJRNTLDMP',
-    'KXZQYWNRJLTMDP',
-    'ZQXYKWRJNTPLDM',
-    'YWZKXQJNRLTMDP',
-    'QXZKYWRJNTPMDL',
-    'ZQXKYWJRNTLDMP',
-    'KXZQYWJNRLTMDP',
-    'QZXYRWKJNTPMDL',
-    'XZQKYWJRNTLDMP',
-    'JXZKQYWNRLTMDP',
-    'ZQKYXWJNRLTMDP',
-    'QXZRYWKJNTPMDL',
-    'KXZQYWJRNTLDMP',
-    'ZQXYKWRJNTPLDM',
-    'YWZKXQJNRLTMDP',
-    'QXZKYWRJNTPMDL',
-    'ZQXKYWJRNTLDMP',
-    'KXZQYWJNRLTMDP',
-    'QZXYRWKJNTPMDL',
-    'XZQKYWJRNTLDMP',
-    'JXZKQYWNRLTMDP',
-    'ZQKYXWJNRLTMDP',
-    'QXZRYWKJNTPMDL',
-    'KXZQYWJRNTLDMP',
-    'ZQXYKWRJNTPLDM',
-    'YWZKXQJNRLTMDP',
-    'QXZKYWRJNTPMDL',
-    'ZQXKYWJRNTLDMP',
-    'KXZQYWJNRLTMDP',
-    'QZXYRWKJNTPMDL',
-    'XZQKYWJRNTLDMP',
-    'JXZKQYWNRLTMDP',
-    'ZQKYXWJNRLTMDP',
-    'QXZRYWKJNTPMDL',
-    'KXZQYWJRNTLDMP',
-    'ZQXYKWRJNTPLDM',
-    'YWZKXQJNRLTMDP',
-    'QXZKYWRJNTPMDL',
-    'ZQXKYWJRNTLDMP',
-    'KXZQYWJNRLTMDP',
-    'QZXYRWKJNTPMDL',
-    'XZQKYWJRNTLDMP'
-]);
-
-// Rate limiting storage (resets on cold starts)
+// Rate limiting (in-memory, per cold start)
 const rateLimits = new Map();
 
 function checkRateLimit(ip) {
@@ -121,7 +29,6 @@ function checkRateLimit(ip) {
 }
 
 exports.handler = async (event, context) => {
-    // CORS headers (aligned with netlify.toml)
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type, x-auth-token',
@@ -129,123 +36,66 @@ exports.handler = async (event, context) => {
         'Content-Type': 'application/json'
     };
     
-    // Handle CORS preflight
     if (event.httpMethod === 'OPTIONS') {
-        return {
-            statusCode: 200,
-            headers,
-            body: ''
-        };
+        return { statusCode: 200, headers, body: '' };
     }
     
-    // Only allow POST requests
     if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            headers,
-            body: JSON.stringify({
-                success: false,
-                error: 'Method not allowed'
-            })
-        };
+        return { statusCode: 405, headers, body: JSON.stringify({ success: false, error: 'Method not allowed' }) };
     }
     
     try {
         const clientIP = event.headers['x-forwarded-for'] || event.headers['x-nf-client-connection-ip'] || 'unknown';
         
-        // Rate limiting
         if (!checkRateLimit(clientIP)) {
-            return {
-                statusCode: 429,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Too many requests. Please try again later.'
-                })
-            };
+            return { statusCode: 429, headers, body: JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }) };
         }
         
-        // Parse request body
         let requestBody;
         try {
             requestBody = JSON.parse(event.body);
         } catch (error) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Invalid JSON'
-                })
-            };
+            return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: 'Invalid JSON' }) };
         }
         
-        const { key, userId, timestamp } = requestBody;
+        const { key, userId, timestamp, hwid } = requestBody;
         
-        // Basic validation
-        if (!key || !userId || !timestamp) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Missing key, userId, or timestamp'
-                })
-            };
+        if (!key || !userId || !timestamp || !hwid) {
+            return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: 'Missing key, userId, timestamp, or hwid' }) };
         }
         
-        // Check if key exists in valid keys
-        if (!validKeys.has(key)) {
-            console.log(`Invalid key attempt: ${key} from IP: ${clientIP}`);
-            return {
-                statusCode: 401,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Invalid or inactive key'
-                })
-            };
-        }
-        
-        // Verify timestamp to prevent replay attacks
         const now = Date.now();
         const requestTime = parseInt(timestamp);
         const timeDiff = Math.abs(now - requestTime);
         
-        // Allow 5 minute window
         if (timeDiff > 300000) {
-            return {
-                statusCode: 401,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Request timestamp expired'
-                })
-            };
+            return { statusCode: 401, headers, body: JSON.stringify({ success: false, error: 'Request timestamp expired' }) };
         }
         
-        // Success response
-        console.log(`Successful auth: ${key} from IP: ${clientIP}`);
-        return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({
-                success: true,
-                message: 'Authentication successful (backup server - no HWID check)',
-                userId: userId,
-                permissions: ['basic']
-            })
-        };
+        // Use Netlify Blobs for user data
+        const store = getStore('vertexHubData');
+        const userKey = `user-${userId}`;
+        let userData = await store.get(userKey, { type: 'json' });
+        
+        if (!userData || userData.key !== key || !userData.active) {
+            console.log(`Invalid key attempt: ${key} for user ${userId} from IP: ${clientIP}`);
+            return { statusCode: 401, headers, body: JSON.stringify({ success: false, error: 'Invalid or inactive key' }) };
+        }
+        
+        // HWID logic
+        if (userData.hwid === null) {
+            userData.hwid = hwid;
+            await store.setJSON(userKey, userData);
+            console.log(`New HWID bound for user ${userId}: ${hwid}`);
+        } else if (userData.hwid !== hwid) {
+            return { statusCode: 401, headers, body: JSON.stringify({ success: false, error: 'HWID mismatch. Reset in Discord panel.' }) };
+        }
+        
+        console.log(`Successful auth: ${key} for user ${userId} from IP: ${clientIP}`);
+        return { statusCode: 200, headers, body: JSON.stringify({ success: true, message: 'Authentication successful', userId, permissions: ['basic'] }) };
         
     } catch (error) {
         console.error('Auth error:', error);
-        return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({
-                success: false,
-                error: 'Internal server error'
-            })
-        };
+        return { statusCode: 500, headers, body: JSON.stringify({ success: false, error: 'Internal server error' }) };
     }
 };
