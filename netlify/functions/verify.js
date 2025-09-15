@@ -1,7 +1,8 @@
 // netlify/functions/verify.js
 const crypto = require('crypto');
 
-// Hardcoded valid keys (will be updated by update-keys.js)
+// Hardcoded valid keys (update manually or via update-keys function and redeploy)
+// This is for website/auth backup - main auth is now in bot for HWID support
 const validKeys = new Set([
     'YOUR-VALID-KEY-1',
     'YOUR-VALID-KEY-2',
@@ -49,17 +50,6 @@ const validKeys = new Set([
     'ZQKYXWJNRLTMDP',
     'XQZKYWJRNTLDMP',
     'KXZQYWNRJLTMDP',
-    'ZQXYKWRJNTPLDM',
-    'YWZKXQJNRLTMDP',
-    'QXZKYWRJNTPMDL',
-    'ZQXKYWJRNTLDMP',
-    'KXZQYWJNRLTMDP',
-    'QZXYRWKJNTPMDL',
-    'XZQKYWJRNTLDMP',
-    'JXZKQYWNRLTMDP',
-    'ZQKYXWJNRLTMDP',
-    'QXZRYWKJNTPMDL',
-    'KXZQYWJRNTLDMP',
     'ZQXYKWRJNTPLDM',
     'YWZKXQJNRLTMDP',
     'QXZKYWRJNTPMDL',
@@ -161,7 +151,7 @@ exports.handler = async (event, context) => {
     }
     
     try {
-        const clientIP = event.headers['x-forwarded-for'] || event.headers['x-real-ip'] || 'unknown';
+        const clientIP = event.headers['x-forwarded-for'] || event.headers['x-nf-client-connection-ip'] || 'unknown';
         
         // Rate limiting
         if (!checkRateLimit(clientIP)) {
@@ -241,7 +231,7 @@ exports.handler = async (event, context) => {
             headers,
             body: JSON.stringify({
                 success: true,
-                message: 'Authentication successful',
+                message: 'Authentication successful (backup server - no HWID check)',
                 userId: userId,
                 permissions: ['basic']
             })
