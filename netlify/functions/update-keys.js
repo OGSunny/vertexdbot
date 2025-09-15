@@ -57,7 +57,7 @@ exports.handler = async function (event, context) {
         let verifyContent = await fs.readFile(verifyPath, 'utf8');
         
         // Generate new validKeys Set string
-        const keysString = keys.map(key => `'${key}'`).join(',\n    ');
+        const keysString = keys.map(key => `'${key.replace(/'/g, "\\'")}'`).join(',\n    ');
         const newValidKeys = `const validKeys = new Set([\n    ${keysString}\n]);`;
         
         // Replace the validKeys Set in verify.js
@@ -71,20 +71,20 @@ exports.handler = async function (event, context) {
         }
         verifyContent = verifyContent.replace(regex, newValidKeys);
         
-        // Write updated verify.js
+        // Attempt to write updated verify.js (note: may not persist in serverless; use for local dev or manual redeploy)
         await fs.writeFile(verifyPath, verifyContent);
         
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ success: true, message: 'Keys updated successfully' })
+            body: JSON.stringify({ success: true, message: 'Keys updated in file (redeploy Netlify for changes to take effect)' })
         };
     } catch (error) {
         console.error('Update keys error:', error);
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ success: false, error: 'Internal server error' })
+            body: JSON.stringify({ success: false, error: 'Internal server error - file write may not persist in serverless environment' })
         };
     }
 };
