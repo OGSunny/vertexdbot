@@ -1,31 +1,71 @@
-[build]
-  functions = "netlify/functions"
-  base = "project"  # Optional: Point to your project root if not the default
-  publish = "public"  # Ensure this matches your output directory if using pages
+const { getStore } = require('@netlify/blobs');
 
-[functions]
-  node_bundler = "esbuild"
-  included_files = ["netlify/functions/**"]  # Explicitly include function files
-
-# Define build contexts to separate page and function builds
-[context.production]
-  command = "npm install && npm run build"  # Adjust if you have a build command
-  environment = { NODE_VERSION = "18" }  # Match your Node version
-
-[context.deploy-preview]
-  command = "npm install && npm run build"
-
-# Ensure functions build even if pages fail
-[functions]
-  ignored_build = false  # Prevent cancellation due to page build failures
-
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type, x-auth-token"
-
-# Enable Netlify Blobs
-[blobs]
-  stores = ["vertexHubData"]
+exports.handler = async function (event, context) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type, x-auth-token',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Content-Type': 'application/json'
+    };
+    
+    if (event.httpMethod === 'OPTIONS') {
+        return { statusCode: 200, headers, body: '' };
+    }
+    
+    if (event.httpMethod !== 'POST') {
+        return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method Not Allowed' }) };
+    }
+    
+    try {
+        const authToken = event.headers['x-auth-token'];
+        const expectedSecret = 'your_secure_secret_here'; // Match with index.js
+        if (authToken !== expectedSecret) {
+            return { statusCode: 403, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
+        }
+        
+        const body = JSON.parse(event.body);
+        const { action, data } = body;
+        
+        if (!action) {
+            return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing action' }) };
+        }
+        
+        const store = getStore('vertexHubData');
+        
+        let result;
+        switch (action) {
+            case 'add_user':
+                const { discordId, robloxId, key, maxHwidResets } = data;
+                if (!discordId || !robloxId || !key || !maxHwidResets) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing data for add_user' }) };
+                }
+                const userKey = `user-${robloxId}`;
+                let existing = await store.get(userKey, { type: 'json' });
+                if (existing) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'User already exists' }) };
+                }
+                const userData = {
+                    discordId,
+                    robloxId,
+                    key,
+                    hwid: null,
+                    hwidResets: 0,
+                    maxHwidResets,
+                    whitelistedAt: new Date().toISOString(),
+                    active: true
+                };
+                await store.setJSON(userKey, userData);
+                result = { success: true };
+                break;
+            
+            case 'reset_hwid':
+                const { discordId: resetDiscordId } = data;
+                if (!resetDiscordId) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing discordId' }) };
+                }
+                const resetStats = await getUserStats(store, resetDiscordId);
+                if (!resetStats) {
+                    return { statusCode: 404, headers, body: JSON.stringify({ error: 'User not found' }) };
+                }
+                if (resetStats.hwidResets >= resetStats.maxHwidResets) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Maximum HWID
