@@ -1,4 +1,3 @@
-// netlify/functions/update-keys.js
 import { getStore } from '@netlify/blobs';
 import crypto from 'crypto';
 
