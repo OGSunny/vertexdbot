@@ -68,4 +68,83 @@ exports.handler = async function (event, context) {
                     return { statusCode: 404, headers, body: JSON.stringify({ error: 'User not found' }) };
                 }
                 if (resetStats.hwidResets >= resetStats.maxHwidResets) {
-                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Maximum HWID
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Maximum HWID resets reached' }) };
+                }
+                resetStats.hwidResets += 1;
+                resetStats.hwid = null;
+                await store.setJSON(`user-${resetStats.robloxId}`, resetStats);
+                result = { success: true, remainingResets: resetStats.maxHwidResets - resetStats.hwidResets };
+                break;
+            
+            case 'get_stats':
+                const { discordId: statsDiscordId } = data;
+                if (!statsDiscordId) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing discordId' }) };
+                }
+                const stats = await getUserStats(store, statsDiscordId);
+                result = stats ? { success: true, ...stats } : { success: false, error: 'User not found' };
+                break;
+            
+            case 'revoke_user':
+                const { discordId: revokeDiscordId } = data;
+                if (!revokeDiscordId) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing discordId' }) };
+                }
+                const revokeStats = await getUserStats(store, revokeDiscordId);
+                if (!revokeStats) {
+                    return { statusCode: 404, headers, body: JSON.stringify({ error: 'User not found' }) };
+                }
+                revokeStats.active = false;
+                await store.setJSON(`user-${revokeStats.robloxId}`, revokeStats);
+                result = { success: true };
+                break;
+            
+            case 'unrevoke_user':
+                const { discordId: unrevokeDiscordId } = data;
+                if (!unrevokeDiscordId) {
+                    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing discordId' }) };
+                }
+                const unrevokeStats = await getUserStats(store, unrevokeDiscordId);
+                if (!unrevokeStats) {
+                    return { statusCode: 404, headers, body: JSON.stringify({ error: 'User not found' }) };
+                }
+                unrevokeStats.active = true;
+                await store.setJSON(`user-${unrevokeStats.robloxId}`, unrevokeStats);
+                result = { success: true };
+                break;
+            
+            case 'list_users':
+                const { keys } = await store.list();
+                const userKeys = keys.filter(k => k.key.startsWith('user-'));
+                const users = [];
+                for (const { key } of userKeys) {
+                    const userData = await store.get(key, { type: 'json' });
+                    if (userData) users.push(userData);
+                }
+                result = users;
+                break;
+            
+            default:
+                return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid action' }) };
+        }
+        
+        return { statusCode: 200, headers, body: JSON.stringify(result) };
+    } catch (error) {
+        console.error('API error:', error);
+        return { statusCode: 500, headers, body: JSON.stringify({ success: false, error: 'Internal server error' }) };
+    }
+};
+
+// Helper function to get user stats by discordId
+async function getUserStats(store, discordId) {
+    const { keys } = await store.list();
+    for (const { key } of keys) {
+        if (key.startsWith('user-')) {
+            const userData = await store.get(key, { type: 'json' });
+            if (userData && userData.discordId === discordId) {
+                return userData;
+            }
+        }
+    }
+    return null;
+}
