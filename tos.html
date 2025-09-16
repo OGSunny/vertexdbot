@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - Vertex Security</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            discord: '#5865F2',
+            'vertex-dark': '#0f0f23',
+            'vertex-purple': '#6366f1',
+            'vertex-cyan': '#06b6d4',
+            'vertex-pink': '#ec4899',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'gradient': 'gradient 8s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'slide-up': 'slideUp 0.8s ease-out',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+      to { box-shadow: 0 0 40px rgba(99, 102, 241, 0.8), 0 0 80px rgba(99, 102, 241, 0.4); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .bg-mesh {
+      background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
+    }
+  </style>
+</head>
+<body class="bg-vertex-dark text-white font-sans">
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center animate-glow">
+            <i class="fas fa-shield-halved text-white"></i>
+          </div>
+          <a href="index.html"><span class="text-xl font-bold text-gradient">Vertex Security</span></a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html#features" class="text-gray-300 hover:text-white transition-colors">Features</a>
+          <a href="index.html#documentation" class="text-gray-300 hover:text-white transition-colors">Documentation</a>
+          <a href="index.html#faq" class="text-gray-300 hover:text-white transition-colors">FAQ</a>
+          <a href="tos.html" class="text-gray-300 hover:text-white transition-colors">Terms of Service</a>
+          <a href="terms.html" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a>
+          <button class="bg-gradient-to-r from-vertex-purple to-vertex-cyan px-6 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-vertex-purple/25 transition-all duration-300">
+            Add to Discord
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Terms of Service Section -->
+  <section class="relative min-h-screen flex items-center bg-mesh py-20">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-vertex-dark/50 to-vertex-dark"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+      <div class="animate-slide-up">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-8 text-center">
+          <span class="text-gradient">Terms of Service</span>
+        </h1>
+        <div class="glass rounded-2xl p-8 text-lg text-gray-300 space-y-6">
+          <p class="text-2xl font-semibold">Last Updated: September 16, 2025</p>
+          <p class="text-xl">
+            Welcome to Vertex Security. By using our Discord bot and related services, you agree to be bound by the following Terms of Service ("Terms"). Please read them carefully.
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">1. Acceptance of Terms</h2>
+          <p class="text-xl">
+            By adding Vertex Security to your Discord server or interacting with our services, you agree to comply with these Terms. If you do not agree, you may not use our services.
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">2. Use of Services</h2>
+          <p class="text-xl">
+            Vertex Security provides AI-powered moderation and protection tools for Discord servers. You agree to use our services in compliance with Discord’s Terms of Service and Community Guidelines. You are responsible for all activities conducted through your server while using Vertex Security.
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">3. Prohibited Activities</h2>
+          <p class="text-xl">
+            You may not use Vertex Security to:
+            <ul class="list-disc ml-8">
+              <li>Violate any applicable laws or regulations.</li>
+              <li>Engage in harmful, abusive, or harassing behavior.</li>
+              <li>Attempt to exploit, hack, or disrupt our services.</li>
+              <li>Use the bot for commercial purposes without prior written consent.</li>
+            </ul>
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">4. Termination</h2>
+          <p class="text-xl">
+            We reserve the right to suspend or terminate your access to Vertex Security at our discretion, particularly if you violate these Terms or engage in activities that harm our services or users.
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">5. Limitation of Liability</h2>
+          <p class="text-xl">
+            Vertex Security is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of our services, including data loss, server disruptions, or moderation errors.
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">6. Modifications to Terms</h2>
+          <p class="text-xl">
+            We may update these Terms from time to time. Changes will be posted on this page, and continued use of our services after updates constitutes acceptance of the revised Terms.
+          </p>
+
+          <h2 class="text-3xl font-semibold text-gradient">7. Contact Us</h2>
+          <p class="text-xl">
+            For questions about these Terms, please contact us via our <a href="index.html#faq" class="text-vertex-cyan hover:text-vertex-purple">support server</a> or email at support@vertexsecurity.com.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-vertex-dark py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+              <i class="fas fa-shield-halved text-white"></i>
+            </div>
+            <span class="text-xl font-bold text-gradient">Vertex Security</span>
+          </div>
+          <p class="text-gray-400">Next-generation Discord protection powered by AI.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Product</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="index.html#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="index.html#documentation" class="hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="index.html#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="tos.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="terms.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 Vertex Security. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.classList.add('bg-vertex-dark/90');
+      } else {
+        nav.classList.remove('bg-vertex-dark/90');
+      }
+    });
+  </script>
+</body>
+</html>
