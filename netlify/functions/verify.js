@@ -1,4 +1,4 @@
-const { getStore } = require('@netlify/blobs');
+import { getStore } from '@netlify/blobs';
 
 // Rate limiting (in-memory, per cold start)
 const rateLimits = new Map();
@@ -28,7 +28,7 @@ function checkRateLimit(ip) {
     return true;
 }
 
-exports.handler = async (event, context) => {
+export default async function handler(event, context) {
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type, x-auth-token',
@@ -98,4 +98,4 @@ exports.handler = async (event, context) => {
         console.error('Auth error:', error);
         return { statusCode: 500, headers, body: JSON.stringify({ success: false, error: 'Internal server error' }) };
     }
-};
+}
