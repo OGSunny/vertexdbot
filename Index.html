@@ -3,197 +3,327 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vertex Security Bot - Ultimate Discord Protection</title>
-  <!-- Tailwind CSS CDN for beautiful styling -->
+  <title>Vertex Security - Next-Gen Discord Protection</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <!-- Google Fonts for typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Custom Tailwind Config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#1e3c72',
-            secondary: '#2a5298',
-            accent: '#7289da',
+            discord: '#5865F2',
+            'vertex-dark': '#0f0f23',
+            'vertex-purple': '#6366f1',
+            'vertex-cyan': '#06b6d4',
+            'vertex-pink': '#ec4899',
           },
           fontFamily: {
-            sans: ['Poppins', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'gradient': 'gradient 8s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'slide-up': 'slideUp 0.8s ease-out',
           },
         },
       },
     }
   </script>
-  <!-- GSAP for animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <style>
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+      to { box-shadow: 0 0 40px rgba(99, 102, 241, 0.8), 0 0 80px rgba(99, 102, 241, 0.4); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .bg-mesh {
+      background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-vertex-dark text-white font-sans">
 
-  <!-- Navigation Bar -->
-  <nav class="bg-primary text-white shadow-lg">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Vertex Security Bot</h1>
-      <div class="space-x-6">
-        <a href="#features" class="hover:text-accent transition">Features</a>
-        <a href="#how-it-works" class="hover:text-accent transition">How It Works</a>
-        <a href="#testimonials" class="hover:text-accent transition">Testimonials</a>
-        <a href="#faq" class="hover:text-accent transition">FAQ</a>
-        <a href="YOUR_DISCORD_BOT_INVITE_LINK_HERE" class="bg-accent px-4 py-2 rounded-full hover:bg-secondary transition">Invite Bot</a>
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center animate-glow">
+            <i class="fas fa-shield-halved text-white"></i>
+          </div>
+          <span class="text-xl font-bold text-gradient">Vertex Security</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#features" class="text-gray-300 hover:text-white transition-colors">Features</a>
+          <a href="#demo" class="text-gray-300 hover:text-white transition-colors">Demo</a>
+          <a href="#pricing" class="text-gray-300 hover:text-white transition-colors">Pricing</a>
+          <button class="bg-gradient-to-r from-vertex-purple to-vertex-cyan px-6 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-vertex-purple/25 transition-all duration-300">
+            Add to Discord
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section with Animation -->
-  <section id="hero" class="relative bg-gradient-to-r from-primary to-secondary text-white py-32 text-center overflow-hidden">
-    <div class="container mx-auto px-4 z-10 relative">
-      <h1 class="text-5xl font-bold mb-4 animate-fade-in">Vertex Security Bot</h1>
-      <p class="text-xl mb-8 animate-fade-in delay-200">The ultimate guardian for your Discord server. Advanced AI-powered moderation, anti-raid systems, and real-time protection to keep your community safe and engaging.</p>
-      <a href="YOUR_DISCORD_BOT_INVITE_LINK_HERE" class="bg-accent text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-primary transition animate-bounce">Invite Now for Free</a>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center bg-mesh overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-vertex-dark/50 to-vertex-dark"></div>
+    
+    <!-- Floating particles -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-vertex-purple rounded-full animate-float opacity-60" style="animation-delay: 0s;"></div>
+      <div class="absolute top-1/3 right-1/3 w-3 h-3 bg-vertex-cyan rounded-full animate-float opacity-40" style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-1/4 left-1/2 w-1 h-1 bg-vertex-pink rounded-full animate-float opacity-80" style="animation-delay: 4s;"></div>
+      <div class="absolute top-1/2 left-1/6 w-2 h-2 bg-vertex-purple rounded-full animate-float opacity-50" style="animation-delay: 1s;"></div>
     </div>
-    <!-- Background Particles (simple CSS animation) -->
-    <div class="absolute inset-0 opacity-30">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
+    
+    <div class="relative z-10 text-center max-w-5xl mx-auto px-4">
+      <div class="animate-slide-up">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+          Secure Your Discord
+          <br>
+          <span class="text-gradient">Like Never Before</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto font-light">
+          Advanced AI-powered moderation, real-time threat detection, and intelligent raid protection. 
+          Vertex Security keeps your community safe while you focus on what matters.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button class="bg-gradient-to-r from-vertex-purple to-vertex-cyan px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-vertex-purple/30 transition-all duration-300 transform hover:scale-105">
+            <i class="fab fa-discord mr-2"></i>
+            Add to Discord - Free
+          </button>
+          <button class="border border-gray-600 px-8 py-4 rounded-full font-medium text-lg hover:border-vertex-purple hover:text-vertex-purple transition-all duration-300">
+            <i class="fas fa-play mr-2"></i>
+            Watch Demo
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-16 bg-vertex-dark/50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+        <div class="animate-slide-up">
+          <div class="text-4xl font-bold text-gradient mb-2">250K+</div>
+          <div class="text-gray-400">Protected Servers</div>
+        </div>
+        <div class="animate-slide-up" style="animation-delay: 0.1s;">
+          <div class="text-4xl font-bold text-gradient mb-2">50M+</div>
+          <div class="text-gray-400">Messages Filtered</div>
+        </div>
+        <div class="animate-slide-up" style="animation-delay: 0.2s;">
+          <div class="text-4xl font-bold text-gradient mb-2">99.9%</div>
+          <div class="text-gray-400">Uptime Guarantee</div>
+        </div>
+        <div class="animate-slide-up" style="animation-delay: 0.3s;">
+          <div class="text-4xl font-bold text-gradient mb-2">24/7</div>
+          <div class="text-gray-400">Active Protection</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section id="features" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">Powerful Features</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="feature-card p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition">
-          <i class="fas fa-shield-alt text-primary text-5xl mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Anti-Raid Lockdown</h3>
-          <p>Automatically detects raids, locks down the server, and requires verification for new members.</p>
+  <section id="features" class="py-20 bg-gradient-to-b from-vertex-dark to-gray-900">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          <span class="text-gradient">Next-Level Protection</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Powered by advanced AI and machine learning to stop threats before they impact your community
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-shield-virus text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">AI Anti-Raid System</h3>
+          <p class="text-gray-400 mb-4">Detects coordinated attacks in real-time and automatically locks down your server with surgical precision.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Learn more</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
-        <div class="feature-card p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition">
-          <i class="fas fa-robot text-primary text-5xl mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Smart Auto-Mod</h3>
-          <p>Filters spam, slurs (multilingual & variants), phishing, and threats with escalating punishments and auto-deletes.</p>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-brain text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Smart Content Filter</h3>
+          <p class="text-gray-400 mb-4">Advanced NLP filters spam, toxicity, and inappropriate content across 50+ languages with context awareness.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Learn more</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
-        <div class="feature-card p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition">
-          <i class="fas fa-chart-line text-primary text-5xl mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Risk Scoring</h3>
-          <p>Behavioral analytics to spot troublemakers early, with customizable security levels.</p>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-user-shield text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Behavioral Analytics</h3>
+          <p class="text-gray-400 mb-4">ML-powered risk scoring identifies problematic users before they cause damage to your community.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Learn more</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
-        <div class="feature-card p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition">
-          <i class="fas fa-envelope text-primary text-5xl mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">DM Ban Appeals</h3>
-          <p>Banned users can appeal via DM, with submissions reviewed by admins.</p>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-chart-network text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Real-time Dashboard</h3>
+          <p class="text-gray-400 mb-4">Monitor your server's health, view detailed analytics, and manage settings through our intuitive web portal.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Learn more</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
-        <div class="feature-card p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition">
-          <i class="fas fa-lock text-primary text-5xl mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Private Logs</h3>
-          <p>Owner-only logs for full transparency, plus mod approvals for bans.</p>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-balance-scale text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Smart Appeals System</h3>
+          <p class="text-gray-400 mb-4">Automated ban appeals with AI-assisted review and seamless integration with your moderation workflow.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Learn more</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
-        <div class="feature-card p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition">
-          <i class="fas fa-cog text-primary text-5xl mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Custom Commands</h3>
-          <p>Slash and prefix commands for easy management, including warn, mute, kick, and ban.</p>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-code text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Custom Automation</h3>
+          <p class="text-gray-400 mb-4">Build custom moderation workflows with our visual automation builder and powerful API integrations.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Learn more</span>
+            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">How It Works</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="step p-6 bg-white rounded-xl shadow-md">
-          <h3 class="text-2xl font-semibold mb-2">1. Invite & Setup</h3>
-          <p>Invite the bot and use /setup to choose your security level (relaxed, moderate, strict).</p>
-        </div>
-        <div class="step p-6 bg-white rounded-xl shadow-md">
-          <h3 class="text-2xl font-semibold mb-2">2. Auto-Protect</h3>
-          <p>The bot monitors messages, joins, and behavior, auto-moderating threats in real-time.</p>
-        </div>
-        <div class="step p-6 bg-white rounded-xl shadow-md">
-          <h3 class="text-2xl font-semibold mb-2">3. Manage & Review</h3>
-          <p>Use dashboard, logs, and appeals to oversee everything from your private channel.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">What Users Say</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="testimonial p-6 bg-gray-50 rounded-xl shadow-md">
-          <p class="italic">"Vertex saved my server from a raid – best bot ever!"</p>
-          <p class="text-right font-semibold">- Server Owner A</p>
-        </div>
-        <div class="testimonial p-6 bg-gray-50 rounded-xl shadow-md">
-          <p class="italic">"The auto-mod is smart and customizable. No more spam!"</p>
-          <p class="text-right font-semibold">- Moderator B</p>
-        </div>
-        <div class="testimonial p-6 bg-gray-50 rounded-xl shadow-md">
-          <p class="italic">"Easy appeals and detailed logs make management a breeze."</p>
-          <p class="text-right font-semibold">- User C</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section id="faq" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-      <div class="accordion space-y-4">
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <h3 class="font-semibold">How do I invite the bot?</h3>
-          <p>Click the invite button above and select your server.</p>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <h3 class="font-semibold">Is it free?</h3>
-          <p>Yes, Vertex is free with all core features included.</p>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <h3 class="font-semibold">Can I customize the filters?</h3>
-          <p>Yes, edit the code or use security levels for customization.</p>
-        </div>
-      </div>
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-vertex-purple via-vertex-cyan to-vertex-pink relative overflow-hidden">
+    <div class="absolute inset-0 bg-vertex-dark/80"></div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Ready to Secure Your Server?
+      </h2>
+      <p class="text-xl mb-8 text-gray-200">
+        Join thousands of Discord communities already protected by Vertex Security. Setup takes less than 2 minutes.
+      </p>
+      <button class="bg-white text-vertex-dark px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 mr-4">
+        <i class="fab fa-discord mr-2"></i>
+        Add to Discord Now
+      </button>
+      <button class="border border-white/30 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-white/10 transition-all duration-300">
+        View Documentation
+      </button>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-primary text-white py-6 text-center">
-    <p>&copy; 2025 Vertex Security Bot. All rights reserved.</p>
-    <p>Made with ❤️ for Discord communities.</p>
+  <footer class="bg-vertex-dark py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+              <i class="fas fa-shield-halved text-white"></i>
+            </div>
+            <span class="text-xl font-bold text-gradient">Vertex Security</span>
+          </div>
+          <p class="text-gray-400">Next-generation Discord protection powered by AI.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Product</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Support</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Discord Server</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Status Page</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Legal</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 Vertex Security. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
-  <!-- GSAP Animations -->
   <script>
-    gsap.from('.animate-fade-in', { opacity: 0, y: 50, duration: 1, stagger: 0.2 });
-    gsap.from('.animate-bounce', { y: -10, duration: 1, repeat: -1, yoyo: true });
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.classList.add('bg-vertex-dark/90');
+      } else {
+        nav.classList.remove('bg-vertex-dark/90');
+      }
+    });
   </script>
-
-  <!-- Custom CSS for Particles -->
-  <style>
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: white;
-      opacity: 0.3;
-      animation: float 20s infinite linear;
-    }
-    .particle:nth-child(1) { width: 30px; height: 30px; left: 20%; animation-duration: 15s; }
-    .particle:nth-child(2) { width: 50px; height: 50px; left: 50%; animation-duration: 25s; }
-    .particle:nth-child(3) { width: 40px; height: 40px; left: 70%; animation-duration: 18s; }
-    .particle:nth-child(4) { width: 60px; height: 60px; left: 90%; animation-duration: 22s; }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-100vh); }
-    }
-  </style>
-
 </body>
 </html>
