@@ -3,94 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vertex Hub</title>
+  <title>Vertex Security Bot - Ultimate Discord Protection</title>
+  <!-- Bootstrap CDN for responsive design -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS for awesome styling -->
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #0f0f1a, #050510);
-      color: #fff;
-      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
     }
-    header {
-      backdrop-filter: blur(15px);
-      background: rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    header h1 {
-      font-size: 1.6rem;
-      background: linear-gradient(135deg, #00e0ff, #7a5cff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0;
-    }
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    nav a:hover { color: #00e0ff; }
     .hero {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 100px 0;
       text-align: center;
-      padding: 120px 20px;
     }
-    .hero h2 {
-      font-size: 3.2rem;
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #00e0ff, #7a5cff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
     .hero p {
       font-size: 1.2rem;
-      color: #bbb;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      line-height: 1.6;
+      margin-bottom: 40px;
     }
-    .hero a {
-      display: inline-block;
-      padding: 14px 34px;
-      background: linear-gradient(135deg, #00e0ff, #7a5cff);
-      border-radius: 10px;
-      text-decoration: none;
+    .features {
+      padding: 80px 0;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .invite-btn {
+      background: #7289da;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      transition: background 0.3s ease;
+    }
+    .invite-btn:hover {
+      background: #5b6eae;
+    }
+    .footer {
+      background: #1e3c72;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .footer a {
       color: #fff;
-      font-weight: bold;
-      box-shadow: 0 0 15px rgba(0, 224, 255, 0.5);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .hero a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 25px rgba(122, 92, 255, 0.8);
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Vertex Hub</h1>
-    <nav>
-      <a href="Index.html">Home</a>
-      <a href="tos.html">TOS</a>
-      <a href="scripterms.html">Script Terms</a>
-    </nav>
-  </header>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <h2>Welcome to Vertex Hub</h2>
-    <p>
-      The future of scripting. Clean tools, clear rules, and a focus on fairness.  
-      Dive into Vertex Hub and see how we’re shaping the next generation of scripts.
-    </p>
-    <a href="tos.html">Read Our TOS</a>
+    <div class="container">
+      <h1>Vertex Security Bot</h1>
+      <p>Your ultimate guardian for Discord servers. Advanced moderation, anti-raid protection, and smart auto-mod features to keep your community safe and thriving.</p>
+      <a href="YOUR_DISCORD_BOT_INVITE_LINK_HERE" class="btn invite-btn text-white">Invite Vertex to Your Server</a>
+    </div>
   </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2 class="text-center mb-5">Powerful Features</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h4>Anti-Raid Lockdown</h4>
+            <p>Detects and locks down raids with automatic unverified roles and verification systems.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h4>Smart Auto-Mod</h4>
+            <p>Filters spam, banned words (including variants and multilingual slurs), phishing links, and threats with escalating punishments.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h4>Risk Scoring & Analytics</h4>
+            <p>Tracks user behavior, new accounts, and high-risk actions for proactive moderation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">📩</div>
+            <h4>Ban Appeals via DM</h4>
+            <p>Banned users can appeal directly via DM to the bot, with submissions forwarded to admins.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h4>Dashboard & Logs</h4>
+            <p>Owner-only dashboard, private logs, and reports for full server oversight.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <h4>Customizable Commands</h4>
+            <p>Supports slash (/) and prefix (!) commands for setup, moderation, and more.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Vertex Security Bot. Built with ❤️ for safe Discord communities.</p>
+      <p>Need help? Join our support server or contact us on Discord.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS for interactivity (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
