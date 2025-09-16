@@ -1,4 +1,6 @@
+// netlify/functions/verify.js
 import { getStore } from '@netlify/blobs';
+import crypto from 'crypto';
 
 // Rate limiting (in-memory, per cold start)
 const rateLimits = new Map();
@@ -41,61 +43,143 @@ export default async function handler(event, context) {
     }
     
     if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, headers, body: JSON.stringify({ success: false, error: 'Method not allowed' }) };
+        return { 
+            statusCode: 405, 
+            headers, 
+            body: JSON.stringify({ success: false, error: 'Method not allowed' }) 
+        };
     }
     
     try {
-        const clientIP = event.headers['x-forwarded-for'] || event.headers['x-nf-client-connection-ip'] || 'unknown';
+        const clientIP = event.headers['x-forwarded-for'] || event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
         
         if (!checkRateLimit(clientIP)) {
-            return { statusCode: 429, headers, body: JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }) };
+            return { 
+                statusCode: 429, 
+                headers, 
+                body: JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }) 
+            };
         }
         
         let requestBody;
         try {
-            requestBody = JSON.parse(event.body);
+            requestBody = JSON.parse(event.body || '{}');
         } catch (error) {
-            return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: 'Invalid JSON' }) };
+            return { 
+                statusCode: 400, 
+                headers, 
+                body: JSON.stringify({ success: false, error: 'Invalid JSON' }) 
+            };
         }
         
-        const { key, userId, timestamp, hwid } = requestBody;
+        const { key, userId, timestamp, hwid, executor } = requestBody;
         
         if (!key || !userId || !timestamp || !hwid) {
-            return { statusCode: 400, headers, body: JSON.stringify({ success: false, error: 'Missing key, userId, timestamp, or hwid' }) };
+            return { 
+                statusCode: 400, 
+                headers, 
+                body: JSON.stringify({ success: false, error: 'Missing key, userId, timestamp, or hwid' }) 
+            };
         }
         
         const now = Date.now();
         const requestTime = parseInt(timestamp);
         const timeDiff = Math.abs(now - requestTime);
         
-        if (timeDiff > 300000) {
-            return { statusCode: 401, headers, body: JSON.stringify({ success: false, error: 'Request timestamp expired' }) };
+        if (timeDiff > 300000) { // 5 minutes
+            return { 
+                statusCode: 401, 
+                headers, 
+                body: JSON.stringify({ success: false, error: 'Request timestamp expired' }) 
+            };
         }
+        
+        // Sanitize inputs
+        const sanitizedKey = key.trim();
+        const sanitizedUserId = userId.toString().trim();
+        const sanitizedHwid = hwid.trim();
+        const sanitizedExecutor = executor ? executor.trim() : 'Unknown';
         
         // Use Netlify Blobs for user data
         const store = getStore('vertexHubData');
-        const userKey = `user-${userId}`;
-        let userData = await store.get(userKey, { type: 'json' });
+        const userKey = `user-${sanitizedUserId}`;
+        let userData;
+        try {
+            userData = await store.get(userKey, { type: 'json' });
+        } catch (error) {
+            console.error('Blob get error:', error);
+            userData = null;
+        }
         
-        if (!userData || userData.key !== key || !userData.active) {
-            console.log(`Invalid key attempt: ${key} for user ${userId} from IP: ${clientIP}`);
-            return { statusCode: 401, headers, body: JSON.stringify({ success: false, error: 'Invalid or inactive key' }) };
+        if (!userData || userData.key !== sanitizedKey || !userData.active) {
+            console.log(`Invalid key attempt: ${sanitizedKey} for user ${sanitizedUserId} from IP: ${clientIP}`);
+            return { 
+                statusCode: 401, 
+                headers, 
+                body: JSON.stringify({ success: false, error: 'Invalid or inactive key' }) 
+            };
         }
         
         // HWID logic
-        if (userData.hwid === null) {
-            userData.hwid = hwid;
+        if (userData.hwid === null || userData.hwid === undefined) {
+            userData.hwid = sanitizedHwid;
             await store.setJSON(userKey, userData);
-            console.log(`New HWID bound for user ${userId}: ${hwid}`);
-        } else if (userData.hwid !== hwid) {
-            return { statusCode: 401, headers, body: JSON.stringify({ success: false, error: 'HWID mismatch. Reset in Discord panel.' }) };
+            console.log(`New HWID bound for user ${sanitizedUserId}: ${sanitizedHwid}`);
+        } else if (userData.hwid !== sanitizedHwid) {
+            return { 
+                statusCode: 401, 
+                headers, 
+                body: JSON.stringify({ success: false, error: 'HWID mismatch. Reset in Discord panel.' }) 
+            };
         }
         
-        console.log(`Successful auth: ${key} for user ${userId} from IP: ${clientIP}`);
-        return { statusCode: 200, headers, body: JSON.stringify({ success: true, message: 'Authentication successful', userId, permissions: ['basic'] }) };
+        // Session tracking
+        const sessionId = crypto.randomBytes(16).toString('hex');
+        const sessionData = {
+            sessionId,
+            startTime: now,
+            ipAddress: clientIP,
+            executor: sanitizedExecutor,
+            location: 'Unknown' // Can integrate geo API here if needed
+        };
+        if (!userData.sessions) userData.sessions = [];
+        userData.sessions.push(sessionData);
+        // Keep only last 10 sessions
+        if (userData.sessions.length > 10) userData.sessions = userData.sessions.slice(-10);
+        userData.lastUsed = now;
+        await store.setJSON(userKey, userData);
+        
+        // Log audit
+        const auditKey = `audit-${Date.now()}`;
+        const auditEntry = {
+            action: 'auth_success',
+            userId: sanitizedUserId,
+            key: sanitizedKey.substring(0, 8) + '...',
+            ip: clientIP,
+            timestamp: now,
+            sessionId
+        };
+        await store.setJSON(auditKey, auditEntry);
+        
+        console.log(`Successful auth: ${sanitizedKey} for user ${sanitizedUserId} from IP: ${clientIP}, Session: ${sessionId}`);
+        return { 
+            statusCode: 200, 
+            headers, 
+            body: JSON.stringify({ 
+                success: true, 
+                message: 'Authentication successful', 
+                userId: sanitizedUserId, 
+                permissions: ['basic'], 
+                sessionId 
+            }) 
+        };
         
     } catch (error) {
         console.error('Auth error:', error);
-        return { statusCode: 500, headers, body: JSON.stringify({ success: false, error: 'Internal server error' }) };
+        return { 
+            statusCode: 500, 
+            headers, 
+            body: JSON.stringify({ success: false, error: 'Internal server error' }) 
+        };
     }
 }
