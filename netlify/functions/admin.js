@@ -1,4 +1,3 @@
-// netlify/functions/admin.js
 import { getStore } from '@netlify/blobs';
 
 const ADMIN_SECRET = 'VH_ADMIN_SECRET_2025';
