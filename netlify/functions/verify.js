@@ -1,6 +1,13 @@
-// netlify/functions/verify.js (Full code, ES module ready)
+// netlify/functions/verify.js
 import { getStore } from '@netlify/blobs';
 import crypto from 'crypto';
+
+const CORS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, x-auth-token',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Content-Type': 'application/json'
+};
 
 // Rate limiting (in-memory, per cold start)
 const rateLimits = new Map();
@@ -30,56 +37,45 @@ function checkRateLimit(ip) {
     return true;
 }
 
-export default async function handler(event, context) {
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, x-auth-token',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Content-Type': 'application/json'
-    };
-    
-    if (event.httpMethod === 'OPTIONS') {
-        return { statusCode: 200, headers, body: '' };
+export default async function handler(request) {
+    if (request.method === 'OPTIONS') {
+        return new Response('', { status: 200, headers: CORS_HEADERS });
     }
     
-    if (event.httpMethod !== 'POST') {
-        return { 
-            statusCode: 405, 
-            headers, 
-            body: JSON.stringify({ success: false, error: 'Method not allowed' }) 
-        };
+    if (request.method !== 'POST') {
+        return new Response(JSON.stringify({ success: false, error: 'Method not allowed' }), { 
+            status: 405, 
+            headers: CORS_HEADERS 
+        });
     }
     
     try {
-        const clientIP = event.headers['x-forwarded-for'] || event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
+        const clientIP = request.headers.get('x-forwarded-for') || request.headers.get('x-nf-client-connection-ip') || request.headers.get('client-ip') || 'unknown';
         
         if (!checkRateLimit(clientIP)) {
-            return { 
-                statusCode: 429, 
-                headers, 
-                body: JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }) 
-            };
+            return new Response(JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }), { 
+                status: 429, 
+                headers: CORS_HEADERS 
+            });
         }
         
         let requestBody;
         try {
-            requestBody = JSON.parse(event.body || '{}');
+            requestBody = await request.json();
         } catch (error) {
-            return { 
-                statusCode: 400, 
-                headers, 
-                body: JSON.stringify({ success: false, error: 'Invalid JSON' }) 
-            };
+            return new Response(JSON.stringify({ success: false, error: 'Invalid JSON' }), { 
+                status: 400, 
+                headers: CORS_HEADERS 
+            });
         }
         
         const { key, userId, timestamp, hwid, executor } = requestBody;
         
         if (!key || !userId || !timestamp || !hwid) {
-            return { 
-                statusCode: 400, 
-                headers, 
-                body: JSON.stringify({ success: false, error: 'Missing key, userId, timestamp, or hwid' }) 
-            };
+            return new Response(JSON.stringify({ success: false, error: 'Missing key, userId, timestamp, or hwid' }), { 
+                status: 400, 
+                headers: CORS_HEADERS 
+            });
         }
         
         const now = Date.now();
@@ -87,11 +83,10 @@ export default async function handler(event, context) {
         const timeDiff = Math.abs(now - requestTime);
         
         if (timeDiff > 300000) { // 5 minutes
-            return { 
-                statusCode: 401, 
-                headers, 
-                body: JSON.stringify({ success: false, error: 'Request timestamp expired' }) 
-            };
+            return new Response(JSON.stringify({ success: false, error: 'Request timestamp expired' }), { 
+                status: 401, 
+                headers: CORS_HEADERS 
+            });
         }
         
         // Sanitize inputs
@@ -105,7 +100,8 @@ export default async function handler(event, context) {
         const userKey = `user-${sanitizedUserId}`;
         let userData;
         try {
-            userData = await store.get(userKey, { type: 'json' });
+            const blob = await store.get(userKey);
+            userData = blob ? await blob.json() : null;
         } catch (error) {
             console.error('Blob get error:', error);
             userData = null;
@@ -113,11 +109,10 @@ export default async function handler(event, context) {
         
         if (!userData || userData.key !== sanitizedKey || !userData.active) {
             console.log(`Invalid key attempt: ${sanitizedKey} for user ${sanitizedUserId} from IP: ${clientIP}`);
-            return { 
-                statusCode: 401, 
-                headers, 
-                body: JSON.stringify({ success: false, error: 'Invalid or inactive key' }) 
-            };
+            return new Response(JSON.stringify({ success: false, error: 'Invalid or inactive key' }), { 
+                status: 401, 
+                headers: CORS_HEADERS 
+            });
         }
         
         // HWID logic
@@ -126,11 +121,10 @@ export default async function handler(event, context) {
             await store.setJSON(userKey, userData);
             console.log(`New HWID bound for user ${sanitizedUserId}: ${sanitizedHwid}`);
         } else if (userData.hwid !== sanitizedHwid) {
-            return { 
-                statusCode: 401, 
-                headers, 
-                body: JSON.stringify({ success: false, error: 'HWID mismatch. Reset in Discord panel.' }) 
-            };
+            return new Response(JSON.stringify({ success: false, error: 'HWID mismatch. Reset in Discord panel.' }), { 
+                status: 401, 
+                headers: CORS_HEADERS 
+            });
         }
         
         // Session tracking
@@ -164,24 +158,22 @@ export default async function handler(event, context) {
         await store.setJSON(auditKey, auditEntry);
         
         console.log(`Successful auth: ${sanitizedKey} for user ${sanitizedUserId} from IP: ${clientIP}, Session: ${sessionId}`);
-        return { 
-            statusCode: 200, 
-            headers, 
-            body: JSON.stringify({ 
-                success: true, 
-                message: 'Authentication successful', 
-                userId: sanitizedUserId, 
-                permissions: ['basic'], 
-                sessionId 
-            }) 
-        };
+        return new Response(JSON.stringify({ 
+            success: true, 
+            message: 'Authentication successful', 
+            userId: sanitizedUserId, 
+            permissions: ['basic'], 
+            sessionId 
+        }), { 
+            status: 200, 
+            headers: CORS_HEADERS 
+        });
         
     } catch (error) {
         console.error('Auth error:', error);
-        return { 
-            statusCode: 500, 
-            headers, 
-            body: JSON.stringify({ success: false, error: 'Internal server error' }) 
-        };
+        return new Response(JSON.stringify({ success: false, error: 'Internal server error' }), { 
+            status: 500, 
+            headers: CORS_HEADERS 
+        });
     }
 }
