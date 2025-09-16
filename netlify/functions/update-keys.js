@@ -1,7 +1,8 @@
+// netlify/functions/update-keys.js (Full code, fixed duplicate declarations with block scopes)
 import { getStore } from '@netlify/blobs';
 import crypto from 'crypto';
 
-const AUTH_SECRET = 'VH_SECRET_2025';
+const AUTH_SECRET = process.env.AUTH_SECRET || 'VH_SECRET_2025';
 
 export default async function handler(event, context) {
     const headers = {
@@ -24,7 +25,7 @@ export default async function handler(event, context) {
     }
     
     try {
-        const authToken = event.headers['x-auth-token'] || event.headers['x-auth-token'];
+        const authToken = event.headers['x-auth-token'];
         if (authToken !== AUTH_SECRET) {
             return { 
                 statusCode: 403, 
@@ -58,8 +59,7 @@ export default async function handler(event, context) {
         
         let result;
         switch (action) {
-            case 'init_keys':
-                // Generate 200 unique keys on first deployment
+            case 'init_keys': {
                 const availableKeysKey = 'available_keys';
                 let availableKeys = [];
                 try {
@@ -80,9 +80,9 @@ export default async function handler(event, context) {
                 }
                 result = { success: true, totalKeys: availableKeys.length };
                 break;
+            }
             
-            case 'add_user':
-                await store.setJSON('available_keys', []); // Ensure init
+            case 'add_user': {
                 const { discordId, robloxId, key: providedKey, maxHwidResets } = data;
                 if (!discordId || !robloxId || !maxHwidResets) {
                     return { 
@@ -136,8 +136,9 @@ export default async function handler(event, context) {
                 await store.setJSON(userKeyStr, userData);
                 result = { success: true, assignedKey };
                 break;
+            }
             
-            case 'reset_hwid':
+            case 'reset_hwid': {
                 const { discordId: resetDiscordId } = data;
                 if (!resetDiscordId) {
                     return { 
@@ -166,8 +167,9 @@ export default async function handler(event, context) {
                 await store.setJSON(`user-${resetStats.robloxId}`, resetStats);
                 result = { success: true, remainingResets: resetStats.maxHwidResets - resetStats.hwidResets };
                 break;
+            }
             
-            case 'get_stats':
+            case 'get_stats': {
                 const { discordId: statsDiscordId } = data;
                 if (!statsDiscordId) {
                     return { 
@@ -179,8 +181,9 @@ export default async function handler(event, context) {
                 const stats = await getUserStats(store, statsDiscordId);
                 result = stats ? { success: true, ...stats } : { success: false, error: 'User not found' };
                 break;
+            }
             
-            case 'revoke_user':
+            case 'revoke_user': {
                 const { discordId: revokeDiscordId } = data;
                 if (!revokeDiscordId) {
                     return { 
@@ -201,8 +204,9 @@ export default async function handler(event, context) {
                 await store.setJSON(`user-${revokeStats.robloxId}`, revokeStats);
                 result = { success: true };
                 break;
+            }
             
-            case 'unrevoke_user':
+            case 'unrevoke_user': {
                 const { discordId: unrevokeDiscordId } = data;
                 if (!unrevokeDiscordId) {
                     return { 
@@ -223,8 +227,9 @@ export default async function handler(event, context) {
                 await store.setJSON(`user-${unrevokeStats.robloxId}`, unrevokeStats);
                 result = { success: true };
                 break;
+            }
             
-            case 'suspend_user':
+            case 'suspend_user': {
                 const { discordId: suspendDiscordId, duration, reason } = data;
                 if (!suspendDiscordId || !duration) {
                     return { 
@@ -248,8 +253,9 @@ export default async function handler(event, context) {
                 await store.setJSON(`user-${suspendStats.robloxId}`, suspendStats);
                 result = { success: true };
                 break;
+            }
             
-            case 'set_loadstring':
+            case 'set_loadstring': {
                 const { loadstring } = data;
                 if (!loadstring) {
                     return { 
@@ -261,8 +267,9 @@ export default async function handler(event, context) {
                 await store.setJSON('config_loadstring', loadstring);
                 result = { success: true };
                 break;
+            }
             
-            case 'generate_keys':
+            case 'generate_keys': {
                 const { amount } = data;
                 if (!amount || amount > 1000) {
                     return { 
@@ -286,8 +293,9 @@ export default async function handler(event, context) {
                 await store.setJSON(genAvailableKey, genAvailable);
                 result = { success: true, generated: amount, total: genAvailable.length };
                 break;
+            }
             
-            case 'remove_key':
+            case 'remove_key': {
                 const { key: removeKey } = data;
                 if (!removeKey) {
                     return { 
@@ -318,8 +326,9 @@ export default async function handler(event, context) {
                 }
                 result = { success: true };
                 break;
+            }
             
-            case 'key_analytics':
+            case 'key_analytics': {
                 const { keys: allKeys } = await store.list();
                 let totalKeys = 0;
                 let activeKeys = 0;
@@ -340,8 +349,9 @@ export default async function handler(event, context) {
                 const usageRate = totalKeys > 0 ? Math.round((activeKeys / totalKeys) * 100) : 0;
                 result = { success: true, totalKeys, activeKeys, usageRate, totalUsage: usageCount };
                 break;
+            }
             
-            case 'list_users':
+            case 'list_users': {
                 const { keys } = await store.list();
                 const userKeys = keys.filter(k => k.startsWith('user-'));
                 const users = [];
@@ -355,6 +365,7 @@ export default async function handler(event, context) {
                 }
                 result = users;
                 break;
+            }
             
             default:
                 return { 
@@ -398,11 +409,6 @@ async function getUserStats(store, discordId) {
                         } else {
                             userData.active = false;
                         }
-                    }
-                    // Increment usage if applicable
-                    if (userData.analytics) {
-                        userData.analytics.usageCount = (userData.analytics.usageCount || 0) + 1;
-                        await store.setJSON(key, userData);
                     }
                     return userData;
                 }
