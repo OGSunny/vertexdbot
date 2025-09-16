@@ -1,36 +1,15 @@
 [build]
-  # Disable page publish if no static site is needed (prevents page priority conflicts)
-  publish = ""  # Set to "public" only if you have static pages; otherwise, leave empty for functions-only
-  functions = "netlify/functions"  # Path to your functions directory
-  command = "echo 'Building functions only'"  # Simple command to avoid full page builds; customize if needed (e.g., "npm run build:functions")
+  functions = "netlify/functions"
 
 [functions]
-  node_bundler = "esbuild"  # Use esbuild for fast Node.js bundling
-  included_files = ["netlify/functions/**/*"]  # Explicitly include all function files to prioritize them
+  node_bundler = "esbuild"
 
-# Separate build contexts to avoid main branch page conflicts
-[context.production]
-  command = "echo 'Production functions deploy'"  # No page build here
-  environment = { NODE_VERSION = "18" }  # Match your Node version
-
-[context.branch-deploy]  # For deploy previews or branch deploys
-  command = "echo 'Branch functions deploy'"
-
-[context.deploy-preview]
-  command = "echo 'Preview functions deploy'"
-
-# Prevent function builds from being ignored or canceled
-[functions]
-  ignored_build = false  # Ensures functions build even if other parts fail
-
-# CORS headers for functions
 [[headers]]
   for = "/.netlify/functions/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type, x-auth-token"
-
-# Enable Netlify Blobs for data storage (as used in your functions)
+    
 [blobs]
   stores = ["vertexHubData"]
