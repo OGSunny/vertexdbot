@@ -1,8 +1,11 @@
+# netlify.toml
 [build]
   functions = "netlify/functions"
+  publish = "public"  # If you have static files
 
 [functions]
   node_bundler = "esbuild"
+  external_node_modules = []
 
 [[headers]]
   for = "/.netlify/functions/*"
