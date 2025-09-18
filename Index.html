@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vertex Security - Next-Gen Discord Protection</title>
+  <!-- Favicon link -->
+  <link rel="icon" type="image/png" href="Vertex.PNG">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -435,6 +437,34 @@
         nav.classList.remove('bg-vertex-dark/90');
       }
     });
+
+    // Dynamically check and set favicon
+    function setFavicon() {
+      const faviconUrl = 'Vertex.PNG'; // Relative path to Vertex.PNG in the repository
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = faviconUrl;
+      // Remove existing favicon to avoid duplicates
+      const existingFavicon = document.querySelector('link[rel="icon"]');
+      if (existingFavicon) {
+        existingFavicon.remove();
+      }
+      document.head.appendChild(link);
+    }
+
+    // Check if Vertex.PNG exists
+    fetch('Vertex.PNG', { method: 'HEAD' })
+      .then(response => {
+        if (response.ok) {
+          setFavicon();
+        } else {
+          console.log('Vertex.PNG not found, using default favicon or none.');
+        }
+      })
+      .catch(error => {
+        console.error('Error checking for Vertex.PNG:', error);
+      });
   </script>
 </body>
 </html>
