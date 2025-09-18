@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vertex Security - Next-Gen Discord Protection</title>
-  <!-- Favicon link -->
-  <link rel="icon" type="image/png" href="Vertex.PNG">
+  <!-- Favicon link using raw GitHub URL -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OGSunny/vertexdbot/89992618c0f3bba9b849b03f271f7cd4d5d99e0e/2025091815253687.png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -440,7 +440,7 @@
 
     // Dynamically check and set favicon
     function setFavicon() {
-      const faviconUrl = 'Vertex.PNG'; // Relative path to Vertex.PNG in the repository
+      const faviconUrl = 'https://raw.githubusercontent.com/OGSunny/vertexdbot/89992618c0f3bba9b849b03f271f7cd4d5d99e0e/2025091815253687.png';
       const link = document.createElement('link');
       link.rel = 'icon';
       link.type = 'image/png';
@@ -453,17 +453,17 @@
       document.head.appendChild(link);
     }
 
-    // Check if Vertex.PNG exists
-    fetch('Vertex.PNG', { method: 'HEAD' })
+    // Check if favicon exists
+    fetch('https://raw.githubusercontent.com/OGSunny/vertexdbot/89992618c0f3bba9b849b03f271f7cd4d5d99e0e/2025091815253687.png', { method: 'HEAD' })
       .then(response => {
         if (response.ok) {
           setFavicon();
         } else {
-          console.log('Vertex.PNG not found, using default favicon or none.');
+          console.log('Favicon not found, using default favicon or none.');
         }
       })
       .catch(error => {
-        console.error('Error checking for Vertex.PNG:', error);
+        console.error('Error checking for favicon:', error);
       });
   </script>
 </body>
