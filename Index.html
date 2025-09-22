@@ -1,269 +1,573 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScriptHub - Your Source for Scripts</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Basic Styles */
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #1f1f1f;
-            border-bottom: 1px solid #333;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #4CAF50; /* Green accent */
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            margin: 0;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #e0e0e0;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #4CAF50;
-        }
-
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .login-btn {
-            background-color: transparent;
-            border: 1px solid #4CAF50;
-            color: #4CAF50;
-        }
-
-        .login-btn:hover {
-            background-color: #4CAF50;
-            color: #121212;
-        }
-
-        .signup-btn {
-            background-color: #4CAF50;
-            color: #121212;
-            margin-left: 0.5rem;
-        }
-        
-        .signup-btn:hover {
-            background-color: #5cc960;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 5rem 1rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #aaa;
-        }
-
-        .search-container {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-container input {
-            width: 50%;
-            max-width: 500px;
-            padding: 0.8rem;
-            font-size: 1rem;
-            border: 1px solid #333;
-            border-radius: 5px 0 0 5px;
-            background-color: #1f1f1f;
-            color: #e0e0e0;
-            outline: none; /* Removes the default browser outline */
-        }
-        
-        .search-container input:focus {
-            border-color: #4CAF50; /* Highlight on focus */
-        }
-
-        .search-container button {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            background-color: #4CAF50;
-            color: #121212;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 0 5px 5px 0;
-            transition: background-color 0.3s;
-        }
-
-        .search-container button:hover {
-            background-color: #5cc960;
-        }
-
-        /* Script List Section */
-        .script-list {
-            padding: 2rem;
-        }
-
-        .script-list h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .script-card {
-            background-color: #1f1f1f;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        
-        .script-card:hover {
-            transform: translateY(-5px); /* Lifts the card up slightly on hover */
-            border-color: #4CAF50;
-        }
-
-        .script-card h3 {
-            margin-top: 0;
-            color: #4CAF50;
-        }
-
-        .script-card .author {
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: -10px;
-        }
-
-        .script-card .description {
-            flex-grow: 1;
-            color: #ccc;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            color: #aaa;
-        }
-
-        .btn-view {
-            text-decoration: none;
-            background-color: #333;
-            color: #e0e0e0;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-view:hover {
-            background-color: #4CAF50;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertex Security - Next-Gen Discord Protection</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OGSunny/vertexdbot/main/2025091815253687.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            discord: '#5865F2',
+            'vertex-dark': '#0f0f23',
+            'vertex-purple': '#6366f1',
+            'vertex-cyan': '#06b6d4',
+            'vertex-pink': '#ec4899',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'gradient': 'gradient 8s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'slide-up': 'slideUp 0.8s ease-out',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+      to { box-shadow: 0 0 40px rgba(99, 102, 241, 0.8), 0 0 80px rgba(99, 102, 241, 0.4); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .bg-mesh {
+      background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
+    }
+    #loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0f0f23;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease-in-out;
+    }
+    #loader-wrapper.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .pl {
+      box-shadow: 2em 0 2em rgba(0, 0, 0, 0.2) inset, -2em 0 2em rgba(255, 255, 255, 0.1) inset;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transform: rotateX(30deg) rotateZ(45deg);
+      width: 14em;
+      height: 14em;
+      color: white;
+    }
+    .pl, .pl__dot {
+      border-radius: 50%;
+    }
+    .pl__dot {
+      animation-name: shadow724;
+      box-shadow: 0.1em 0.1em 0 0.1em black, 0.3em 0 0.3em rgba(0, 0, 0, 0.5);
+      top: calc(50% - 0.75em);
+      left: calc(50% - 0.75em);
+      width: 1.5em;
+      height: 1.5em;
+    }
+    .pl__dot, .pl__dot:before, .pl__dot:after {
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      position: absolute;
+    }
+    .pl__dot:before, .pl__dot:after {
+      content: "";
+      display: block;
+      left: 0;
+      width: inherit;
+      transition: background-color var(--trans-dur);
+    }
+    .pl__dot:before {
+      animation-name: pushInOut1724;
+      background-color: #0f0f23; /* Changed to match body background */
+      border-radius: inherit;
+      box-shadow: 0.05em 0 0.1em rgba(255, 255, 255, 0.2) inset;
+      height: inherit;
+      z-index: 1;
+    }
+    .pl__dot:after {
+      animation-name: pushInOut2724;
+      background-color: #6366f1; /* Using vertex-purple */
+      border-radius: 0.75em;
+      box-shadow: 0.1em 0.3em 0.2em rgba(255, 255, 255, 0.4) inset, 0 -0.4em 0.2em #2e3138 inset, 0 -1em 0.25em rgba(0, 0, 0, 0.3) inset;
+      bottom: 0;
+      clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
+      height: 3em;
+      transform: rotate(-45deg);
+      transform-origin: 50% 2.25em;
+    }
+    .pl__dot:nth-child(1) { transform: rotate(0deg) translateX(5em) rotate(0deg); z-index: 5; }
+    .pl__dot:nth-child(1), .pl__dot:nth-child(1):before, .pl__dot:nth-child(1):after { animation-delay: 0s; }
+    .pl__dot:nth-child(2) { transform: rotate(-30deg) translateX(5em) rotate(30deg); z-index: 4; }
+    .pl__dot:nth-child(2), .pl__dot:nth-child(2):before, .pl__dot:nth-child(2):after { animation-delay: -0.1667s; }
+    .pl__dot:nth-child(3) { transform: rotate(-60deg) translateX(5em) rotate(60deg); z-index: 3; }
+    .pl__dot:nth-child(3), .pl__dot:nth-child(3):before, .pl__dot:nth-child(3):after { animation-delay: -0.3333s; }
+    .pl__dot:nth-child(4) { transform: rotate(-90deg) translateX(5em) rotate(90deg); z-index: 2; }
+    .pl__dot:nth-child(4), .pl__dot:nth-child(4):before, .pl__dot:nth-child(4):after { animation-delay: -0.5s; }
+    .pl__dot:nth-child(5) { transform: rotate(-120deg) translateX(5em) rotate(120deg); z-index: 1; }
+    .pl__dot:nth-child(5), .pl__dot:nth-child(5):before, .pl__dot:nth-child(5):after { animation-delay: -0.6667s; }
+    .pl__dot:nth-child(6) { transform: rotate(-150deg) translateX(5em) rotate(150deg); z-index: 1; }
+    .pl__dot:nth-child(6), .pl__dot:nth-child(6):before, .pl__dot:nth-child(6):after { animation-delay: -0.8333s; }
+    .pl__dot:nth-child(7) { transform: rotate(-180deg) translateX(5em) rotate(180deg); z-index: 2; }
+    .pl__dot:nth-child(7), .pl__dot:nth-child(7):before, .pl__dot:nth-child(7):after { animation-delay: -1s; }
+    .pl__dot:nth-child(8) { transform: rotate(-210deg) translateX(5em) rotate(210deg); z-index: 3; }
+    .pl__dot:nth-child(8), .pl__dot:nth-child(8):before, .pl__dot:nth-child(8):after { animation-delay: -1.1667s; }
+    .pl__dot:nth-child(9) { transform: rotate(-240deg) translateX(5em) rotate(240deg); z-index: 4; }
+    .pl__dot:nth-child(9), .pl__dot:nth-child(9):before, .pl__dot:nth-child(9):after { animation-delay: -1.3333s; }
+    .pl__dot:nth-child(10) { transform: rotate(-270deg) translateX(5em) rotate(270deg); z-index: 5; }
+    .pl__dot:nth-child(10), .pl__dot:nth-child(10):before, .pl__dot:nth-child(10):after { animation-delay: -1.5s; }
+    .pl__dot:nth-child(11) { transform: rotate(-300deg) translateX(5em) rotate(300deg); z-index: 6; }
+    .pl__dot:nth-child(11), .pl__dot:nth-child(11):before, .pl__dot:nth-child(11):after { animation-delay: -1.6667s; }
+    .pl__dot:nth-child(12) { transform: rotate(-330deg) translateX(5em) rotate(330deg); z-index: 6; }
+    .pl__dot:nth-child(12), .pl__dot:nth-child(12):before, .pl__dot:nth-child(12):after { animation-delay: -1.8333s; }
+    .pl__text {
+      font-size: 0.75em;
+      max-width: 5rem;
+      position: relative;
+      text-shadow: 0 0 0.1em rgba(255, 255, 255, 0.4);
+      transform: rotateZ(-45deg);
+    }
+    @keyframes shadow724 { from { animation-timing-function: ease-in; box-shadow: 0.1em 0.1em 0 0.1em black, 0.3em 0 0.3em rgba(0, 0, 0, 0.3); } 25% { animation-timing-function: ease-out; box-shadow: 0.1em 0.1em 0 0.1em black, 0.8em 0 0.8em rgba(0, 0, 0, 0.5); } 50%, to { box-shadow: 0.1em 0.1em 0 0.1em black, 0.3em 0 0.3em rgba(0, 0, 0, 0.3); } }
+    @keyframes pushInOut1724 { from { animation-timing-function: ease-in; background-color: #0f0f23; transform: translate(0, 0); } 25% { animation-timing-function: ease-out; background-color: #06b6d4; transform: translate(-71%, -71%); } 50%, to { background-color: #0f0f23; transform: translate(0, 0); } }
+    @keyframes pushInOut2724 { from { animation-timing-function: ease-in; background-color: #0f0f23; clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%); } 25% { animation-timing-function: ease-out; background-color: #6366f1; clip-path: polygon(0 25%, 100% 25%, 100% 100%, 0 100%); } 50%, to { background-color: #0f0f23; clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%); } }
+  </style>
 </head>
-<body>
+<body class="bg-vertex-dark text-white font-sans overflow-x-hidden">
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">ScriptHub</div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Scripts</a></li>
-                <li><a href="#">Submit</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <button class="btn login-btn">Login</button>
-                <button class="btn signup-btn">Sign Up</button>
+  <div id="loader-wrapper">
+    <div class="pl">
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__dot"></div>
+      <div class="pl__text">Loading…</div>
+    </div>
+  </div>
+
+  <nav class="fixed w-full z-50 glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center animate-glow">
+            <i class="fas fa-shield-halved text-white"></i>
+          </div>
+          <span class="text-xl font-bold text-gradient">Vertex Security</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#features" class="text-gray-300 hover:text-white transition-colors">Features</a>
+          <a href="#documentation" class="text-gray-300 hover:text-white transition-colors">Documentation</a>
+          <a href="#faq" class="text-gray-300 hover:text-white transition-colors">FAQ</a>
+          <a href="tos.html" class="text-gray-300 hover:text-white transition-colors">Terms of Service</a>
+          <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a>
+          <a href="https://discord.com/oauth2/authorize?client_id=1417557415347621928&scope=bot" class="bg-gradient-to-r from-vertex-purple to-vertex-cyan px-6 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-vertex-purple/25 transition-all duration-300">
+            Add to Discord
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="relative min-h-screen flex items-center justify-center bg-mesh overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-vertex-dark/50 to-vertex-dark"></div>
+    
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-vertex-purple rounded-full animate-float opacity-60" style="animation-delay: 0s;"></div>
+      <div class="absolute top-1/3 right-1/3 w-3 h-3 bg-vertex-cyan rounded-full animate-float opacity-40" style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-1/4 left-1/2 w-1 h-1 bg-vertex-pink rounded-full animate-float opacity-80" style="animation-delay: 4s;"></div>
+      <div class="absolute top-1/2 left-1/6 w-2 h-2 bg-vertex-purple rounded-full animate-float opacity-50" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="relative z-10 text-center max-w-5xl mx-auto px-4">
+      <div class="animate-slide-up">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+          Secure Your Discord
+          <br>
+          <span class="text-gradient">Like Never Before</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto font-light">
+          Advanced AI-powered moderation, real-time threat detection, and intelligent raid protection. 
+          Vertex Security keeps your community safe while you focus on what matters.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="https://discord.com/oauth2/authorize?client_id=1417557415347621928&scope=bot" class="bg-gradient-to-r from-vertex-purple to-vertex-cyan px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:shadow-vertex-purple/30 transition-all duration-300 transform hover:scale-105">
+            <i class="fab fa-discord mr-2"></i>
+            Add to Discord
+          </a>
+          <a href="#documentation" class="border border-gray-600 px-8 py-4 rounded-full font-medium text-lg hover:border-vertex-purple hover:text-vertex-purple transition-all duration-300">
+            <i class="fas fa-book mr-2"></i>
+            Documentation
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-20 bg-gradient-to-b from-vertex-dark to-gray-900">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          <span class="text-gradient">Next-Level Protection</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Powered by advanced AI and machine learning to stop threats before they impact your community
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-shield-virus text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">AI Anti-Raid System</h3>
+          <p class="text-gray-400 mb-4">Detects coordinated attacks with 5+ joins in 30 seconds. Auto-lockdown with CAPTCHA verification for new members.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Auto-protection active</span>
+            <i class="fas fa-check ml-2"></i>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-brain text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Multilingual Filter</h3>
+          <p class="text-gray-400 mb-4">Advanced regex patterns catch slur variants across 50+ languages. Auto-deletes and escalates punishments from warnings to bans.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>1000+ patterns</span>
+            <i class="fas fa-globe ml-2"></i>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-user-shield text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Risk Scoring System</h3>
+          <p class="text-gray-400 mb-4">Account age, activity patterns, and behavior analytics identify threats before they cause damage. Auto-punishment at 50+ risk score.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Real-time analysis</span>
+            <i class="fas fa-chart-line ml-2"></i>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-envelope text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">DM Ban Appeals</h3>
+          <p class="text-gray-400 mb-4">Banned users can appeal directly via DM with !appeal. Modal form system sends appeals to moderator channel for review.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Streamlined process</span>
+            <i class="fas fa-balance-scale ml-2"></i>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-lock text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Owner Private Logs</h3>
+          <p class="text-gray-400 mb-4">Separate owner-only private log channel captures everything. Plus ban approval system for critical punishments.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>Full transparency</span>
+            <i class="fas fa-eye ml-2"></i>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-xl flex items-center justify-center mb-4 group-hover:animate-glow">
+            <i class="fas fa-terminal text-2xl text-white"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Dual Command System</h3>
+          <p class="text-gray-400 mb-4">Works with both slash commands (/) and prefix commands (!). Comprehensive moderation: warn, mute, kick, ban, lock channels.</p>
+          <div class="flex items-center text-vertex-cyan text-sm">
+            <span>30+ commands</span>
+            <i class="fas fa-code ml-2"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="documentation" class="py-20 bg-vertex-dark">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          <span class="text-gradient">Documentation</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Everything you need to get started and master Vertex Security
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-rocket text-white"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Quick Start Guide</h3>
+          <p class="text-gray-400 mb-4">Get Vertex Security up and running in under 2 minutes. Step-by-step setup instructions.</p>
+          <a href="#" class="text-vertex-cyan hover:text-vertex-purple transition-colors">Read Guide →</a>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-terminal text-white"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Command Reference</h3>
+          <p class="text-gray-400 mb-4">Complete list of all 30+ commands with examples and usage instructions.</p>
+          <a href="#" class="text-vertex-cyan hover:text-vertex-purple transition-colors">View Commands →</a>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-cogs text-white"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Configuration</h3>
+          <p class="text-gray-400 mb-4">Learn how to customize security levels, channels, and permissions for your server.</p>
+          <a href="#" class="text-vertex-cyan hover:text-vertex-purple transition-colors">Configure →</a>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-question-circle text-white"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Troubleshooting</h3>
+          <p class="text-gray-400 mb-4">Common issues and solutions. Fix permission errors, setup problems, and more.</p>
+          <a href="#" class="text-vertex-cyan hover:text-vertex-purple transition-colors">Get Help →</a>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-code text-white"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">API Reference</h3>
+          <p class="text-gray-400 mb-4">For developers: integrate with Vertex Security's API and webhook system.</p>
+          <a href="#" class="text-vertex-cyan hover:text-vertex-purple transition-colors">View API →</a>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-lg flex items-center justify-center mb-4">
+            <i class="fab fa-github text-white"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Open Source</h3>
+          <p class="text-gray-400 mb-4">View the source code, contribute features, or report bugs on our GitHub repository.</p>
+          <a href="#" class="text-vertex-cyan hover:text-vertex-purple transition-colors">GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-20 bg-gradient-to-b from-gray-900 to-vertex-dark">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          <span class="text-gradient">Frequently Asked Questions</span>
+        </h2>
+        <p class="text-xl text-gray-400">
+          Get answers to the most common questions about Vertex Security
+        </p>
+      </div>
+      
+      <div class="space-y-6">
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-plus-circle text-vertex-cyan mr-3"></i>
+            How do I set up Vertex Security?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            After inviting the bot, simply run <code class="bg-gray-800 px-2 py-1 rounded text-vertex-cyan">/setup moderate</code> to configure basic protection. The bot will create the necessary channels and roles automatically.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-shield text-vertex-cyan mr-3"></i>
+            What are the different security levels?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            Vertex offers three levels: <strong>Relaxed</strong> (minimal filtering), <strong>Moderate</strong> (balanced protection), and <strong>Strict</strong> (maximum security). You can switch between them anytime with the <code class="bg-gray-800 px-2 py-1 rounded text-vertex-cyan">/security-level</code> command.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-language text-vertex-cyan mr-3"></i>
+            Does it work with non-English servers?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            Yes! Vertex Security's content filter supports over 50 languages and can detect toxic content, slurs, and spam in multiple languages simultaneously.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-dollar-sign text-vertex-cyan mr-3"></i>
+            Is Vertex Security really free?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            Absolutely! Every single feature is completely free with no premium plans, hidden costs, or limitations. It's open-source and will always remain free.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-users text-vertex-cyan mr-3"></i>
+            How does the anti-raid system work?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            When 5+ users join within 30 seconds, Vertex automatically enables lockdown mode, requiring new members to complete a CAPTCHA verification. Existing members can still chat normally.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-ban text-vertex-cyan mr-3"></i>
+            Can banned users appeal their punishment?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            Yes! Banned users can DM the bot with <code class="bg-gray-800 px-2 py-1 rounded text-vertex-cyan">!appeal</code> and fill out a form. Appeals are sent directly to your moderation team for review.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-eye text-vertex-cyan mr-3"></i>
+            What are private owner logs?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            A separate log channel visible only to server owners that records all moderation actions, providing complete transparency about what happens in your server.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-semibold mb-3 flex items-center">
+            <i class="fas fa-support text-vertex-cyan mr-3"></i>
+            Where can I get support?
+          </h3>
+          <p class="text-gray-400 ml-8">
+            Join our Discord support server for live help, check the documentation, or open an issue on our GitHub repository. Our community is always happy to help!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-vertex-dark py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+              <i class="fas fa-shield-halved text-white"></i>
             </div>
-        </nav>
-    </header>
+            <span class="text-xl font-bold text-gradient">Vertex Security</span>
+          </div>
+          <p class="text-gray-400">Next-generation Discord protection powered by AI. Open source and forever free.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Product</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#documentation" class="hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Legal</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="tos.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Vertex Security. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    <main>
-        <section class="hero">
-            <h1>Find the Best Scripts</h1>
-            <p>The ultimate resource for top-tier scripts</p>
-            <div class="search-container">
-                <input type="text" placeholder="Search for a script...">
-                <button>Search</button>
-            </div>
-        </section>
+  <script>
+    // Hide the loader after a short delay
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader-wrapper');
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 500); 
+    });
 
-        <section class="script-list">
-            <h2>Featured Scripts</h2>
-            <div class="grid-container">
-                <div class="script-card">
-                    <h3>Super Speed Script</h3>
-                    <p class="author">by Coder123</p>
-                    <p class="description">A simple script to give players incredible speed. Easy to use!</p>
-                    <div class="card-footer">
-                        <span class="views">15,20 Views</span>
-                        <a href="#" class="btn-view">View</a>
-                    </div>
-                </div>
-                <div class="script-card">
-                    <h3>Admin Commands</h3>
-                    <p class="author">by AdminPro</p>
-                    <p class="description">Powerful admin command script with over 50 commands.</p>
-                    <div class="card-footer">
-                        <span class="views">89,500 Views</span>
-                        <a href="#" class="btn-view">View</a>
-                    </div>
-                </div>
-                <div class="script-card">
-                    <h3>Auto Farm Gold</h3>
-                    <p class="author">by ScripterX</p>
-                    <p class="description">Automate your gold farming in your favorite game.</p>
-                    <div class="card-footer">
-                        <span class="views">42,100 Views</span>
-                        <a href="#" class="btn-view">View</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
 
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.classList.add('bg-vertex-dark/90');
+      } else {
+        nav.classList.remove('bg-vertex-dark/90');
+      }
+    });
+  </script>
 </body>
 </html>
