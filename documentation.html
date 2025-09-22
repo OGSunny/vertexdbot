@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Vertex Security</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OGSunny/vertexdbot/main/2025091815253687.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'vertex-dark': '#0f0f23',
+                        'vertex-purple': '#6366f1',
+                        'vertex-cyan': '#06b6d4',
+                        'vertex-pink': '#ec4899',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-vertex-dark text-white font-sans">
+
+    <nav class="sticky top-0 w-full z-50 backdrop-blur-md bg-vertex-dark/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-halved text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gradient">Vertex Security</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="features.html" class="text-gray-300 hover:text-white transition-colors">Features</a>
+                    <a href="faq.html" class="text-gray-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="tos.html" class="text-gray-300 hover:text-white transition-colors">Terms</a>
+                    <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-gradient text-center">Documentation</h1>
+            <p class="text-gray-400 text-lg mb-12 text-center max-w-2xl mx-auto">Your comprehensive guide to setting up and mastering Vertex Security for your Discord server.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <a href="#quick-start" class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 text-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Quick Start Guide</h3>
+                    <p class="text-gray-400">Get up and running in minutes.</p>
+                </a>
+                <a href="#commands" class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 text-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-terminal text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Command Reference</h3>
+                    <p class="text-gray-400">Complete list of all bot commands.</p>
+                </a>
+                <a href="#configuration" class="glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 text-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-cogs text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Advanced Configuration</h3>
+                    <p class="text-gray-400">Customize settings for your server.</p>
+                </a>
+            </div>
+
+            <div class="space-y-16 max-w-4xl mx-auto">
+                <section id="quick-start" class="glass rounded-3xl p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">Quick Start Guide</h2>
+                    <ol class="list-decimal list-inside space-y-4 text-gray-400 text-lg leading-relaxed">
+                        <li><strong>Invite the Bot:</strong> Click the "Add to Discord" button on our homepage. Choose the server you want to protect and grant the required permissions. The bot needs administrator permissions to function correctly.</li>
+                        <li><strong>Run the Setup Command:</strong> Once the bot is in your server, navigate to a text channel and type `/setup moderate`. This command will automatically create a moderation log channel, a private owner log channel, and set up basic security configurations.</li>
+                        <li><strong>Explore Features:</strong> Your server is now protected! You can start using commands like `/warn`, `/mute`, and `/kick`. To see a full list of commands, run `/help` or visit the Command Reference section below.</li>
+                        <li><strong>Customize Your Settings:</strong> Use the `/config` command to fine-tune settings like anti-raid sensitivity, content filter levels, and punishment thresholds.</li>
+                    </ol>
+                </section>
+
+                <section id="commands" class="glass rounded-3xl p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">Command Reference</h2>
+                    <p class="text-gray-400 text-lg mb-6">Vertex Security supports both slash (/) and prefix (!) commands for convenience.</p>
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 p-6 rounded-xl">
+                            <h3 class="text-2xl font-semibold text-white mb-3">Moderation Commands</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/warn [user] [reason]</code>
+                                    <p class="text-gray-400 mt-2">Issues a formal warning to a user.</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/mute [user] [duration] [reason]</code>
+                                    <p class="text-gray-400 mt-2">Silences a user for a specified period.</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/kick [user] [reason]</code>
+                                    <p class="text-gray-400 mt-2">Removes a user from the server.</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/ban [user] [reason]</code>
+                                    <p class="text-gray-400 mt-2">Permanently bans a user from the server.</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/lock [channel]</code>
+                                    <p class="text-gray-400 mt-2">Disables sending messages in a channel.</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/unban [user ID]</code>
+                                    <p class="text-gray-400 mt-2">Unbans a user from the server.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-800 p-6 rounded-xl">
+                            <h3 class="text-2xl font-semibold text-white mb-3">Security & Setup Commands</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/setup [level]</code>
+                                    <p class="text-gray-400 mt-2">Initializes the bot with a security level (relaxed, moderate, strict).</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/config [setting] [value]</code>
+                                    <p class="text-gray-400 mt-2">Customizes various bot settings.</p>
+                                </div>
+                                <div>
+                                    <code class="bg-gray-700 px-3 py-1 rounded-md text-vertex-cyan">/security-level [level]</code>
+                                    <p class="text-gray-400 mt-2">Changes the server's overall security level.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="configuration" class="glass rounded-3xl p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-white mb-6">Advanced Configuration</h2>
+                    <p class="text-gray-400 text-lg mb-6 leading-relaxed">Vertex Security offers granular control to match your server's unique needs. Use the `/config` command to fine-tune these settings:</p>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Anti-Raid Settings</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Control the sensitivity of the anti-raid system. Adjust the number of members joining per minute required to trigger lockdown. You can also specify a custom message for the CAPTCHA and a list of roles to bypass the verification.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Content Filter</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Enable or disable the filter, and set punishment levels for repeat offenders. Choose to issue warnings, mutes, or an immediate ban. You can also add custom words or phrases to a blacklist.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Logging and Permissions</h3>
+                            <p class="text-gray-400 leading-relaxed">
+                                Designate separate channels for general moderation logs and private owner logs. Customize which roles have permission to use moderation commands and view sensitive log channels.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-vertex-dark py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="md:col-span-2">
+              <div class="flex items-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+                  <i class="fas fa-shield-halved text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-gradient">Vertex Security</span>
+              </div>
+              <p class="text-gray-400">Next-generation Discord protection powered by AI. Open source and forever free.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Product</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="features.html" class="hover:text-white transition-colors">Features</a></li>
+                <li><a href="documentation.html" class="hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Legal</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="tos.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Vertex Security. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
