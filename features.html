@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Vertex Security</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OGSunny/vertexdbot/main/2025091815253687.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'vertex-dark': '#0f0f23',
+                        'vertex-purple': '#6366f1',
+                        'vertex-cyan': '#06b6d4',
+                        'vertex-pink': '#ec4899',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-vertex-dark text-white font-sans">
+    
+    <nav class="sticky top-0 w-full z-50 backdrop-blur-md bg-vertex-dark/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-halved text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gradient">Vertex Security</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="documentation.html" class="text-gray-300 hover:text-white transition-colors">Documentation</a>
+                    <a href="faq.html" class="text-gray-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="tos.html" class="text-gray-300 hover:text-white transition-colors">Terms</a>
+                    <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-gradient text-center">Powerful Features</h1>
+            <p class="text-gray-400 text-lg mb-12 text-center max-w-2xl mx-auto">Vertex Security is built with a suite of next-gen tools to ensure your community is protected 24/7.</p>
+
+            <div class="space-y-16">
+                <section id="anti-raid" class="flex flex-col md:flex-row items-center glass rounded-3xl p-8 md:p-12">
+                    <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0">
+                        <div class="w-16 h-16 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-virus text-3xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-4">AI Anti-Raid System</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Our AI-powered system actively monitors your server for suspicious join activity. If it detects a raid—defined as 5 or more joins within a short 30-second window—it instantly activates **lockdown mode**. New members are automatically greeted with a CAPTCHA verification process, while existing members can continue to chat freely, ensuring minimal disruption to your community. This system is crucial for stopping malicious bot raids and coordinated human attacks before they can cause widespread damage.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://via.placeholder.com/600x400.png?text=AI+Anti-Raid+System+Graphic" alt="AI Anti-Raid System" class="rounded-2xl">
+                    </div>
+                </section>
+
+                <section id="filter" class="flex flex-col md:flex-row-reverse items-center glass rounded-3xl p-8 md:p-12">
+                    <div class="md:w-1/2 md:pl-12 mb-8 md:mb-0">
+                        <div class="w-16 h-16 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-brain text-3xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-4">Multilingual Content Filter</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Hate speech and toxicity know no language barriers. Our advanced content filter uses a combination of machine learning and over 1,000 regex patterns to detect and remove harmful content, including slurs and spam, in more than 50 languages. The bot automatically deletes violating messages and can be configured to escalate punishments from a simple warning to a kick or a ban based on a user's history.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://via.placeholder.com/600x400.png?text=Multilingual+Content+Filter+Graphic" alt="Multilingual Content Filter" class="rounded-2xl">
+                    </div>
+                </section>
+
+                <section id="risk" class="flex flex-col md:flex-row items-center glass rounded-3xl p-8 md:p-12">
+                    <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0">
+                        <div class="w-16 h-16 bg-gradient-to-r from-vertex-pink to-vertex-purple rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-user-shield text-3xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-4">Real-time Risk Scoring</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Vertex assigns a **risk score** to every user in your server, based on factors like account age, activity patterns, and past moderation actions. This proactive system helps identify potential troublemakers before they can cause problems. If a user's risk score crosses a configurable threshold (e.g., 50), the bot can be set to automatically take action, such as quarantining them or applying a pre-set punishment.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://via.placeholder.com/600x400.png?text=Risk+Scoring+System+Graphic" alt="Risk Scoring System" class="rounded-2xl">
+                    </div>
+                </section>
+
+                <section id="appeals" class="flex flex-col md:flex-row-reverse items-center glass rounded-3xl p-8 md:p-12">
+                    <div class="md:w-1/2 md:pl-12 mb-8 md:mb-0">
+                        <div class="w-16 h-16 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-envelope text-3xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-4">Streamlined Ban Appeals</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Our system makes ban appeals easy and transparent. Instead of having to join a separate server, a banned user can simply DM the bot with the `!appeal` command. This opens a modal form where they can explain their situation. The appeal is then automatically forwarded to a designated moderation channel in your server, allowing your team to review and handle it efficiently.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://via.placeholder.com/600x400.png?text=DM+Ban+Appeals+Graphic" alt="DM Ban Appeals" class="rounded-2xl">
+                    </div>
+                </section>
+                
+                <section id="logs" class="flex flex-col md:flex-row items-center glass rounded-3xl p-8 md:p-12">
+                    <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0">
+                        <div class="w-16 h-16 bg-gradient-to-r from-vertex-cyan to-vertex-pink rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-lock text-3xl text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-4">Owner Private Logs</h2>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            Full transparency is key to effective moderation. Vertex Security maintains a separate, hidden log channel visible only to server owners and other designated trusted staff. This channel logs all critical moderation actions, including bans, unbans, and configurations, ensuring you have a complete, tamper-proof record of what happens in your server, even if other logs are deleted.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://via.placeholder.com/600x400.png?text=Private+Logs+Graphic" alt="Owner Private Logs" class="rounded-2xl">
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-vertex-dark py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="md:col-span-2">
+              <div class="flex items-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+                  <i class="fas fa-shield-halved text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-gradient">Vertex Security</span>
+              </div>
+              <p class="text-gray-400">Next-generation Discord protection powered by AI. Open source and forever free.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Product</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="features.html" class="hover:text-white transition-colors">Features</a></li>
+                <li><a href="documentation.html" class="hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Legal</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="tos.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Vertex Security. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          document.querySelector(targetId).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
+</body>
+</html>
