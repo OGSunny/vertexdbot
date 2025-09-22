@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Vertex Security</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OGSunny/vertexdbot/main/2025091815253687.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'vertex-dark': '#0f0f23',
+                        'vertex-purple': '#6366f1',
+                        'vertex-cyan': '#06b6d4',
+                        'vertex-pink': '#ec4899',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1, #06b6d4, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-vertex-dark text-white font-sans">
+    
+    <nav class="sticky top-0 w-full z-50 backdrop-blur-md bg-vertex-dark/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-halved text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gradient">Vertex Security</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="features.html" class="text-gray-300 hover:text-white transition-colors">Features</a>
+                    <a href="documentation.html" class="text-gray-300 hover:text-white transition-colors">Documentation</a>
+                    <a href="tos.html" class="text-gray-300 hover:text-white transition-colors">Terms</a>
+                    <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-16 md:py-24">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-gradient text-center">Frequently Asked Questions</h1>
+            <p class="text-gray-400 text-lg mb-12 text-center">Get answers to the most common questions about Vertex Security.</p>
+            
+            <div class="space-y-6">
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-plus-circle text-vertex-cyan mr-3"></i>
+                        How do I set up Vertex Security?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        Setting up Vertex Security is quick and easy. After you've invited the bot to your server and granted it the necessary administrator permissions, simply run the <code class="bg-gray-800 px-2 py-1 rounded text-vertex-cyan">/setup moderate</code> command. The bot will then automatically create a moderation log channel, a private owner log channel, and configure essential security settings for you.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-shield text-vertex-cyan mr-3"></i>
+                        What are the different security levels?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        Vertex offers three distinct security levels to fit your community's needs:
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li><strong>Relaxed:</strong> Minimal filtering and raid protection, ideal for private or very small communities.</li>
+                            <li><strong>Moderate:</strong> A balanced approach with robust filtering and standard anti-raid measures. This is the recommended setting for most communities.</li>
+                            <li><strong>Strict:</strong> Maximum security with highly sensitive filters and a low threshold for anti-raid activation. Best for public servers with a high risk of malicious activity.</li>
+                        </ul>
+                        You can change your security level at any time with the <code class="bg-gray-800 px-2 py-1 rounded text-vertex-cyan">/security-level</code> command.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-language text-vertex-cyan mr-3"></i>
+                        Does it work with non-English servers?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        Yes, absolutely! Our advanced content filter is built to be multilingual and can detect toxic content, slurs, and spam in over 50 different languages simultaneously. This ensures that no matter where your members are from, your server remains a safe and welcoming place.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-dollar-sign text-vertex-cyan mr-3"></i>
+                        Is Vertex Security really free?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        Yes, and it will always be free. Every single feature—from the advanced AI anti-raid system to the multilingual filter and private logs—is available at no cost. There are no premium plans, hidden fees, or feature limitations. Our bot is open-source and built for the community, by the community.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-users text-vertex-cyan mr-3"></i>
+                        How does the anti-raid system work?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        The anti-raid system monitors the rate of new members joining. When it detects a large influx (e.g., 5 or more users joining in under 30 seconds), it automatically activates a lockdown. New members are then required to complete a CAPTCHA verification to gain access, effectively stopping bot raids and mass-join attacks without disrupting your existing members.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-ban text-vertex-cyan mr-3"></i>
+                        Can banned users appeal their punishment?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        Yes, our system is designed for a fair process. If a user is banned, they can DM the bot with the <code class="bg-gray-800 px-2 py-1 rounded text-vertex-cyan">!appeal</code> command. This will prompt them to fill out a modal form. The completed appeal is then sent directly to a designated moderation channel in your server, allowing your staff to review their case.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-3 flex items-center">
+                        <i class="fas fa-eye text-vertex-cyan mr-3"></i>
+                        What are private owner logs?
+                    </h3>
+                    <p class="text-gray-400 ml-8">
+                        Private owner logs are a separate, dedicated log channel that is only visible to the server owner and other highly trusted staff members. This channel records every critical moderation action, such as bans, unbans, and bot configuration changes, providing a secure and tamper-proof record for complete accountability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-vertex-dark py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="md:col-span-2">
+              <div class="flex items-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-vertex-purple to-vertex-cyan rounded-lg flex items-center justify-center">
+                  <i class="fas fa-shield-halved text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-gradient">Vertex Security</span>
+              </div>
+              <p class="text-gray-400">Next-generation Discord protection powered by AI. Open source and forever free.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Product</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="features.html" class="hover:text-white transition-colors">Features</a></li>
+                <li><a href="documentation.html" class="hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Legal</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="tos.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Vertex Security. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+</body>
+</html>
